@@ -2,6 +2,11 @@ package mx.uam.ayd.proyecto;
 
 import javax.annotation.PostConstruct;
 
+import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
+import mx.uam.ayd.proyecto.datos.RepositoryCita;
+import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
+import mx.uam.ayd.proyecto.negocio.modelo.Cita;
+import mx.uam.ayd.proyecto.util.ServicioDatosPrueba;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -28,7 +33,10 @@ public class ProyectoApplication {
 	
 	@Autowired
 	GrupoRepository grupoRepository;
-	
+
+	@Autowired
+	ServicioDatosPrueba servicioDatosPrueba;
+
 	/**
 	 * 
 	 * Método principal
@@ -76,6 +84,8 @@ public class ProyectoApplication {
 		Grupo grupoOps = new Grupo();
 		grupoOps.setNombre("Operadores");
 		grupoRepository.save(grupoOps);
-				
+
+		servicioDatosPrueba.generarDatos();
+
 	}
 }
