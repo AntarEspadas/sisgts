@@ -17,6 +17,10 @@ public class Cita {
     /** Indica la duración de una cita (30 minutos) en milisegundo */
     public static final long duracion = 30 * 60 * 1000;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="agremiado_clave")
+    private Agremiado agremiado;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

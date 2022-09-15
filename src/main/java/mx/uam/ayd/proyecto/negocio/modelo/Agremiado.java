@@ -2,14 +2,16 @@ package mx.uam.ayd.proyecto.negocio.modelo;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Entity
 public class Agremiado {
+
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "agremiado")
+    private final List<Cita> citas = new ArrayList();
 
     @Id
     private String clave;
@@ -33,4 +35,12 @@ public class Agremiado {
     private String telefono;
 
     private String correo;
+
+    public List<Cita> getCitas(){
+        return new ArrayList(this.citas);
+    }
+
+    public void addCita(Cita cita){
+        this.citas.add(cita);
+    }
 }
