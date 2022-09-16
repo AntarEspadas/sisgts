@@ -16,7 +16,7 @@ public class SolicitudTramite {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long idSolicitud;
 
     private List <Documento> requisitos;
 
