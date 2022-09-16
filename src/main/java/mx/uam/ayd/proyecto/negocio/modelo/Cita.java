@@ -3,6 +3,8 @@ package mx.uam.ayd.proyecto.negocio.modelo;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 /**
@@ -14,9 +16,6 @@ import java.util.Date;
 @Entity
 public class Cita {
 
-    /** Indica la duración de una cita (30 minutos) en milisegundo */
-    public static final long duracion = 30 * 60 * 1000;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="agremiado_clave")
     private Agremiado agremiado;
@@ -25,8 +24,11 @@ public class Cita {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Temporal(TemporalType.DATE)
-    private Date horario;
+    @Column(columnDefinition = "Date")
+    private LocalDate fecha;
+
+    @Column(columnDefinition = "Time")
+    private LocalTime hora;
 
     private String motivo;
 

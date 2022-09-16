@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
@@ -57,11 +58,13 @@ public class ServicioDatosPrueba {
         cal.add(Calendar.MONTH, -1);
         var haceUnMes = cal.getTime();
 
-        var fecha = faker.date().between(haceUnMes, enUnMes);
+        var date = faker.date().between(haceUnMes, enUnMes);
+        var localDateTime = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
 
         var cita = new Cita();
         cita.setMotivo("Motivo de la cita");
-        cita.setHorario(fecha);
+        cita.setFecha(localDateTime.toLocalDate());
+        cita.setHora(localDateTime.toLocalTime());
 
         return cita;
     }
