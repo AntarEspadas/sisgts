@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-public class Tramite {
+public class SolicitudTramite {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,10 +17,10 @@ public class Tramite {
 
     private String tipoTramite;
 
-    private Documento[] requerimientos;
+    // private Documento[] requerimientos;
 
-    private Documento acuse;
+    // private Documento acuse;
 
-    private Documento documentoTramite;
+    // private Documento documentoTramite;
 
 }
