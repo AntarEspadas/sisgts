@@ -1,19 +1,19 @@
 package mx.uam.ayd.proyecto.negocio.modelo;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
 
 /**
  * Entidad de negocio Cita
  *
  * @author Antar Espadas
  */
-@Data
-@Entity
+@Getter
+@Setter
+@NoArgsConstructor
 public class Cita {
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -32,4 +32,10 @@ public class Cita {
 
     private String motivo;
 
+    public Cita(LocalDate fecha, LocalTime hora, String motivo, Agremiado agremiado) {
+        this.fecha = fecha;
+        this.hora = hora;
+        this.motivo = motivo;
+        this.agremiado = agremiado;
+    }
 }
