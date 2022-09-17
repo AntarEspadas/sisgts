@@ -1,17 +1,20 @@
 package mx.uam.ayd.proyecto.negocio;
 
 import com.sun.istack.NotNull;
+import mx.uam.ayd.proyecto.datos.CitaSpecification;
 import mx.uam.ayd.proyecto.datos.RepositoryCita;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.Cita;
 import mx.uam.ayd.proyecto.util.Filtro;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Servicio relacionado con las citas
@@ -94,7 +97,7 @@ public class ServicioCita {
             if (cita.getFecha().isEqual(fecha)) return 7;
         }
         // RN-06
-        var citaExistente = repositoryCita.findByFechaAndByHora(fecha, hora);
+        var citaExistente = repositoryCita.findByFechaAndHora(fecha, hora);
         if (citaExistente != null) return 6;
 
         var cita = new Cita(fecha, hora, motivo, agremiado);
@@ -105,9 +108,26 @@ public class ServicioCita {
         return 0;
     }
 
-    public Iterable<Cita> getCitas(Iterable<Filtro> filtros){
-        // TODO: implementar método
-        return new ArrayList<>();
+    public Iterable<Cita> getCitas(@NotNull List<Filtro> filtros){
+
+        if (filtros.size() == 0) return new ArrayList<>();
+
+        // Crea una lista de especificaciones a partir de la lista de filtros recibida
+        var especificaciones = filtros
+                .stream()
+                .map(CitaSpecification::new)
+                .collect(Collectors.toList());
+
+        // Antes de aplicar el operador 'and' a todas las especificaciones, es necesario crear
+        // una especificación usando 'where'
+        var especificacion = Specification.where(especificaciones.get(0));
+
+        // Aplica 'and' a todas las especificaciones para crear la especificación final
+        for (int i = 1; i < especificaciones.size(); i++) {
+            especificacion = especificacion.and(especificaciones.get(i));
+        }
+
+        return repositoryCita.findAll(especificacion);
     }
 
     private static ArrayList<LocalTime> generarHorarios(){

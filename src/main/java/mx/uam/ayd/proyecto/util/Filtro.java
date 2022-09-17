@@ -1,5 +1,6 @@
 package mx.uam.ayd.proyecto.util;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -9,11 +10,12 @@ import lombok.Data;
  * @author Antar Espadas
  */
 @Data
+@AllArgsConstructor
 public class Filtro {
 
     private String atributo;
 
-    private String operador;
+    private Operador operador;
 
     private Object valor;
 }

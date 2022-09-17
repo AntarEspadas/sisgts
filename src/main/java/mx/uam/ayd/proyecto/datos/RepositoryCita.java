@@ -1,6 +1,7 @@
 package mx.uam.ayd.proyecto.datos;
 
 import mx.uam.ayd.proyecto.negocio.modelo.Cita;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDate;
@@ -12,7 +13,7 @@ import java.time.LocalTime;
  *
  * @author Antar Espadas
  */
-public interface RepositoryCita extends CrudRepository<Cita, Long> {
+public interface RepositoryCita extends CrudRepository<Cita, Long>, JpaSpecificationExecutor<Cita> {
     /**
      * Regrese todas las citas después de cierta fecha
      */
