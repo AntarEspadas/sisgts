@@ -117,7 +117,9 @@ public class ServicioCita {
      *
      * @throws IllegalArgumentException en caso de que se le pase null como parámetro
      */
-    public @NotNull Iterable<Cita> getCitas(@NotNull List<Filtro> filtros){
+    public @NotNull List<Cita> getCitas(@NotNull List<Filtro> filtros){
+
+        if (filtros == null) throw new IllegalArgumentException("filtros no puede ser null");
 
         if (filtros.size() == 0) return new ArrayList<>();
 
