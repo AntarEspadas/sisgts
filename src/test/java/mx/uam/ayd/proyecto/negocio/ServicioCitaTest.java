@@ -3,8 +3,12 @@ package mx.uam.ayd.proyecto.negocio;
 import mx.uam.ayd.proyecto.datos.RepositoryCita;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.Cita;
+import mx.uam.ayd.proyecto.util.Filtro;
+import mx.uam.ayd.proyecto.util.Operador;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatcher;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -134,6 +138,30 @@ class ServicioCitaTest {
 
     @Test
     void getCitas() {
-        // TODO: implementar prueba
+
+        // Caso: el método lanza un IllegalArgumentException cuando se le pasa un parámetro nulo
+
+        assertThrows(IllegalArgumentException.class, () -> servicioCita.getCitas(null));
+
+        // Caso: el método regresa una lista vacía cuando recibe una lista de filtros vacía
+
+        var resultado = servicioCita.getCitas(new ArrayList<>());
+        assertNotNull(resultado);
+        assertEquals(0, resultado.size());
+
+        // Caso: el método regresa una lista no vacía cuando encuentra citas coincidentes con los filtros en el repositorio
+
+        var agremiado = new Agremiado();
+        agremiado.setClave("1234");
+        var cita = new Cita(LocalDate.now(), LocalTime.now(), "mensaje", agremiado);
+        var citas = new ArrayList<Cita>();
+        citas.add(cita);
+
+        var filtros = new ArrayList<Filtro>();
+        filtros.add(new Filtro("fecha", Operador.FECHA_EXACTA, LocalDate.now()));
+
+        when(repositoryCita.findAll(ArgumentMatchers.any())).thenReturn(citas);
+
+        assertEquals(citas.size(), servicioCita.getCitas(filtros).size());
     }
 }
