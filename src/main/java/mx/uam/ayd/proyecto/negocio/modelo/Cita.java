@@ -14,6 +14,7 @@ import java.time.LocalTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
 public class Cita {
 
     @ManyToOne(fetch = FetchType.EAGER)

@@ -107,7 +107,7 @@ class ServicioCitaTest {
         var cita = new Cita(manana, horaInicio, motivo, agremiado2);
         agremiado2.addCita(cita);
 
-        when(repositoryCita.findByFechaAndByHora(manana, horaInicio)).thenReturn(cita);
+        when(repositoryCita.findByFechaAndHora(manana, horaInicio)).thenReturn(cita);
 
         assertEquals(6, servicioCita.agendarCita(manana, horaInicio, motivo, agremiado));
 

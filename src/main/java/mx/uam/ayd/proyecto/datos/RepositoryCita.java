@@ -5,8 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
-import java.util.List;
 
 
 /**
@@ -28,5 +26,5 @@ public interface RepositoryCita extends CrudRepository<Cita, Long> {
      *
      * @return null si la cita no se encontró
      */
-    Cita findByFechaAndByHora(LocalDate fecha, LocalTime hora);
+    Cita findByFechaAndHora(LocalDate fecha, LocalTime hora);
 }
