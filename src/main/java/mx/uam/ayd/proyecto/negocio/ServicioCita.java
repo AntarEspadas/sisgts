@@ -108,7 +108,16 @@ public class ServicioCita {
         return 0;
     }
 
-    public Iterable<Cita> getCitas(@NotNull List<Filtro> filtros){
+    /**
+     * Obtiene citas según filtros
+     *
+     * @param filtros La lista de filtros según los cuales realizar la búsqueda
+     * @return Lista de citas cuyos atributos coinciden con todos los filtros. Lista vacía si ninguna cita coincide o si
+     * la lista de filtros es vacía
+     *
+     * @throws IllegalArgumentException en caso de que se le pase null como parámetro
+     */
+    public @NotNull Iterable<Cita> getCitas(@NotNull List<Filtro> filtros){
 
         if (filtros.size() == 0) return new ArrayList<>();
 
