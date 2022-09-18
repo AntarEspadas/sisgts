@@ -19,4 +19,5 @@ public class TipoTramite {
 
     private String[] requerimientos;
 
+    
 }
