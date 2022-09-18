@@ -2,6 +2,7 @@ package mx.uam.ayd.proyecto.negocio.modelo;
 
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -25,11 +26,13 @@ public class SolicitudTramite {
 
     private String estado;
 
+    private Date fechaSolicitud;
+
     @OneToOne(targetEntity = Agremiado.class, fetch = FetchType.EAGER)
     private Agremiado solicitante;
 
     @ManyToOne(targetEntity = TipoTramite.class, fetch = FetchType.EAGER)
-    private long tipoTramite;
+    private TipoTramite tipoTramite;
 
     @OneToMany(targetEntity = Documento.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
     private List <Documento> requisitos;
