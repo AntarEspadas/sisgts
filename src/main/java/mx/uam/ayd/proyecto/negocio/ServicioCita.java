@@ -141,6 +141,15 @@ public class ServicioCita {
         return repositoryCita.findAll(especificacion);
     }
 
+    /**
+     * Devuelve una lista con todos los horarios de citas disponibles
+     *
+     * @return La lista de los horarios
+     */
+    public List<LocalTime> getHorarios(){
+        return new ArrayList<>(todosLosHorarios);
+    }
+
     private static ArrayList<LocalTime> generarHorarios(){
 
         var resultado = new ArrayList<LocalTime>();
