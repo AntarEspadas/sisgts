@@ -6,9 +6,13 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.stream.Collectors;
+
+import javax.swing.JOptionPane;
 
 
 /**
@@ -16,16 +20,15 @@ import java.util.stream.Collectors;
  *
  * @author Antar Espadas
  */
+@Slf4j
 @Component
 public class ControlAgendarCita {
 
     @Autowired
     ServicioCita servicioCita;
 
-    @Autowired
     private VentanaInfoCitas ventanaInfoCitas;
     
-    @Autowired
     private VentanaAgendarCita ventanaAgendarCita;
     
 
@@ -40,17 +43,19 @@ public class ControlAgendarCita {
         this.agremiado = agremiado;
         
         var ayer = LocalDate.now().minusDays(1);
-        ventanaInfoCitas.muestra(this, agremiado.getCitas());
+        infoCitas();
     }
 
     /**
      * Navega a la ventana de agendar citas
      */
     public void agendarCita(){
-    	ventanaInfoCitas.cierra();
+    	if (ventanaInfoCitas != null)
+    		ventanaInfoCitas.cierra();
     	
     	var horarios = servicioCita.getHorarios();
     	var horariosNoDisponibles = servicioCita.getHorariosNoDisponibles(agremiado);
+    	ventanaAgendarCita = new VentanaAgendarCita();
     	ventanaAgendarCita.muestra(this, horarios, horariosNoDisponibles);
     }
     
@@ -58,7 +63,9 @@ public class ControlAgendarCita {
      * Navega a la ventana de información de citas
      */
     public void infoCitas() {
-    	ventanaAgendarCita.cierra();
+    	if (ventanaAgendarCita != null)
+    		ventanaAgendarCita.cierra();
+    	ventanaInfoCitas = new VentanaInfoCitas();
     	ventanaInfoCitas.muestra(this, agremiado.getCitas());
     }
 
@@ -71,15 +78,22 @@ public class ControlAgendarCita {
      */
     public void agendarCita(LocalDate fecha, LocalTime hora, String motivo){
 
-        // TODO: mostrar diálogo de confirmación
+    	String[] opciones = {"Aceptar", "Cancelar"};
+    	int resultadoDialogo = JOptionPane.showOptionDialog(ventanaAgendarCita, "Está seguro?", "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, opciones, null);
+    	
+    	if (resultadoDialogo != 0) return;
 
+    	log.info("Citas {}", agremiado.getCitas().size());
+    	log.info("Intentando agendar cita con los siguientes datos: fecha={}, hora={}, motivo={}, agrmeiado={}", fecha, hora, motivo, agremiado);
         int resultado = servicioCita.agendarCita(fecha, hora, motivo, agremiado);
+    	log.info("Citas {}", agremiado.getCitas().size());
 
         if (resultado != 0){
-            // TODO: mostrar diálogo de error
+        	JOptionPane.showMessageDialog(ventanaAgendarCita, "Se produjo un error ("+resultado+")");
             return;
         }
 
-        // TODO: mostrar mensaje de éxito y navegar a la ventana de información de citas
+        JOptionPane.showMessageDialog(ventanaAgendarCita, "Su cita se agendó correctamente");
+        infoCitas();
     }
 }

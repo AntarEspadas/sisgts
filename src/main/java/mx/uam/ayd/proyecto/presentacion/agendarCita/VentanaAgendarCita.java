@@ -2,6 +2,7 @@ package mx.uam.ayd.proyecto.presentacion.agendarCita;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -20,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.awt.Rectangle;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
 import java.awt.GridBagLayout;
@@ -29,6 +31,7 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+@Slf4j
 @Component
 public class VentanaAgendarCita extends JFrame {
 
@@ -39,15 +42,16 @@ public class VentanaAgendarCita extends JFrame {
 	private JDatePanel datePanel;
 	private LocalDate fechaSeleccionada;
 	private JComboBox<LocalTime> comboBox;
+	private JTextArea txtrMotivo;
 
 	public VentanaAgendarCita() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(new Rectangle(100, 100, 500, 500));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{50, 151, 77, 151, 50, 0};
-		gridBagLayout.rowHeights = new int[]{42, 17, 26, 63, 17, 97, 50, 3, 0};
+		gridBagLayout.rowHeights = new int[]{42, 17, 26, 63, 17, 97, 3, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		getContentPane().setLayout(gridBagLayout);
 				
 				JLabel lblFecha = new JLabel("Fecha");
@@ -95,7 +99,7 @@ public class VentanaAgendarCita extends JFrame {
 		gbc_lblMotivo.gridy = 4;
 		getContentPane().add(lblMotivo, gbc_lblMotivo);
 		
-		JTextArea txtrMotivo = new JTextArea();
+		txtrMotivo = new JTextArea();
 		GridBagConstraints gbc_txtrMotivo = new GridBagConstraints();
 		gbc_txtrMotivo.fill = GridBagConstraints.BOTH;
 		gbc_txtrMotivo.insets = new Insets(0, 0, 5, 5);
@@ -115,15 +119,30 @@ public class VentanaAgendarCita extends JFrame {
 		gbc_btnCancelar.anchor = GridBagConstraints.NORTH;
 		gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
 		gbc_btnCancelar.gridx = 1;
-		gbc_btnCancelar.gridy = 7;
+		gbc_btnCancelar.gridy = 6;
 		getContentPane().add(btnCancelar, gbc_btnCancelar);
 		
 		JButton btnAgendar = new JButton("Agendar");
+		var ventana = this;
+		btnAgendar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				var hora = (LocalTime)comboBox.getSelectedItem();
+				var motivo = txtrMotivo.getText();
+				
+				var mensaje = validaCampos(fechaSeleccionada, hora, motivo);
+				if (mensaje != null) {
+					JOptionPane.showMessageDialog(ventana, mensaje);
+					return;
+				}
+				controlador.agendarCita(fechaSeleccionada, hora, txtrMotivo.getText());
+			}
+		});
 		GridBagConstraints gbc_btnAgendar = new GridBagConstraints();
 		gbc_btnAgendar.insets = new Insets(0, 0, 0, 5);
 		gbc_btnAgendar.anchor = GridBagConstraints.NORTH;
 		gbc_btnAgendar.gridx = 3;
-		gbc_btnAgendar.gridy = 7;
+		gbc_btnAgendar.gridy = 6;
 		getContentPane().add(btnAgendar, gbc_btnAgendar);
 		
 	}
@@ -132,6 +151,7 @@ public class VentanaAgendarCita extends JFrame {
 		this.controlador = controlador;
 		this.horarios = horarios;
 		this.horariosNoDisponibles = horariosNoDisponibles;
+		
 		setVisible(true);
 	}
 	
@@ -148,8 +168,12 @@ public class VentanaAgendarCita extends JFrame {
 		
 		List<LocalTime> horariosDisponibles;
 		var horariosNoDisponibles = this.horariosNoDisponibles.getOrDefault(nuevaFecha, null);
+		log.info("Fecha seleccionada: {}", fechaSeleccionada);
+		log.info("Horarios no disponibles: {}", horariosNoDisponibles);
 
-		if (horariosNoDisponibles == null || horariosNoDisponibles.size() == 0)
+		if (nuevaFecha.isBefore(LocalDate.now().plusDays(1)))
+			horariosDisponibles = new ArrayList<LocalTime>();
+		else if (horariosNoDisponibles == null || horariosNoDisponibles.size() == 0)
 			horariosDisponibles = horarios;
 		else
 			horariosDisponibles = horarios
@@ -161,5 +185,14 @@ public class VentanaAgendarCita extends JFrame {
 		comboBoxModel.addAll(horariosDisponibles);
 		
 		comboBox.setModel(comboBoxModel);
+	}
+	
+	private String validaCampos(LocalDate fecha, LocalTime hora, String motivo) {
+		if (fecha == null) return "Favor de escoger una fecha";
+		if (fecha.isBefore(LocalDate.now().plusDays(1))) return "Favor de escoger una fecha con al menos un día de anticipación";
+		if (hora == null) return "Favor de escoger una hora";
+		if (motivo == null || motivo.length() == 0) return "Favor de especificar un motivo";
+		
+		return null;
 	}
 }
