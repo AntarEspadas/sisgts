@@ -56,7 +56,7 @@ public class ServicioCita {
 
             if (cita.getAgremiado().getClave().equals(agremiado.getClave())){
                 resultado.put(cita.getFecha(), new HashSet<>(todosLosHorarios));
-                break;
+                continue;
             }
 
             var set = resultado.computeIfAbsent(cita.getFecha(), (k) -> new HashSet<>());
