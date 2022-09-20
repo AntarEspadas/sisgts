@@ -3,6 +3,9 @@ package mx.uam.ayd.proyecto.negocio.modelo;
 import lombok.*;
 
 import javax.persistence.*;
+
+import org.apache.commons.lang3.builder.ToStringExclude;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -14,9 +17,11 @@ import java.time.LocalTime;
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 @Entity
 public class Cita {
 
+	@ToString.Exclude
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="agremiado_clave")
     private Agremiado agremiado;
