@@ -3,10 +3,14 @@ package mx.uam.ayd.proyecto.presentacion.consultarCitas;
 import mx.uam.ayd.proyecto.negocio.ServicioCita;
 import mx.uam.ayd.proyecto.negocio.modelo.Cita;
 import mx.uam.ayd.proyecto.util.Filtro;
+import mx.uam.ayd.proyecto.util.Operador;
+
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,13 +23,21 @@ public class ControlConsultarCitas {
 
     @Autowired
     private ServicioCita servicioCita;
+    
+    private VentanaConsultarCitas ventanaConsultarCitas;
 
     /**
      * Inicia el controlador
      */
     public void inicia(){
-        // TODO: implementar método
-        throw new NotImplementedException();
+    	var filtros = new ArrayList<Filtro>();
+    	var filtro = new Filtro("fecha", Operador.FECHA_EXACTA, LocalDate.now());
+    	filtros.add(filtro);
+    	
+    	var citas = servicioCita.getCitas(filtros);
+
+    	ventanaConsultarCitas = new VentanaConsultarCitas();
+    	ventanaConsultarCitas.muestra(citas, filtros);
     }
 
     /**
