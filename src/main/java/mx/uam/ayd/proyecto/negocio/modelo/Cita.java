@@ -7,6 +7,7 @@ import javax.persistence.*;
 import org.apache.commons.lang3.builder.ToStringExclude;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 /**
@@ -19,7 +20,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Cita {
+public class Cita implements Comparable<Cita> {
 
 	@ToString.Exclude
     @ManyToOne(fetch = FetchType.EAGER)
@@ -44,4 +45,12 @@ public class Cita {
         this.motivo = motivo;
         this.agremiado = agremiado;
     }
+
+	@Override
+	public int compareTo(Cita o) {
+		int resultado = fecha.compareTo(o.getFecha());
+		if (resultado == 0)
+			resultado = hora.compareTo(o.getHora());
+		return resultado;
+	}
 }
