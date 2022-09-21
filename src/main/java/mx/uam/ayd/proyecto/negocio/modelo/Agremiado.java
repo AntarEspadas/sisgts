@@ -48,4 +48,8 @@ public class Agremiado {
     public void addCita(Cita cita){
         this.citas.add(cita);
     }
+    
+    public String getNombreCompleto() {
+    	return nombre + " " + apellidos;
+    }
 }
