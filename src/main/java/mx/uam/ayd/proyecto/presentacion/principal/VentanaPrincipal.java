@@ -25,6 +25,10 @@ public class VentanaPrincipal extends JFrame {
 	
 	private ControlPrincipal control;
 	private JPanel panelContenido;
+	
+	private java.awt.Component componente;
+
+	GridBagConstraints gbc_contenido;
 
 	/**
 	 * Create the frame.
@@ -113,11 +117,11 @@ public class VentanaPrincipal extends JFrame {
 		panel.add(btnPublicaciones, gbc_btnPublicaciones);
 		
 		panelContenido = new JPanel();
-		GridBagConstraints gbc_panelContenido = new GridBagConstraints();
-		gbc_panelContenido.fill = GridBagConstraints.BOTH;
-		gbc_panelContenido.gridx = 2;
-		gbc_panelContenido.gridy = 0;
-		contentPane.add(panelContenido, gbc_panelContenido);
+		gbc_contenido = new GridBagConstraints();
+		gbc_contenido.fill = GridBagConstraints.BOTH;
+		gbc_contenido.gridx = 2;
+		gbc_contenido.gridy = 0;
+		//contentPane.add(panelContenido, gbc_contenido);
 	}
 	
 	public void muestra(ControlPrincipal control) {
@@ -126,14 +130,16 @@ public class VentanaPrincipal extends JFrame {
 	}
 	
 	public void muestraComponente(java.awt.Component componente) {
-		panelContenido.removeAll();
-		panelContenido.add(componente);
+		if (this.componente != null)
+			contentPane.remove(this.componente);
+		this.componente = componente;
+		contentPane.add(componente, gbc_contenido);
 		repaint();
 		setVisible(true);
 	}
 
 	public void quitaComponente(java.awt.Component componente){
-		panelContenido.remove(componente);
+		contentPane.remove(componente);
 		repaint();
 	}
 }
