@@ -6,9 +6,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Data
 @Entity
+@Table(name = "documentos")
 public class Documento {
     
     @Id
@@ -17,6 +22,11 @@ public class Documento {
 
     private String tipoDocumento;
 
+    @Lob
     private byte[] archivo;
+
+    @ManyToOne
+    @JoinColumn (name = "id_solicitud", insertable = false, updatable = false)
+    private SolicitudTramite solicitudTramite;
 
 }

@@ -11,13 +11,16 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 
 @Data
 @Entity
+@Table(name = "solicitudTramite")
 public class SolicitudTramite {
     
     @Id
@@ -34,13 +37,23 @@ public class SolicitudTramite {
     @ManyToOne(targetEntity = TipoTramite.class, fetch = FetchType.EAGER)
     private TipoTramite tipoTramite;
 
-    @OneToMany(targetEntity = Documento.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_solicitud")
     private List <Documento> requisitos;
 
-	@OneToOne(targetEntity = Documento.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
+    private String motivoRechazo;
+
+	@OneToOne(targetEntity = Documento.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Documento acuse;
 
-    @OneToOne(targetEntity = Documento.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = false)
+    @OneToOne(targetEntity = Documento.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Documento documentoTramite;
+
+    @Override
+    public String toString() {
+        String cadena = "Solicitud " + String.valueOf(idSolicitud) + ", registrada el "+ String.valueOf(fechaSolicitud).substring(0,10) + ". Solicitud " + estado.toLowerCase();
+        return cadena;
+
+    }
     
 }
