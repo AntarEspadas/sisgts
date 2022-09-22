@@ -11,11 +11,13 @@ import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
 import org.jdatepicker.JDatePicker;
+import org.springframework.stereotype.Component;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import mx.uam.ayd.proyecto.negocio.modelo.Cita;
+import mx.uam.ayd.proyecto.presentacion.agregarUsuario.Pantalla;
 import mx.uam.ayd.proyecto.util.Filtro;
 import mx.uam.ayd.proyecto.util.Operador;
 
@@ -42,7 +44,8 @@ import java.awt.event.ItemEvent;
  * @author Antar Espadas
  */
 @Slf4j
-public class VentanaConsultarCitas extends JFrame {
+@Component
+public class VentanaConsultarCitas extends Pantalla {
 	
 	private static final String[] columnas = {"Fecha", "Agremiado", "Motivo"};
 	
@@ -58,7 +61,7 @@ public class VentanaConsultarCitas extends JFrame {
 		gridBagLayout.rowHeights = new int[]{50, 152, 0, 212, 0, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
-		getContentPane().setLayout(gridBagLayout);
+		setLayout(gridBagLayout);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
@@ -66,7 +69,7 @@ public class VentanaConsultarCitas extends JFrame {
 		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane_1.gridx = 1;
 		gbc_scrollPane_1.gridy = 1;
-		getContentPane().add(scrollPane_1, gbc_scrollPane_1);
+		add(scrollPane_1, gbc_scrollPane_1);
 		
 		panelFiltros = new JPanel();
 		scrollPane_1.setViewportView(panelFiltros);
@@ -82,7 +85,7 @@ public class VentanaConsultarCitas extends JFrame {
 		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 1;
 		gbc_scrollPane.gridy = 3;
-		getContentPane().add(scrollPane, gbc_scrollPane);
+		add(scrollPane, gbc_scrollPane);
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(

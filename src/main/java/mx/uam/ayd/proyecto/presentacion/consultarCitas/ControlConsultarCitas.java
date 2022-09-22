@@ -24,6 +24,7 @@ public class ControlConsultarCitas {
     @Autowired
     private ServicioCita servicioCita;
     
+    @Autowired
     private VentanaConsultarCitas ventanaConsultarCitas;
 
     /**
@@ -36,7 +37,6 @@ public class ControlConsultarCitas {
     	
     	var citas = servicioCita.getCitas(filtros);
 
-    	ventanaConsultarCitas = new VentanaConsultarCitas();
     	ventanaConsultarCitas.muestra(citas, filtros);
     }
 

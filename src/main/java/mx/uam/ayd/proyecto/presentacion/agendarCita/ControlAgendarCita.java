@@ -2,6 +2,8 @@ package mx.uam.ayd.proyecto.presentacion.agendarCita;
 
 import mx.uam.ayd.proyecto.negocio.ServicioCita;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
+import mx.uam.ayd.proyecto.presentacion.principal.VentanaPrincipal;
+
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,8 +29,9 @@ public class ControlAgendarCita {
     @Autowired
     ServicioCita servicioCita;
 
+    @Autowired
     private VentanaInfoCitas ventanaInfoCitas;
-    
+    @Autowired
     private VentanaAgendarCita ventanaAgendarCita;
     
 
@@ -50,12 +53,10 @@ public class ControlAgendarCita {
      * Navega a la ventana de agendar citas
      */
     public void agendarCita(){
-    	if (ventanaInfoCitas != null)
-    		ventanaInfoCitas.cierra();
-    	
+        ventanaInfoCitas.cierra();
+
     	var horarios = servicioCita.getHorarios();
     	var horariosNoDisponibles = servicioCita.getHorariosNoDisponibles(agremiado);
-    	ventanaAgendarCita = new VentanaAgendarCita();
     	ventanaAgendarCita.muestra(this, horarios, horariosNoDisponibles);
     }
     
@@ -63,9 +64,8 @@ public class ControlAgendarCita {
      * Navega a la ventana de información de citas
      */
     public void infoCitas() {
-    	if (ventanaAgendarCita != null)
-    		ventanaAgendarCita.cierra();
-    	ventanaInfoCitas = new VentanaInfoCitas();
+        ventanaAgendarCita.cierra();
+
     	ventanaInfoCitas.muestra(this, agremiado.getCitas());
     }
 

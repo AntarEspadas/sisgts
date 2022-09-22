@@ -9,6 +9,7 @@ import javax.swing.JList;
 
 import mx.uam.ayd.proyecto.negocio.modelo.Cita;
 
+import mx.uam.ayd.proyecto.presentacion.agregarUsuario.Pantalla;
 import org.springframework.stereotype.Component;
 
 import lombok.*;
@@ -21,6 +22,9 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
 
 
 
@@ -30,36 +34,61 @@ import java.awt.event.MouseEvent;
  * @author Antar Espadas
  */
 @Component
-public class VentanaInfoCitas extends JFrame {
+public class VentanaInfoCitas extends Pantalla {
 	
 	private ControlAgendarCita controlador;
 
 	private JList<String> listaCitas;
 
 	public VentanaInfoCitas() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(new Rectangle(100, 100, 500, 400));
-		getContentPane().setLayout(null);
-		
-		listaCitas = new JList<>();
-		listaCitas.setBounds(36, 145, 430, 164);
-		getContentPane().add(listaCitas);
-		
-		JLabel lblSusCitas = new JLabel("Sus citas");
-		lblSusCitas.setBounds(36, 116, 60, 17);
-		getContentPane().add(lblSusCitas);
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWidths = new int[]{36, 60, 49, 321, 0};
+		gridBagLayout.rowHeights = new int[]{37, 17, 30, 17, 17, 164, 27, 0};
+		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		setLayout(gridBagLayout);
 		
 		JLabel lblHorarios = new JLabel("Horarios");
-		lblHorarios.setBounds(217, 37, 60, 17);
-		getContentPane().add(lblHorarios);
+		GridBagConstraints gbc_lblHorarios = new GridBagConstraints();
+		gbc_lblHorarios.anchor = GridBagConstraints.NORTH;
+		gbc_lblHorarios.insets = new Insets(0, 0, 5, 0);
+		gbc_lblHorarios.gridx = 3;
+		gbc_lblHorarios.gridy = 1;
+		add(lblHorarios, gbc_lblHorarios);
 		
 		JLabel lblHorarios2 = new JLabel("Lunes a Viernes de 10:00 a 18:00");
-		lblHorarios2.setBounds(145, 84, 197, 17);
-		getContentPane().add(lblHorarios2);
+		GridBagConstraints gbc_lblHorarios2 = new GridBagConstraints();
+		gbc_lblHorarios2.anchor = GridBagConstraints.NORTHWEST;
+		gbc_lblHorarios2.insets = new Insets(0, 0, 5, 0);
+		gbc_lblHorarios2.gridx = 3;
+		gbc_lblHorarios2.gridy = 3;
+		add(lblHorarios2, gbc_lblHorarios2);
+		
+		JLabel lblSusCitas = new JLabel("Sus citas");
+		GridBagConstraints gbc_lblSusCitas = new GridBagConstraints();
+		gbc_lblSusCitas.anchor = GridBagConstraints.NORTH;
+		gbc_lblSusCitas.fill = GridBagConstraints.HORIZONTAL;
+		gbc_lblSusCitas.insets = new Insets(0, 0, 5, 5);
+		gbc_lblSusCitas.gridx = 1;
+		gbc_lblSusCitas.gridy = 4;
+		add(lblSusCitas, gbc_lblSusCitas);
+		
+		listaCitas = new JList<>();
+		GridBagConstraints gbc_listaCitas = new GridBagConstraints();
+		gbc_listaCitas.fill = GridBagConstraints.BOTH;
+		gbc_listaCitas.insets = new Insets(0, 0, 5, 0);
+		gbc_listaCitas.gridwidth = 3;
+		gbc_listaCitas.gridx = 1;
+		gbc_listaCitas.gridy = 5;
+		add(listaCitas, gbc_listaCitas);
 		
 		JButton btnAgendarCita = new JButton("Agendar Cita");
-		btnAgendarCita.setBounds(188, 321, 112, 27);
-		getContentPane().add(btnAgendarCita);
+		GridBagConstraints gbc_btnAgendarCita = new GridBagConstraints();
+		gbc_btnAgendarCita.anchor = GridBagConstraints.NORTHWEST;
+		gbc_btnAgendarCita.gridx = 3;
+		gbc_btnAgendarCita.gridy = 6;
+		add(btnAgendarCita, gbc_btnAgendarCita);
 		
 
 

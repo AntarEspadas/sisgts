@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import javax.swing.JFrame;
 
+import mx.uam.ayd.proyecto.presentacion.agregarUsuario.Pantalla;
 import org.jdatepicker.JDatePanel;
 import org.jdatepicker.UtilDateModel;
 import org.springframework.stereotype.Component;
@@ -33,7 +34,7 @@ import java.awt.event.MouseEvent;
 
 @Slf4j
 @Component
-public class VentanaAgendarCita extends JFrame {
+public class VentanaAgendarCita extends Pantalla {
 
 	private ControlAgendarCita controlador;
 	private Map<LocalDate, Set<LocalTime>> horariosNoDisponibles;
@@ -45,14 +46,13 @@ public class VentanaAgendarCita extends JFrame {
 	private JTextArea txtrMotivo;
 
 	public VentanaAgendarCita() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(new Rectangle(100, 100, 500, 500));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{50, 151, 77, 151, 50, 0};
 		gridBagLayout.rowHeights = new int[]{42, 17, 26, 63, 17, 97, 3, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		getContentPane().setLayout(gridBagLayout);
+		setLayout(gridBagLayout);
 				
 				JLabel lblFecha = new JLabel("Fecha");
 				GridBagConstraints gbc_lblFecha = new GridBagConstraints();
@@ -60,7 +60,7 @@ public class VentanaAgendarCita extends JFrame {
 				gbc_lblFecha.insets = new Insets(0, 0, 5, 5);
 				gbc_lblFecha.gridx = 1;
 				gbc_lblFecha.gridy = 1;
-				getContentPane().add(lblFecha, gbc_lblFecha);
+				add(lblFecha, gbc_lblFecha);
 				
 				JLabel lblHorario = new JLabel("Horario");
 				GridBagConstraints gbc_lblHorario = new GridBagConstraints();
@@ -68,7 +68,7 @@ public class VentanaAgendarCita extends JFrame {
 				gbc_lblHorario.insets = new Insets(0, 0, 5, 5);
 				gbc_lblHorario.gridx = 3;
 				gbc_lblHorario.gridy = 1;
-				getContentPane().add(lblHorario, gbc_lblHorario);
+				add(lblHorario, gbc_lblHorario);
 
 		UtilDateModel model = new UtilDateModel();
 		datePanel = new JDatePanel(model);
@@ -80,7 +80,7 @@ public class VentanaAgendarCita extends JFrame {
 		gbc_datePanel.insets = new Insets(0, 0, 5, 5);
 		gbc_datePanel.gridx = 1;
 		gbc_datePanel.gridy = 2;
-		getContentPane().add(datePanel, gbc_datePanel);
+		add(datePanel, gbc_datePanel);
 		
 		comboBox = new JComboBox<LocalTime>();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
@@ -89,7 +89,7 @@ public class VentanaAgendarCita extends JFrame {
 		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
 		gbc_comboBox.gridx = 3;
 		gbc_comboBox.gridy = 2;
-		getContentPane().add(comboBox, gbc_comboBox);
+		add(comboBox, gbc_comboBox);
 		
 		JLabel lblMotivo = new JLabel("Motivo");
 		GridBagConstraints gbc_lblMotivo = new GridBagConstraints();
@@ -97,7 +97,7 @@ public class VentanaAgendarCita extends JFrame {
 		gbc_lblMotivo.insets = new Insets(0, 0, 5, 5);
 		gbc_lblMotivo.gridx = 1;
 		gbc_lblMotivo.gridy = 4;
-		getContentPane().add(lblMotivo, gbc_lblMotivo);
+		add(lblMotivo, gbc_lblMotivo);
 		
 		txtrMotivo = new JTextArea();
 		GridBagConstraints gbc_txtrMotivo = new GridBagConstraints();
@@ -106,7 +106,7 @@ public class VentanaAgendarCita extends JFrame {
 		gbc_txtrMotivo.gridwidth = 3;
 		gbc_txtrMotivo.gridx = 1;
 		gbc_txtrMotivo.gridy = 5;
-		getContentPane().add(txtrMotivo, gbc_txtrMotivo);
+		add(txtrMotivo, gbc_txtrMotivo);
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addMouseListener(new MouseAdapter() {
@@ -120,7 +120,7 @@ public class VentanaAgendarCita extends JFrame {
 		gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
 		gbc_btnCancelar.gridx = 1;
 		gbc_btnCancelar.gridy = 6;
-		getContentPane().add(btnCancelar, gbc_btnCancelar);
+		add(btnCancelar, gbc_btnCancelar);
 		
 		JButton btnAgendar = new JButton("Agendar");
 		var ventana = this;
@@ -143,7 +143,7 @@ public class VentanaAgendarCita extends JFrame {
 		gbc_btnAgendar.anchor = GridBagConstraints.NORTH;
 		gbc_btnAgendar.gridx = 3;
 		gbc_btnAgendar.gridy = 6;
-		getContentPane().add(btnAgendar, gbc_btnAgendar);
+		add(btnAgendar, gbc_btnAgendar);
 		
 	}
 	
