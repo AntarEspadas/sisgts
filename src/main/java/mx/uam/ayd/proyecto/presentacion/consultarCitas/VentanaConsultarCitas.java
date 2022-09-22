@@ -11,7 +11,6 @@ import java.util.List;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
-import org.jdatepicker.JDatePicker;
 import org.springframework.stereotype.Component;
 
 import lombok.AllArgsConstructor;
