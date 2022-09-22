@@ -6,16 +6,17 @@ import javax.swing.border.EmptyBorder;
 
 import org.springframework.stereotype.Component;
 
-import javax.swing.JLabel;
-import javax.swing.JButton;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 
 @SuppressWarnings("serial")
 @Component
 public class VentanaPrincipal extends JFrame {
 
-	private JPanel contentPane;
+	private JPanel mainPanel;
 	
 	private ControlPrincipal control;
 
@@ -39,37 +40,47 @@ public class VentanaPrincipal extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaPrincipal() {
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
-		JLabel lblMiAplicacin = new JLabel("Mi Aplicación");
-		lblMiAplicacin.setBounds(5, 5, 440, 16);
-		contentPane.add(lblMiAplicacin);
-		
-		JButton btnAgregarUsuario = new JButton("Agregar usuario");
-		btnAgregarUsuario.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				control.agregarUsuario();
+		Toolkit screenTk = Toolkit.getDefaultToolkit();
+	    Dimension dimScreen = screenTk.getScreenSize();
+	    int anchoScreen = dimScreen.width;
+        int altoScreen = dimScreen.height;
+        Dimension dimMinima = new Dimension((int)(anchoScreen*.8), (int)(altoScreen*.8));
+        setMinimumSize(dimMinima);
+
+        // setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+		mainPanel = new JPanel();
+		mainPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+		mainPanel.setLayout(new BorderLayout());
+		mainPanel.setVisible(true);
+		setContentPane(mainPanel);
+
+
+		JLabel lblTop = new JLabel("SISTEMA DE GESTIÓN DE TRAMITES SINDICALES");
+		lblTop.setFont(new Font("Consolas", Font.BOLD, 20));
+		lblTop.setHorizontalAlignment(SwingConstants.CENTER);
+		mainPanel.add(lblTop, BorderLayout.NORTH);
+
+		JButton btnTramites = new JButton("Tramites");
+        JButton btnCitas = new JButton("Citas");
+        JButton btnPublicaciones = new JButton("Publicaciones");
+        
+        JPanel btnPanel = new JPanel();
+        btnPanel.setLayout(new GridLayout(3, 1));
+        btnPanel.add(btnTramites); btnPanel.add(btnCitas); btnPanel.add(btnPublicaciones);
+        mainPanel.add(btnPanel, BorderLayout.WEST);
+
+        btnTramites.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				
+				control.procesarTramites();
+				
 			}
 		});
-		btnAgregarUsuario.setBounds(15, 33, 178, 29);
-		contentPane.add(btnAgregarUsuario);
-		
-		JButton btnListarUsuarios = new JButton("Listar usuarios");
-		btnListarUsuarios.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				control.listarUsuarios();
-			}
-		});
-		
-		
-		btnListarUsuarios.setBounds(15, 88, 178, 29);
-		contentPane.add(btnListarUsuarios);
+
 	}
 	
 	public void muestra(ControlPrincipal control) {
@@ -78,4 +89,6 @@ public class VentanaPrincipal extends JFrame {
 		
 		setVisible(true);
 	}
+
+    
 }

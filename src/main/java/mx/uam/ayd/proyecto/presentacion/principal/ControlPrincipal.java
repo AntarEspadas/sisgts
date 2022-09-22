@@ -1,10 +1,14 @@
 package mx.uam.ayd.proyecto.presentacion.principal;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.presentacion.agregarUsuario.ControlAgregarUsuario;
 import mx.uam.ayd.proyecto.presentacion.listarUsuarios.ControlListarUsuarios;
+import mx.uam.ayd.proyecto.presentacion.procesarTramites.ControlProcesarTramites;
 
 /**
  * Esta clase lleva el flujo de control de la ventana principal
@@ -20,6 +24,9 @@ public class ControlPrincipal {
 	
 	@Autowired
 	private ControlListarUsuarios controlListarUsuarios;
+
+	@Autowired
+	private ControlProcesarTramites controlProcesarTramites;
 
 	@Autowired
 	private VentanaPrincipal ventana;
@@ -50,4 +57,10 @@ public class ControlPrincipal {
 	public void listarUsuarios() {
 		controlListarUsuarios.inicia();
 	}
+
+	public void procesarTramites() {
+		controlProcesarTramites.inicia();
+	}
+
+	
 }
