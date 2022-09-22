@@ -42,6 +42,9 @@ public class ProyectoApplication {
 	@Autowired
 	ServicioDatosPrueba servicioDatosPrueba;
 
+	@Autowired
+	RepositoryAgremiado repositoryAgremiado;
+
 	/**
 	 * 
 	 * Método principal
@@ -92,6 +95,12 @@ public class ProyectoApplication {
 		Grupo grupoOps = new Grupo();
 		grupoOps.setNombre("Operadores");
 		grupoRepository.save(grupoOps);
+
+		var agremiado = new Agremiado();
+		agremiado.setClave("123456789");
+		agremiado.setNombre("Alan");
+		agremiado.setApellidos("Turing");
+		repositoryAgremiado.save(agremiado);
 
 		servicioDatosPrueba.generarDatos();
 
