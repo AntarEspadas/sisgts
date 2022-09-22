@@ -31,13 +31,7 @@ public class ControlConsultarCitas {
      * Inicia el controlador
      */
     public void inicia(){
-    	var filtros = new ArrayList<Filtro>();
-    	var filtro = new Filtro("fecha", Operador.FECHA_EXACTA, LocalDate.now());
-    	filtros.add(filtro);
-    	
-    	var citas = servicioCita.getCitas(filtros);
-
-    	ventanaConsultarCitas.muestra(citas, filtros);
+    	ventanaConsultarCitas.muestra(this);
     }
 
     /**

@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import javax.swing.JTable;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JScrollPane;
@@ -37,6 +38,8 @@ import java.awt.BorderLayout;
 import javax.swing.JTextField;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * Ventana que permite al personal administrativo consultar una lista de citas
@@ -48,6 +51,8 @@ import java.awt.event.ItemEvent;
 public class VentanaConsultarCitas extends Pantalla {
 	
 	private static final String[] columnas = {"Fecha", "Agremiado", "Motivo"};
+	
+	private ControlConsultarCitas controlador;
 	
 	private List<Filtro> filtros;
 
@@ -78,6 +83,24 @@ public class VentanaConsultarCitas extends Pantalla {
 		var model = new DefaultComboBoxModel<String>();
 		model.addElement("1");
 		model.addElement("2");
+		
+		JButton btnAgregarFiltro = new JButton("Agregar filtro");
+		btnAgregarFiltro.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				agregarFiltro();
+			}
+		});
+		btnAgregarFiltro.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		GridBagConstraints gbc_btnAgregarFiltro = new GridBagConstraints();
+		gbc_btnAgregarFiltro.anchor = GridBagConstraints.EAST;
+		gbc_btnAgregarFiltro.insets = new Insets(0, 0, 5, 5);
+		gbc_btnAgregarFiltro.gridx = 1;
+		gbc_btnAgregarFiltro.gridy = 2;
+		add(btnAgregarFiltro, gbc_btnAgregarFiltro);
 
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
@@ -98,77 +121,69 @@ public class VentanaConsultarCitas extends Pantalla {
 			}
 		));
 		scrollPane.setViewportView(table);
-		
-		panelFiltros.add(new ComponenteFiltro());
 	}
 	
-	public void muestra(List<Cita> citas, List<Filtro> filtros) {
+	public void muestra(ControlConsultarCitas controlador) {
 		
-		this.filtros = filtros;
-
-		var filas = citas.stream()
-				.sorted()
-				.map(cita -> new Object[] {cita.getFecha().toString(), cita.getAgremiado().getNombreCompleto(), cita.getMotivo()})
-				.toArray(Object[][]::new);
+		this.controlador = controlador;
 		
-		table.setModel(new DefaultTableModel(filas, columnas));
+		filtros = new ArrayList<>();
+		panelFiltros.removeAll();
+		agregarFiltro();
 		
 		setVisible(true);
 	}
 	
+	
+	private void agregarFiltro() {
+		var componenteFiltro = new ComponenteFiltro();
+		filtros.add(componenteFiltro.getFiltro());
+		
+		log.info("filtros = {}", filtros);
+		
+		componenteFiltro.addCambioFiltroListener(filtro -> {
+			log.info("Aplicando filtro {}", filtro);
+			actualizaCitas();
+		});
+		
+		componenteFiltro.getBtnEliminar().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panelFiltros.remove(componenteFiltro);
+				filtros.remove(componenteFiltro.getFiltro());
+
+				log.info("filtros = {}", filtros);
+
+				actualizaCitas();
+			}
+		});
+		
+		panelFiltros.add(componenteFiltro);
+		
+		actualizaCitas();
+		
+	}
+	
+	private void actualizaCitas() {
+		var citas = controlador.getCitas(new ArrayList<>(filtros));
+		mostrarCitas(citas);
+	}
+	
+	private void mostrarCitas(List<Cita> citas) {
+		var filas = citas.stream()
+				.sorted()
+				.map(cita -> new Object[] {cita.getFecha().toString(), cita.getAgremiado().getNombreCompleto(), cita.getMotivo()})
+				.toArray(Object[][]::new);
+
+		table.setModel(new DefaultTableModel(filas, columnas));
+
+		revalidate();
+		repaint();
+	}
+
 	public void cierra() {
 		setVisible(false);
 	}
 	
-	private void agregarFiltro() {
-			
-		JPanel panelFiltro = new JPanel();
-		panelFiltro.setMinimumSize(new Dimension(10, 50));
-		panelFiltro.setMaximumSize(new Dimension(32767, 40));
-		panelFiltro.setBounds(new Rectangle(0, 0, 50, 50));
-		panelFiltros.add(panelFiltro);
-		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[]{126, 0, 58, 0};
-		gbl_panel_1.rowHeights = new int[]{0, 0};
-		gbl_panel_1.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_1.rowWeights = new double[]{1.0, Double.MIN_VALUE};
-		panelFiltro.setLayout(gbl_panel_1);
-		
-		var comboBoxModel = new DefaultComboBoxModel<FiltroModel>();
-		comboBoxModel.addElement(new FiltroModel(Operador.FECHA_EXACTA, "fecha", "Fecha exacta"));
-		comboBoxModel.addElement(new FiltroModel(Operador.FECHA_ANTES, "fecha", "Fecha antes"));
-		comboBoxModel.addElement(new FiltroModel(Operador.FECHA_DESPUES, "fecha", "Fecha despues"));
-		comboBoxModel.addElement(new FiltroModel(Operador.CONTIENE, "agremiado.nombre", "Nombre"));
-		comboBoxModel.addElement(new FiltroModel(Operador.CONTIENE, "agremiado.apellido", "Apellido"));
-		comboBoxModel.addElement(new FiltroModel(Operador.CONTIENE, "motivo", "Motivo"));
-		
-		JComboBox<FiltroModel> comboBox = new JComboBox<>();
-		comboBox.setModel(comboBoxModel);
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.insets = new Insets(0, 0, 0, 5);
-		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.gridx = 0;
-		gbc_comboBox.gridy = 0;
-		panelFiltro.add(comboBox, gbc_comboBox);
-		
-		JTextField txtCampo = new JTextField();
-		txtCampo.setColumns(10);
-		
-		JDatePicker dateCampo = new JDatePicker();
-		
-		GridBagConstraints gbc_Campo = new GridBagConstraints();
-		gbc_Campo.insets = new Insets(0, 0, 0, 5);
-		gbc_Campo.fill = GridBagConstraints.HORIZONTAL;
-		gbc_Campo.gridx = 1;
-		gbc_Campo.gridy = 0;
-		panelFiltro.add(dateCampo, gbc_Campo);
-		
-		JButton btnEliminar = new JButton("Eliminar");
-		GridBagConstraints gbc_btnEliminar = new GridBagConstraints();
-		gbc_btnEliminar.gridx = 2;
-		gbc_btnEliminar.gridy = 0;
-		panelFiltro.add(btnEliminar, gbc_btnEliminar);
-			
-	}
 
 }
