@@ -3,15 +3,11 @@ package mx.uam.ayd.proyecto.presentacion.agendarCita;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import javax.swing.JFrame;
 
 import mx.uam.ayd.proyecto.presentacion.agregarUsuario.Pantalla;
 import org.springframework.stereotype.Component;

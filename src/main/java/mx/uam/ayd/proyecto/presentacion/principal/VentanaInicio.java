@@ -1,7 +1,5 @@
 package mx.uam.ayd.proyecto.presentacion.principal;
 
-import javax.swing.JPanel;
-
 import mx.uam.ayd.proyecto.presentacion.agregarUsuario.Pantalla;
 import org.springframework.stereotype.Component;
 

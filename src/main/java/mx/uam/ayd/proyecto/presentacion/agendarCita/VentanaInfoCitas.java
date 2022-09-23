@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import javax.swing.JFrame;
 import javax.swing.JList;
 
 import mx.uam.ayd.proyecto.negocio.modelo.Cita;
@@ -12,7 +11,6 @@ import mx.uam.ayd.proyecto.negocio.modelo.Cita;
 import mx.uam.ayd.proyecto.presentacion.agregarUsuario.Pantalla;
 import org.springframework.stereotype.Component;
 
-import lombok.*;
 import java.awt.Rectangle;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

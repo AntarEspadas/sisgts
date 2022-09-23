@@ -1,6 +1,5 @@
 package mx.uam.ayd.proyecto.presentacion.consultarCitas;
 
-import javax.swing.JFrame;
 import java.awt.GridBagLayout;
 import javax.swing.JTable;
 import java.awt.GridBagConstraints;
@@ -13,30 +12,19 @@ import javax.swing.table.DefaultTableModel;
 
 import org.springframework.stereotype.Component;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import mx.uam.ayd.proyecto.negocio.modelo.Cita;
 import mx.uam.ayd.proyecto.presentacion.agregarUsuario.Pantalla;
 import mx.uam.ayd.proyecto.util.Filtro;
-import mx.uam.ayd.proyecto.util.Operador;
 
 import java.awt.Rectangle;
 import javax.swing.JPanel;
-import java.awt.GridLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.FlowLayout;
-import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 
-import java.awt.BorderLayout;
-import javax.swing.JTextField;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 

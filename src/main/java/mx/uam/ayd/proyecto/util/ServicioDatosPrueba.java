@@ -1,21 +1,17 @@
 package mx.uam.ayd.proyecto.util;
 
-import ch.qos.logback.core.util.TimeUtil;
 import com.github.javafaker.Faker;
 import lombok.extern.slf4j.Slf4j;
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import mx.uam.ayd.proyecto.datos.RepositoryCita;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.Cita;
-import org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Servicio que ayuda a generar datos aleatorios para la base de datos

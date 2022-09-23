@@ -6,11 +6,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.springframework.stereotype.Component;
 
-import javax.swing.JLabel;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
