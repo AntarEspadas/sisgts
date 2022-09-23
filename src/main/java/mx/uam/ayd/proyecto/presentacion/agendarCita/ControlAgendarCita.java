@@ -80,7 +80,7 @@ public class ControlAgendarCita {
     	if (resultadoDialogo != 0) return;
 
     	log.info("Citas {}", agremiado.getCitas().size());
-    	log.info("Intentando agendar cita con los siguientes datos: fecha={}, hora={}, motivo={}, agrmeiado={}", fecha, hora, motivo, agremiado);
+    	log.info("Intentando agendar cita con los siguientes datos: fecha={}, hora={}, motivo={}, agremiado={}", fecha, hora, motivo, agremiado);
         int resultado = servicioCita.agendarCita(fecha, hora, motivo, agremiado);
     	log.info("Citas {}", agremiado.getCitas().size());
 

@@ -59,7 +59,7 @@ public class ProyectoApplication {
 	}
 
 	/**
-	 * Metodo que arranca la aplicacion
+	 * Método que arranca la aplicación
 	 * inicializa la bd y arranca el controlador
 	 * otro comentario
 	 */
