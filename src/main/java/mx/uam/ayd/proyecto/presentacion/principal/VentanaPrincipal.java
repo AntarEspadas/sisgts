@@ -22,7 +22,7 @@ import java.awt.event.MouseEvent;
 @Component
 public class VentanaPrincipal extends JFrame {
 
-	private JPanel mainPanel;
+	private JPanel contentPane;
 	
 	private ControlPrincipal control;
 	private JPanel panelContenido;
