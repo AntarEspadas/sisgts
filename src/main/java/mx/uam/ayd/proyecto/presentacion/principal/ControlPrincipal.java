@@ -22,12 +22,6 @@ import mx.uam.ayd.proyecto.presentacion.procesarTramites.ControlProcesarTramites
  */
 @Component
 public class ControlPrincipal {
-
-	@Autowired
-	private ControlAgregarUsuario controlAgregarUsuario;
-	
-	@Autowired
-	private ControlListarUsuarios controlListarUsuarios;
 	
 	@Autowired
 	private ControlConsultarCitas controlConsultarCitas;
@@ -58,24 +52,6 @@ public class ControlPrincipal {
 		ventana.muestra(this);
 	}
 
-	/**
-	 * Método que arranca la historia de usuario "agregar usuario"
-	 * 
-	 */
-	public void agregarUsuario() {
-		
-		controlAgregarUsuario.inicia();
-		
-	}
-	
-	/**
-	 * Método que arranca la historia de usuario "listar usuarios"
-	 * 
-	 */
-	public void listarUsuarios() {
-		controlListarUsuarios.inicia();
-	}
-
 	public void procesarTramites() {
 		controlProcesarTramites.inicia();
 	}
@@ -104,8 +80,7 @@ public class ControlPrincipal {
 			// TODO: llamar al controlador
 			throw new NotImplementedException();
 		else if (empleado != null)
-			// TODO: llamar al controlador
-			throw new NotImplementedException();
+			controlProcesarTramites.inicia();
 	}
 	
 	public void citas() {
