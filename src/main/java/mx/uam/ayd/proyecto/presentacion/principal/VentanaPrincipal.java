@@ -6,11 +6,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.springframework.stereotype.Component;
 
-import javax.swing.JLabel;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.GridLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -21,10 +17,10 @@ import java.awt.event.MouseEvent;
 @Component
 public class VentanaPrincipal extends JFrame {
 
-	private JPanel contentPane;
+	private final JPanel contentPane;
 	
 	private ControlPrincipal control;
-	private JPanel panelContenido;
+	private final JPanel panelContenido;
 	
 	private java.awt.Component componente;
 

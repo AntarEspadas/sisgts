@@ -1,14 +1,10 @@
 package mx.uam.ayd.proyecto;
 
 import javax.annotation.PostConstruct;
-import javax.swing.*;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLightLaf;
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
-import mx.uam.ayd.proyecto.datos.RepositoryCita;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
-import mx.uam.ayd.proyecto.negocio.modelo.Cita;
 import mx.uam.ayd.proyecto.util.ServicioDatosPrueba;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -17,8 +13,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import mx.uam.ayd.proyecto.datos.GrupoRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
 import mx.uam.ayd.proyecto.presentacion.principal.ControlPrincipal;
-
-import java.awt.*;
 
 /**
  * 
@@ -42,6 +36,9 @@ public class ProyectoApplication {
 	@Autowired
 	ServicioDatosPrueba servicioDatosPrueba;
 
+	@Autowired
+	RepositoryAgremiado repositoryAgremiado;
+
 	/**
 	 * 
 	 * Método principal
@@ -62,7 +59,7 @@ public class ProyectoApplication {
 	}
 
 	/**
-	 * Metodo que arranca la aplicacion
+	 * Método que arranca la aplicación
 	 * inicializa la bd y arranca el controlador
 	 * otro comentario
 	 */
@@ -92,6 +89,12 @@ public class ProyectoApplication {
 		Grupo grupoOps = new Grupo();
 		grupoOps.setNombre("Operadores");
 		grupoRepository.save(grupoOps);
+
+		var agremiado = new Agremiado();
+		agremiado.setClave("123456789");
+		agremiado.setNombre("Alan");
+		agremiado.setApellidos("Turing");
+		repositoryAgremiado.save(agremiado);
 
 		servicioDatosPrueba.generarDatos();
 
