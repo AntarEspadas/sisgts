@@ -51,8 +51,8 @@ public class SolicitudTramite {
 
     @Override
     public String toString() {
-        String cadena = "Solicitud " + String.valueOf(idSolicitud) + ", registrada el "+ String.valueOf(fechaSolicitud).substring(0,10) + ". Solicitud " + estado.toLowerCase();
-        return cadena;
+        
+        return "Solicitud " + String.valueOf(idSolicitud) + ". Solicitud " + estado.toLowerCase();
 
     }
     
