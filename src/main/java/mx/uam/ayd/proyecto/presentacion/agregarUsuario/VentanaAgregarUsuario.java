@@ -82,11 +82,7 @@ public class VentanaAgregarUsuario extends JFrame {
 		contentPane.add(btnAgregar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				control.termina();
-			}
-		});
+		btnCancelar.addActionListener(e -> control.termina());
 		btnCancelar.setBounds(157, 189, 117, 29);
 		contentPane.add(btnCancelar);
 		
@@ -103,13 +99,11 @@ public class VentanaAgregarUsuario extends JFrame {
 		
 		// Listeners
 		
-		btnAgregar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(textFieldNombre.getText().equals("") || textFieldApellido.getText().equals("")) {
-					muestraDialogoConMensaje("El nombre y el apellido no deben estar vacios");
-				} else {
-					control.agregaUsuario(textFieldNombre.getText(), textFieldApellido.getText(), (String) comboBoxGrupo.getSelectedItem());
-				}
+		btnAgregar.addActionListener(e -> {
+			if(textFieldNombre.getText().equals("") || textFieldApellido.getText().equals("")) {
+				muestraDialogoConMensaje("El nombre y el apellido no deben estar vacios");
+			} else {
+				control.agregaUsuario(textFieldNombre.getText(), textFieldApellido.getText(), (String) comboBoxGrupo.getSelectedItem());
 			}
 		});
 	

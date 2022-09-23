@@ -93,7 +93,7 @@ public class VentanaAgendarCita extends Pantalla {
 		gbc_datePanel.gridy = 2;
 		add(calendarPanel, gbc_datePanel);
 		
-		comboBox = new JComboBox<LocalTime>();
+		comboBox = new JComboBox<>();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.anchor = GridBagConstraints.NORTH;
@@ -182,7 +182,7 @@ public class VentanaAgendarCita extends Pantalla {
 		log.info("Horarios no disponibles: {}", horariosNoDisponibles);
 
 		if (nuevaFecha.isBefore(LocalDate.now().plusDays(1)))
-			horariosDisponibles = new ArrayList<LocalTime>();
+			horariosDisponibles = new ArrayList<>();
 		else if (horariosNoDisponibles == null || horariosNoDisponibles.size() == 0)
 			horariosDisponibles = horarios;
 		else

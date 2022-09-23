@@ -146,9 +146,7 @@ public class VentanaConsultarCitas extends Pantalla {
 				agregarFiltro();
 			}
 		});
-		btnAgregarFiltro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
+		btnAgregarFiltro.addActionListener(e -> {
 		});
 
 		JScrollPane scrollPane = new JScrollPane();

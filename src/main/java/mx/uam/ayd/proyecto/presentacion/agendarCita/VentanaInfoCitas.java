@@ -1,5 +1,6 @@
 package mx.uam.ayd.proyecto.presentacion.agendarCita;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -116,7 +117,7 @@ public class VentanaInfoCitas extends Pantalla {
 			(
 				citas.stream()
 					.filter(cita -> cita.getFecha().isAfter(ayer))
-					.sorted((c1, c2) -> c1.getFecha().compareTo(c2.getFecha()))
+					.sorted()
 					.map(cita -> cita.getFecha().format(fechaFormatter) + cita.getHora().format(horaFormatter))
 					.collect(Collectors.toList())
 			);
