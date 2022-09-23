@@ -92,7 +92,7 @@ public class ServicioDatosPrueba {
             citas.add(cita);
         }
 
-        citas = new ArrayList<>( (Collection<Cita>) repositoryCita.saveAll(citas));
+        new ArrayList<>( (Collection<Cita>) repositoryCita.saveAll(citas));
 
     }
 }
