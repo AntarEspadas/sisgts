@@ -57,17 +57,43 @@ public class VentanaConsultarCitas extends Pantalla {
 
 	private JTable table;
 	private JPanel panelFiltros;
+	private JButton btnTerminar;
+	private JButton btnAgregarFiltro;
+	private JScrollPane scrollPane_1;
+	private JButton btnEditarFiltros;
 
 	public VentanaConsultarCitas() {
 		setBounds(new Rectangle(100, 100, 500, 500));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 420, 0, 0};
-		gridBagLayout.rowHeights = new int[]{50, 152, 0, 212, 0, 0};
+		gridBagLayout.rowHeights = new int[]{30, 1, 1, 212, 0, 0};
 		gridBagLayout.columnWeights = new double[]{1.0, 1.0, 1.0, Double.MIN_VALUE};
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
+		btnEditarFiltros = new JButton("Editar filtros");
+		btnEditarFiltros.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				btnEditarFiltros.setVisible(false);
+				btnTerminar.setVisible(true);
+				btnAgregarFiltro.setVisible(true);
+				scrollPane_1.setVisible(true);
+				
+				gridBagLayout.rowHeights[0] = 1;
+				gridBagLayout.rowHeights[1] = 152;
+				gridBagLayout.rowHeights[2] = 40;
+			}
+		});
+		GridBagConstraints gbc_btnEditarFiltros = new GridBagConstraints();
+		gbc_btnEditarFiltros.anchor = GridBagConstraints.SOUTHWEST;
+		gbc_btnEditarFiltros.insets = new Insets(0, 0, 5, 5);
+		gbc_btnEditarFiltros.gridx = 1;
+		gbc_btnEditarFiltros.gridy = 0;
+		add(btnEditarFiltros, gbc_btnEditarFiltros);
+		
+		scrollPane_1 = new JScrollPane();
+		scrollPane_1.setVisible(false);
 		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
 		gbc_scrollPane_1.insets = new Insets(0, 0, 5, 5);
 		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
@@ -83,7 +109,49 @@ public class VentanaConsultarCitas extends Pantalla {
 		model.addElement("1");
 		model.addElement("2");
 		
-		JButton btnAgregarFiltro = new JButton("Agregar filtro");
+		JPanel panel = new JPanel();
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.insets = new Insets(0, 0, 5, 5);
+		gbc_panel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_panel.gridx = 1;
+		gbc_panel.gridy = 2;
+		add(panel, gbc_panel);
+		GridBagLayout gbl_panel = new GridBagLayout();
+		gbl_panel.columnWidths = new int[]{0, 0, 0, 0};
+		gbl_panel.rowHeights = new int[]{0, 0};
+		gbl_panel.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		panel.setLayout(gbl_panel);
+		
+		btnTerminar = new JButton("Terminar");
+		btnTerminar.setVisible(false);
+		btnTerminar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				btnEditarFiltros.setVisible(true);
+				btnTerminar.setVisible(false);
+				btnAgregarFiltro.setVisible(false);
+				scrollPane_1.setVisible(false);
+				
+				
+				gridBagLayout.rowHeights[0] = 30;
+				gridBagLayout.rowHeights[1] = 1;
+				gridBagLayout.rowHeights[2] = 1;
+			}
+		});
+		GridBagConstraints gbc_btnTerminar = new GridBagConstraints();
+		gbc_btnTerminar.fill = GridBagConstraints.VERTICAL;
+		gbc_btnTerminar.insets = new Insets(0, 0, 0, 5);
+		gbc_btnTerminar.gridx = 0;
+		gbc_btnTerminar.gridy = 0;
+		panel.add(btnTerminar, gbc_btnTerminar);
+		
+		btnAgregarFiltro = new JButton("Agregar filtro");
+		btnAgregarFiltro.setVisible(false);
+		GridBagConstraints gbc_btnAgregarFiltro = new GridBagConstraints();
+		gbc_btnAgregarFiltro.gridx = 2;
+		gbc_btnAgregarFiltro.gridy = 0;
+		panel.add(btnAgregarFiltro, gbc_btnAgregarFiltro);
 		btnAgregarFiltro.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -94,12 +162,6 @@ public class VentanaConsultarCitas extends Pantalla {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		GridBagConstraints gbc_btnAgregarFiltro = new GridBagConstraints();
-		gbc_btnAgregarFiltro.anchor = GridBagConstraints.EAST;
-		gbc_btnAgregarFiltro.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAgregarFiltro.gridx = 1;
-		gbc_btnAgregarFiltro.gridy = 2;
-		add(btnAgregarFiltro, gbc_btnAgregarFiltro);
 
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
