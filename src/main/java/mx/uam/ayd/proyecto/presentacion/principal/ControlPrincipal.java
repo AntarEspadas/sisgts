@@ -1,5 +1,6 @@
 package mx.uam.ayd.proyecto.presentacion.principal;
 
+import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -36,6 +37,9 @@ public class ControlPrincipal {
 	
 	@Autowired
 	private VentanaInicio ventanaInicio;
+
+	@Autowired
+	private RepositoryAgremiado repositoryAgremiado;
 	
 	private Agremiado agremiado;
 	
@@ -72,8 +76,7 @@ public class ControlPrincipal {
 	public void loginAgremiado() {
 		empleado = null;
 
-		agremiado = new Agremiado();
-		agremiado.setClave("1234");
+		agremiado = repositoryAgremiado.findById("123456789").get();
 	}
 	
 	public void loginEmpleado() {

@@ -2,9 +2,7 @@ package mx.uam.ayd.proyecto.presentacion.agendarCita;
 
 import mx.uam.ayd.proyecto.negocio.ServicioCita;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
-import mx.uam.ayd.proyecto.presentacion.principal.VentanaPrincipal;
 
-import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.stream.Collectors;
 
 import javax.swing.JOptionPane;
 
@@ -44,8 +41,7 @@ public class ControlAgendarCita {
      */
     public void inicia(Agremiado agremiado){
         this.agremiado = agremiado;
-        
-        var ayer = LocalDate.now().minusDays(1);
+
         infoCitas();
     }
 
@@ -84,7 +80,7 @@ public class ControlAgendarCita {
     	if (resultadoDialogo != 0) return;
 
     	log.info("Citas {}", agremiado.getCitas().size());
-    	log.info("Intentando agendar cita con los siguientes datos: fecha={}, hora={}, motivo={}, agrmeiado={}", fecha, hora, motivo, agremiado);
+    	log.info("Intentando agendar cita con los siguientes datos: fecha={}, hora={}, motivo={}, agremiado={}", fecha, hora, motivo, agremiado);
         int resultado = servicioCita.agendarCita(fecha, hora, motivo, agremiado);
     	log.info("Citas {}", agremiado.getCitas().size());
 

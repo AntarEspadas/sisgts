@@ -3,18 +3,13 @@ package mx.uam.ayd.proyecto.presentacion.agendarCita;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.swing.JFrame;
-
 import mx.uam.ayd.proyecto.presentacion.agregarUsuario.Pantalla;
-import org.jdatepicker.JDatePanel;
-import org.jdatepicker.UtilDateModel;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +27,12 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import com.github.lgooddatepicker.components.CalendarPanel;
+import com.github.lgooddatepicker.components.DatePickerSettings;
+import com.github.lgooddatepicker.optionalusertools.CalendarListener;
+import com.github.lgooddatepicker.zinternaltools.CalendarSelectionEvent;
+import com.github.lgooddatepicker.zinternaltools.YearMonthChangeEvent;
+
 @Slf4j
 @Component
 public class VentanaAgendarCita extends Pantalla {
@@ -40,10 +41,10 @@ public class VentanaAgendarCita extends Pantalla {
 	private Map<LocalDate, Set<LocalTime>> horariosNoDisponibles;
 	private List<LocalTime> horarios;
 	
-	private JDatePanel datePanel;
+	private final CalendarPanel calendarPanel;
 	private LocalDate fechaSeleccionada;
-	private JComboBox<LocalTime> comboBox;
-	private JTextArea txtrMotivo;
+	private final JComboBox<LocalTime> comboBox;
+	private final JTextArea txtrMotivo;
 
 	public VentanaAgendarCita() {
 		setBounds(new Rectangle(100, 100, 500, 500));
@@ -70,9 +71,19 @@ public class VentanaAgendarCita extends Pantalla {
 				gbc_lblHorario.gridy = 1;
 				add(lblHorario, gbc_lblHorario);
 
-		UtilDateModel model = new UtilDateModel();
-		datePanel = new JDatePanel(model);
-		datePanel.getModel().addChangeListener(e -> actualizarHorarios());
+		var manana = LocalDate.now().plusDays(1);
+		var settings = new DatePickerSettings(new Locale("es", "MX"));
+		settings.setAllowEmptyDates(false);
+		calendarPanel = new CalendarPanel(settings);
+		settings.setDateRangeLimits(manana, null);
+		calendarPanel.setSelectedDate(manana);
+		calendarPanel.addCalendarListener(new CalendarListener() {
+			public void selectedDateChanged(CalendarSelectionEvent event) {
+				actualizarHorarios();
+			}
+			public void yearMonthChanged(YearMonthChangeEvent event) {
+			}
+		});
 		GridBagConstraints gbc_datePanel = new GridBagConstraints();
 		gbc_datePanel.anchor = GridBagConstraints.WEST;
 		gbc_datePanel.gridwidth = 2;
@@ -80,9 +91,9 @@ public class VentanaAgendarCita extends Pantalla {
 		gbc_datePanel.insets = new Insets(0, 0, 5, 5);
 		gbc_datePanel.gridx = 1;
 		gbc_datePanel.gridy = 2;
-		add(datePanel, gbc_datePanel);
+		add(calendarPanel, gbc_datePanel);
 		
-		comboBox = new JComboBox<LocalTime>();
+		comboBox = new JComboBox<>();
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.anchor = GridBagConstraints.NORTH;
@@ -160,8 +171,7 @@ public class VentanaAgendarCita extends Pantalla {
 	}
 	
 	private void actualizarHorarios() {
-		var dateModel = datePanel.getModel();
-		var nuevaFecha = LocalDate.of(dateModel.getYear(), dateModel.getMonth() + 1, dateModel.getDay());
+		var nuevaFecha = calendarPanel.getSelectedDate();
 		
 		if (fechaSeleccionada != null && nuevaFecha.isEqual(fechaSeleccionada)) return;
 		fechaSeleccionada = nuevaFecha;
@@ -172,7 +182,7 @@ public class VentanaAgendarCita extends Pantalla {
 		log.info("Horarios no disponibles: {}", horariosNoDisponibles);
 
 		if (nuevaFecha.isBefore(LocalDate.now().plusDays(1)))
-			horariosDisponibles = new ArrayList<LocalTime>();
+			horariosDisponibles = new ArrayList<>();
 		else if (horariosNoDisponibles == null || horariosNoDisponibles.size() == 0)
 			horariosDisponibles = horarios;
 		else

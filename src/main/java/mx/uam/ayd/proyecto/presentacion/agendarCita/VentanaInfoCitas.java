@@ -1,10 +1,10 @@
 package mx.uam.ayd.proyecto.presentacion.agendarCita;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import javax.swing.JFrame;
 import javax.swing.JList;
 
 import mx.uam.ayd.proyecto.negocio.modelo.Cita;
@@ -12,7 +12,6 @@ import mx.uam.ayd.proyecto.negocio.modelo.Cita;
 import mx.uam.ayd.proyecto.presentacion.agregarUsuario.Pantalla;
 import org.springframework.stereotype.Component;
 
-import lombok.*;
 import java.awt.Rectangle;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -38,7 +37,7 @@ public class VentanaInfoCitas extends Pantalla {
 	
 	private ControlAgendarCita controlador;
 
-	private JList<String> listaCitas;
+	private final JList<String> listaCitas;
 
 	public VentanaInfoCitas() {
 		setBounds(new Rectangle(100, 100, 500, 400));
@@ -118,7 +117,7 @@ public class VentanaInfoCitas extends Pantalla {
 			(
 				citas.stream()
 					.filter(cita -> cita.getFecha().isAfter(ayer))
-					.sorted((c1, c2) -> c1.getFecha().compareTo(c2.getFecha()))
+					.sorted()
 					.map(cita -> cita.getFecha().format(fechaFormatter) + cita.getHora().format(horaFormatter))
 					.collect(Collectors.toList())
 			);
