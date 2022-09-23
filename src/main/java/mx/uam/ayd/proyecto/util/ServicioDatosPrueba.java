@@ -26,7 +26,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class ServicioDatosPrueba {
 
-    private Faker faker = new Faker(new Locale("es-MX"), new Random(0));
+    private final Faker faker = new Faker(new Locale("es-MX"), new Random(0));
 
     @Autowired
     RepositoryCita repositoryCita;

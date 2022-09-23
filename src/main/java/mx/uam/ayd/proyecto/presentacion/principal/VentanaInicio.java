@@ -17,7 +17,7 @@ import java.awt.event.MouseEvent;
 public class VentanaInicio extends Pantalla {
 	
 	private ControlPrincipal controlPrincipal;
-	private JLabel lblSesion;
+	private final JLabel lblSesion;
 
 	public VentanaInicio() {
 		GridBagLayout gridBagLayout = new GridBagLayout();

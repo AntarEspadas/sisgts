@@ -38,7 +38,7 @@ public class VentanaInfoCitas extends Pantalla {
 	
 	private ControlAgendarCita controlador;
 
-	private JList<String> listaCitas;
+	private final JList<String> listaCitas;
 
 	public VentanaInfoCitas() {
 		setBounds(new Rectangle(100, 100, 500, 400));

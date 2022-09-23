@@ -36,19 +36,19 @@ import com.github.lgooddatepicker.zinternaltools.DateChangeEvent;
 @Slf4j
 public class ComponenteFiltro extends JPanel {
 	
-	private ArrayList<CambioFiltroListener> listeners = new ArrayList<>();
+	private final ArrayList<CambioFiltroListener> listeners = new ArrayList<>();
 
 	@Getter
-	private JButton btnEliminar;
+	private final JButton btnEliminar;
 	
 	@Getter
-	private Filtro filtro;
+	private final Filtro filtro;
 	
 	private FiltroModel opcionSeleccionada;
 	
-	private DatePicker campoFecha;
+	private final DatePicker campoFecha;
 	
-	private JTextField campoTexto;
+	private final JTextField campoTexto;
 
 	GridBagConstraints gbc_campo;
 	
@@ -179,7 +179,7 @@ public class ComponenteFiltro extends JPanel {
 }
 
 interface CambioFiltroListener{
-	public void cambioFiltro(Filtro filtro);
+	void cambioFiltro(Filtro filtro);
 }
 
 @Getter

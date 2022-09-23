@@ -45,10 +45,10 @@ public class VentanaAgendarCita extends Pantalla {
 	private Map<LocalDate, Set<LocalTime>> horariosNoDisponibles;
 	private List<LocalTime> horarios;
 	
-	private CalendarPanel calendarPanel;
+	private final CalendarPanel calendarPanel;
 	private LocalDate fechaSeleccionada;
-	private JComboBox<LocalTime> comboBox;
-	private JTextArea txtrMotivo;
+	private final JComboBox<LocalTime> comboBox;
+	private final JTextArea txtrMotivo;
 
 	public VentanaAgendarCita() {
 		setBounds(new Rectangle(100, 100, 500, 500));

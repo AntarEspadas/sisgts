@@ -21,10 +21,10 @@ import java.awt.event.MouseEvent;
 @Component
 public class VentanaPrincipal extends JFrame {
 
-	private JPanel contentPane;
+	private final JPanel contentPane;
 	
 	private ControlPrincipal control;
-	private JPanel panelContenido;
+	private final JPanel panelContenido;
 	
 	private java.awt.Component componente;
 

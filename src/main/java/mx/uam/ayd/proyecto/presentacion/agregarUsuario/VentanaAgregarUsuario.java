@@ -23,11 +23,11 @@ import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
 @Component
 public class VentanaAgregarUsuario extends JFrame {
 
-	private JPanel contentPane;
+	private final JPanel contentPane;
 	private ControlAgregarUsuario control;
-	private JTextField textFieldNombre;
-	private JTextField textFieldApellido;
-	private JComboBox <String> comboBoxGrupo;
+	private final JTextField textFieldNombre;
+	private final JTextField textFieldApellido;
+	private final JComboBox <String> comboBoxGrupo;
 
 	/**
 	 * Launch the application.

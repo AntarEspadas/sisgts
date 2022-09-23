@@ -35,7 +35,7 @@ public class ControlConsultarCitas {
     }
 
     /**
-     * Devuelve una lista de filtros según una lista de criterios
+     * Devuelve una lista de citas según una lista de criterios
      *
      * @param filtros La lista de filtros
      *

@@ -55,12 +55,12 @@ public class VentanaConsultarCitas extends Pantalla {
 	
 	private List<Filtro> filtros;
 
-	private JTable table;
-	private JPanel panelFiltros;
-	private JButton btnTerminar;
-	private JButton btnAgregarFiltro;
-	private JScrollPane scrollPane_1;
-	private JButton btnEditarFiltros;
+	private final JTable table;
+	private final JPanel panelFiltros;
+	private final JButton btnTerminar;
+	private final JButton btnAgregarFiltro;
+	private final JScrollPane scrollPane_1;
+	private final JButton btnEditarFiltros;
 
 	public VentanaConsultarCitas() {
 		setBounds(new Rectangle(100, 100, 500, 500));

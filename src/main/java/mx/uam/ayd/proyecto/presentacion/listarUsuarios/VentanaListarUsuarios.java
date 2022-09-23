@@ -9,7 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 public class VentanaListarUsuarios extends JFrame {
 
-	private JPanel contentPane;
+	private final JPanel contentPane;
 
 	/**
 	 * Launch the application.
