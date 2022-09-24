@@ -164,7 +164,7 @@ public class ProyectoApplication {
 		documentoRepository.save(documento1Sol2);
 
 		Documento documento2Sol2 = new Documento();
-		documento2Sol2.setTipoDocumento("Comprobante de algo");
+		documento2Sol2.setTipoDocumento("Comprobante");
 		Path pdfPath3 = Paths.get(".\\src\\main\\resources\\Solicitud2Documento2.pdf");
 		byte[] pdf3 = Files.readAllBytes(pdfPath3);
 		documento2Sol2.setArchivo(pdf3);
@@ -197,7 +197,7 @@ public class ProyectoApplication {
 		solicitud3.setTipoTramite(tipo3);
 		solicitud3.setFechaSolicitud(new Date(System.currentTimeMillis()));
 		solicitud3.setSolicitante(empleado3);
-		solicitud3.setMotivoRechazo("Los documentos proporcionados no son legibles, favor de escanearlos y subirlos a la plataforma nuevamente.");
+		solicitud3.setMotivoRechazo("Archivos ilegibles");
 		solicitudTramiteRepository.save(solicitud3);
 		
 	}

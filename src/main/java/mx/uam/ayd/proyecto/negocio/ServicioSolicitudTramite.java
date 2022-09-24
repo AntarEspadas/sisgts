@@ -16,6 +16,10 @@ public class ServicioSolicitudTramite {
 
     public List<SolicitudTramite> findByEstadoNotFinalizado(){
         return solicitudTramiteRepository.findByEstadoNot("Finalizado");
+    }
+
+    public void save(SolicitudTramite solicitudSeleccionada) {
+        solicitudTramiteRepository.save(solicitudSeleccionada);
     };
     
 }

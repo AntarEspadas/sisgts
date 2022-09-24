@@ -25,16 +25,17 @@ public class VentanaProcesarTramites extends Pantalla {
     
     private ControlProcesarTramites control;
 
-    private JLabel lblNorth, lblNo, lblFecha, lblEstado, lblTipo, lblSolicitante, lblDocumentos;
+    private JLabel lblNorth, lblNo, lblFecha, lblEstado, lblTipo, lblSolicitante, lblDocumentos, lblMotivoRechazo;
+    private List<SolicitudTramite> solicitudes;
     private JList<String> listaSolicitudes;
     private JPanel panelProcesamientoSolicitudes, panelDatosSolicitud;
     private JScrollPane barraDespl;
-    private JButton btnDescargarDocumentos, btnSiguiente, btnTramitesFinalizados;
+    private JButton btnDescargarDocumentos, btnSiguiente, btnTramitesFinalizados, btnConfirmarRechazo;
     private JRadioButton radioBtnAceptar, radioBtnRechazar;
     private List <Documento> documentosAdjuntos;
     private File path;
     private SolicitudTramite solicitudSeleccionada;
-    private JComboBox comboBoxMotivosRechazo;
+    private JComboBox<String> comboBoxMotivosRechazo;
 
 
 
@@ -53,14 +54,12 @@ public class VentanaProcesarTramites extends Pantalla {
 
         panelProcesamientoSolicitudes = new JPanel();
         panelProcesamientoSolicitudes.setLayout(new FlowLayout());
-        panelProcesamientoSolicitudes.setBorder(new LineBorder(new Color(255,255,255), 2, true));
+        panelProcesamientoSolicitudes.setBorder(new EmptyBorder(10,10,10,10));
         add(panelProcesamientoSolicitudes, BorderLayout.CENTER);
         
         panelDatosSolicitud = new JPanel();
-        // panelDatosSolicitud.setBorder(new EmptyBorder(10,10,10,10));
-        panelDatosSolicitud.setBorder(new LineBorder(new Color(0,255,255), 2, true));
-        panelDatosSolicitud.setLayout(new GridLayout(7,1,10,10));
-        // add(panelDatosSolicitud, BorderLayout.CENTER);
+        panelDatosSolicitud.setBorder(new EmptyBorder(10,10,10,10));
+        panelDatosSolicitud.setLayout(new GridLayout(9,2,10,10));
         panelProcesamientoSolicitudes.add(panelDatosSolicitud);
         
         lblNo = new JLabel();
@@ -90,12 +89,14 @@ public class VentanaProcesarTramites extends Pantalla {
         btnSiguiente = new JButton("Siguiente");
         btnSiguiente.setFont(new Font("Arial", Font.PLAIN, 15));
 
-        comboBoxMotivosRechazo = new JComboBox();
+        lblMotivoRechazo = new JLabel("Motivo de rechazo: ");
+        lblMotivoRechazo.setFont(new Font("Arial", Font.BOLD, 15));
+        String[] opcionesComboBox = {"Archivos corruptos","Archivos ilegibles","Documentos no coincidentes con los requerimientos del trámite"};
+        comboBoxMotivosRechazo = new JComboBox<String>(opcionesComboBox);
         
+        btnConfirmarRechazo = new JButton("Confirmar rechazo de solicitud");
+        btnConfirmarRechazo.setFont(new Font("Arial", Font.PLAIN, 15));
 
-
-        /* panelLbls = new JPanel();
-        panelLbls.setLayout(new GridLayout(4,2,10,10)); */
 
         panelDatosSolicitud.add(lblNo);
         panelDatosSolicitud.add(lblFecha);
@@ -118,6 +119,12 @@ public class VentanaProcesarTramites extends Pantalla {
         panelDatosSolicitud.add(btnSiguiente);
         panelDatosSolicitud.add(new JLabel("")); // lbl vacio
 
+        panelDatosSolicitud.add(lblMotivoRechazo);
+        panelDatosSolicitud.add(comboBoxMotivosRechazo);
+
+        panelDatosSolicitud.add(btnConfirmarRechazo);
+        panelDatosSolicitud.add(new JLabel("")); // lbl vacio
+
         
         panelDatosSolicitud.setVisible(false);
         
@@ -126,13 +133,18 @@ public class VentanaProcesarTramites extends Pantalla {
         radioBtnAceptar.addActionListener(e -> radioBtnRechazar.setSelected(false));
         
         radioBtnRechazar.addActionListener(e -> radioBtnAceptar.setSelected(false));
+
+        btnSiguiente.addActionListener(e -> procesarSolicitud(solicitudSeleccionada));
         
+        btnConfirmarRechazo.addActionListener(e -> confirmarRechazo(solicitudSeleccionada));
 
     }
 
-    public void muestra(List<SolicitudTramite> solicitudes, ControlProcesarTramites control) {
+
+    public void muestra(List<SolicitudTramite> solicitudes_, ControlProcesarTramites control) {
         
         this.control = control;
+        this.solicitudes = solicitudes_;
 
         String [] datosListaSolicitudes = new String [solicitudes.size()];
         
@@ -178,10 +190,7 @@ public class VentanaProcesarTramites extends Pantalla {
         });
     }
     
-
     public void ventanaTramitePendiente(SolicitudTramite solicitudSeleccionada_) {
-
-        // log.info("Seleccionada solicitud pendiente");
 
         this.solicitudSeleccionada = solicitudSeleccionada_;
 
@@ -191,6 +200,9 @@ public class VentanaProcesarTramites extends Pantalla {
         radioBtnRechazar.setSelected(false);
         btnDescargarDocumentos.setVisible(true);
         btnSiguiente.setVisible(true);
+        lblMotivoRechazo.setVisible(false);
+        comboBoxMotivosRechazo.setVisible(false);
+        btnConfirmarRechazo.setVisible(false);
 
         lblNo.setText("Número de solicitud: "+String.valueOf(solicitudSeleccionada.getIdSolicitud()));
         lblFecha.setText("Fecha de registro: "+String.valueOf(solicitudSeleccionada.getFechaSolicitud()).substring(0,10));
@@ -206,7 +218,6 @@ public class VentanaProcesarTramites extends Pantalla {
         for (Documento documento : documentosAdjuntos) {
             strDocumentos += " " + documento.getTipoDocumento();
         }
-        strDocumentos += ".";
         lblDocumentos.setText("Documentos: " + strDocumentos);
 
         documentosAdjuntos = solicitudSeleccionada.getRequisitos();
@@ -217,14 +228,51 @@ public class VentanaProcesarTramites extends Pantalla {
 
     public void ventanaTramiteEnProgreso(SolicitudTramite solicitudSeleccionada) {
 
-        // log.info("Seleccionada solicitud en progreso");
-
         this.solicitudSeleccionada = solicitudSeleccionada;
 
         radioBtnAceptar.setVisible(false);
         radioBtnRechazar.setVisible(false);
         btnDescargarDocumentos.setVisible(true);
         btnSiguiente.setVisible(false);
+        lblMotivoRechazo.setVisible(false);
+        comboBoxMotivosRechazo.setVisible(false);
+        btnConfirmarRechazo.setVisible(false);
+
+        lblNo.setText("Número de solicitud: "+String.valueOf(solicitudSeleccionada.getIdSolicitud()));
+        lblFecha.setText("Fecha de registro: "+String.valueOf(solicitudSeleccionada.getFechaSolicitud()).substring(0,10));
+
+        lblEstado.setText("Estado de la solicitud: "+solicitudSeleccionada.getEstado());
+        lblTipo.setText("Trámite solicitado: "+solicitudSeleccionada.getTipoTramite().getNombreTramite());
+
+        lblSolicitante.setText("Solicitante: "+solicitudSeleccionada.getSolicitante().getNombre() + " " + solicitudSeleccionada.getSolicitante().getApellidos()+" ("+solicitudSeleccionada.getSolicitante().getClave()+")");
+        
+        documentosAdjuntos = solicitudSeleccionada.getRequisitos();
+        
+        String strDocumentos = "";
+        for (Documento documento : documentosAdjuntos) {
+            strDocumentos += " " + documento.getTipoDocumento();
+        }
+        lblDocumentos.setText("Documentos: " + strDocumentos);
+
+        documentosAdjuntos = solicitudSeleccionada.getRequisitos();
+
+        panelDatosSolicitud.setVisible(true);
+        
+    }
+
+    public void ventanaTramiteRechazado(SolicitudTramite solicitudSeleccionada_) {
+        
+        this.solicitudSeleccionada = solicitudSeleccionada_;
+
+        radioBtnAceptar.setVisible(false);
+        radioBtnRechazar.setVisible(false);
+        btnDescargarDocumentos.setVisible(false);
+        btnSiguiente.setVisible(false);
+        lblMotivoRechazo.setVisible(true);
+        comboBoxMotivosRechazo.setVisible(true);
+        comboBoxMotivosRechazo.setSelectedItem(solicitudSeleccionada.getMotivoRechazo());
+        comboBoxMotivosRechazo.setEnabled(false);
+        btnConfirmarRechazo.setVisible(false);
 
         lblNo.setText("Número de solicitud: "+String.valueOf(solicitudSeleccionada.getIdSolicitud()));
         lblFecha.setText("Fecha de registro: "+String.valueOf(solicitudSeleccionada.getFechaSolicitud()).substring(0,10));
@@ -246,12 +294,7 @@ public class VentanaProcesarTramites extends Pantalla {
         documentosAdjuntos = solicitudSeleccionada.getRequisitos();
 
         panelDatosSolicitud.setVisible(true);
-        
-    }
 
-    public void ventanaTramiteRechazado(SolicitudTramite solicitudSeleccionada) {
-        
-        // log.info("Seleccionada solicitud rechazada");
         
 
     }
@@ -273,6 +316,79 @@ public class VentanaProcesarTramites extends Pantalla {
 
     }
     
+    public void procesarSolicitud(SolicitudTramite solicitudSeleccionada){
+        if (radioBtnAceptar.isSelected()) {
+            
+            int opcionSeleccionada = JOptionPane.showConfirmDialog(this,"¿Esta seguro de aceptar los documentos y marcar la solicitud como \"En progreso\"?","Confirmar selección",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            
+            if (opcionSeleccionada == 0) {
+                
+                int index = solicitudes.indexOf(solicitudSeleccionada);
+                solicitudes.remove(solicitudSeleccionada);
+                SolicitudTramite solicitudActualizada = control.aceptarDocumentos(solicitudSeleccionada);
+                actualizarLista(index, solicitudActualizada);
+                
+            }
+
+        } else if (radioBtnRechazar.isSelected()) {
+
+            int opcionSeleccionada = JOptionPane.showConfirmDialog(this,"¿Esta seguro de rechazar los documentos y marcar la solicitud como \"Rechazada\"?","Confirmar selección",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+
+            if (opcionSeleccionada == 0) {
+
+                btnDescargarDocumentos.setVisible(false);
+                btnSiguiente.setVisible(false);
+                radioBtnAceptar.setVisible(false);
+                radioBtnRechazar.setVisible(false);
+                lblMotivoRechazo.setVisible(true);
+                comboBoxMotivosRechazo.setSelectedIndex(0);
+                comboBoxMotivosRechazo.setVisible(true);
+                comboBoxMotivosRechazo.setEnabled(true);
+                btnConfirmarRechazo.setVisible(true);
+
+            }
+
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione 'Aceptar documentos' o 'Rechazar documentos' antes de proceder", "Operación no válida", JOptionPane.WARNING_MESSAGE);
+        }
+
+    }
+
+    private void confirmarRechazo(SolicitudTramite solicitudSeleccionada) {
+        
+        String motivoRechazo = comboBoxMotivosRechazo.getSelectedItem().toString();
+        int index = solicitudes.indexOf(solicitudSeleccionada);
+        solicitudes.remove(solicitudSeleccionada);
+        SolicitudTramite solicitudActualizada = control.rechazarDocumentos(solicitudSeleccionada, motivoRechazo);
+        actualizarLista(index, solicitudActualizada);
+        
+    }
+
+    public void actualizarLista(int index, SolicitudTramite solicitudActualizada) {
+        
+        this.solicitudes.add(index, solicitudActualizada);
+
+
+        String [] datosListaSolicitudes = new String [solicitudes.size()];
+        
+        int i = 0;
+        for (SolicitudTramite solicitud : solicitudes) {
+            datosListaSolicitudes[i] = solicitud.toString();
+            i++;
+        }
+
+        try {
+            listaSolicitudes.setListData(datosListaSolicitudes);
+        } catch (IndexOutOfBoundsException e) {
+            listaSolicitudes.setSelectedIndex(index);
+            this.solicitudSeleccionada = solicitudActualizada;
+        }
+        
+
+    }
+
+
 
 
 }
