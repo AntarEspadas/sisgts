@@ -4,6 +4,6 @@ import org.springframework.data.repository.CrudRepository;
 
 import mx.uam.ayd.proyecto.negocio.modelo.TipoTramite;
 
-public interface TipoTramiteRepository extends CrudRepository <TipoTramite, Long> {
+public interface RepositoryTipoTramite extends CrudRepository <TipoTramite, Long> {
     
 }

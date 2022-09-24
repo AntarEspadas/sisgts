@@ -22,10 +22,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
-import mx.uam.ayd.proyecto.datos.AgremiadoRepository;
-import mx.uam.ayd.proyecto.datos.DocumentoRepository;
-import mx.uam.ayd.proyecto.datos.SolicitudTramiteRepository;
-import mx.uam.ayd.proyecto.datos.TipoTramiteRepository;
+import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
+import mx.uam.ayd.proyecto.datos.RepositoryDocumento;
+import mx.uam.ayd.proyecto.datos.RepositorySolicitudTramite;
+import mx.uam.ayd.proyecto.datos.RepositoryTipoTramite;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.Documento;
 import mx.uam.ayd.proyecto.negocio.modelo.SolicitudTramite;
@@ -51,16 +51,16 @@ public class ProyectoApplication {
 	ControlPrincipal controlPrincipal;
 	
 	@Autowired
-	AgremiadoRepository agremiadoRepository;
+	RepositoryAgremiado RepositoryAgremiado;
 
 	@Autowired
-	SolicitudTramiteRepository solicitudTramiteRepository;
+	RepositorySolicitudTramite solicitudTramiteRepository;
 
 	@Autowired
-	TipoTramiteRepository tipoTramiteRepository;
+	RepositoryTipoTramite tipoTramiteRepository;
 
 	@Autowired
-	DocumentoRepository documentoRepository;
+	RepositoryDocumento documentoRepository;
 
 	@Autowired
 	ServicioDatosPrueba servicioDatosPrueba;
@@ -113,19 +113,19 @@ public class ProyectoApplication {
 		empleado1.setClave("SD18SADS345");
 		empleado1.setNombre("JOSE");
 		empleado1.setApellidos("CAMPOS GALINDO");
-		agremiadoRepository.save(empleado1);
+		RepositoryAgremiado.save(empleado1);
 
 		Agremiado empleado2 = new Agremiado();
 		empleado2.setClave("FD1F5SFD3S");
 		empleado2.setNombre("ALAN");
 		empleado2.setApellidos("ESPINOZA GARCÍA");
-		agremiadoRepository.save(empleado2);
+		RepositoryAgremiado.save(empleado2);
 
 		Agremiado empleado3 = new Agremiado();
 		empleado3.setClave("D1F8D641C4");
 		empleado3.setNombre("GABRIEL");
 		empleado3.setApellidos("GONZALES CRUZ");
-		agremiadoRepository.save(empleado3);
+		RepositoryAgremiado.save(empleado3);
 		
 
 		/***** Datos para TipoTramite *****/

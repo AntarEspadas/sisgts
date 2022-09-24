@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
-import mx.uam.ayd.proyecto.datos.SolicitudTramiteRepository;
+import mx.uam.ayd.proyecto.datos.RepositorySolicitudTramite;
 import mx.uam.ayd.proyecto.negocio.modelo.Documento;
 import mx.uam.ayd.proyecto.negocio.modelo.SolicitudTramite;
 
@@ -19,7 +19,7 @@ import mx.uam.ayd.proyecto.negocio.modelo.SolicitudTramite;
 public class ServicioSolicitudTramite {
 
     @Autowired
-    private SolicitudTramiteRepository solicitudTramiteRepository;
+    private RepositorySolicitudTramite solicitudTramiteRepository;
 
     @Autowired
     private ServicioDocumento servicioDocumento;
