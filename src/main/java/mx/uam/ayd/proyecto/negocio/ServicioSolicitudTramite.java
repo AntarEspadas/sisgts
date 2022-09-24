@@ -1,5 +1,6 @@
 package mx.uam.ayd.proyecto.negocio;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class ServicioSolicitudTramite {
 
     public SolicitudTramite aceptarDocumentos(SolicitudTramite solicitudSeleccionada) {
         solicitudSeleccionada.setEstado("En progreso");
+        solicitudSeleccionada.setFechaAceptacion(new Date(System.currentTimeMillis()));
         save(solicitudSeleccionada);
         return solicitudSeleccionada;
     }

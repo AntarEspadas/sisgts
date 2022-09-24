@@ -43,8 +43,7 @@ public class SolicitudTramite {
 
     private String motivoRechazo;
 
-	@OneToOne(targetEntity = Documento.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Documento acuse;
+	private Date fechaAceptacion;
 
     @OneToOne(targetEntity = Documento.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Documento documentoTramite;
