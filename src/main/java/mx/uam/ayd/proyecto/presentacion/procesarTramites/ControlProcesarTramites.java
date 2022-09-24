@@ -48,30 +48,17 @@ public class ControlProcesarTramites {
 
     public SolicitudTramite aceptarDocumentos(SolicitudTramite solicitudSeleccionada) {
         
-        solicitudSeleccionada.setEstado("En progreso");
-        
-        servicioSolicitudTramite.save(solicitudSeleccionada);
+        SolicitudTramite solicitudActualizada = servicioSolicitudTramite.aceptarDocumentos(solicitudSeleccionada);
 
-        return solicitudSeleccionada;
+        return solicitudActualizada;
 
     }
 
     public SolicitudTramite rechazarDocumentos(SolicitudTramite solicitudSeleccionada, String motivoRechazo) {
         
-        List<Documento> documentosParaRechazar = solicitudSeleccionada.getRequisitos();
-        for (Documento documento : documentosParaRechazar) {
-            servicioDocumento.delete(documento);
-        }
+        SolicitudTramite solicitudActualizada = servicioSolicitudTramite.rechazarDocumentos(solicitudSeleccionada, motivoRechazo);
 
-        solicitudSeleccionada.setEstado("Rechazada");
-
-        solicitudSeleccionada.setRequisitos(new ArrayList<Documento> ());
-        
-        solicitudSeleccionada.setMotivoRechazo(motivoRechazo);
-
-        servicioSolicitudTramite.save(solicitudSeleccionada);
-
-        return solicitudSeleccionada;
+        return solicitudActualizada;
 
     }
     
