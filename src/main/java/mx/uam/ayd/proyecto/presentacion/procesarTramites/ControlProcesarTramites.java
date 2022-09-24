@@ -1,6 +1,7 @@
 package mx.uam.ayd.proyecto.presentacion.procesarTramites;
 
 
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +61,18 @@ public class ControlProcesarTramites {
 
         return solicitudActualizada;
 
+    }
+
+    public SolicitudTramite finalizarTramite(SolicitudTramite solicitudSeleccionada, Path pathDocTramiteFinalizado) {
+        
+        SolicitudTramite solicitudActualizada = servicioSolicitudTramite.finalizarTramite(solicitudSeleccionada, pathDocTramiteFinalizado);
+
+        return solicitudActualizada;
+
+    }
+
+    public void tramiteFinalizado(SolicitudTramite solicitudSeleccionada) {
+        
     }
     
 }

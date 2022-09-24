@@ -48,6 +48,8 @@ public class SolicitudTramite {
     @OneToOne(targetEntity = Documento.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Documento documentoTramite;
 
+    private Date fechaFinalizacion;
+
     @Override
     public String toString() {
         
