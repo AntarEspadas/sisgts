@@ -1,6 +1,5 @@
 package mx.uam.ayd.proyecto.presentacion.procesarTramites;
 
-
 import java.nio.file.Path;
 import java.util.List;
 
@@ -9,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.negocio.ServicioSolicitudTramite;
 import mx.uam.ayd.proyecto.negocio.modelo.SolicitudTramite;
-
 
 @Component
 public class ControlProcesarTramites {
@@ -50,13 +48,15 @@ public class ControlProcesarTramites {
     }
 
     public SolicitudTramite rechazarDocumentos(SolicitudTramite solicitudSeleccionada, String motivoRechazo) {
-        SolicitudTramite solicitudActualizada = servicioSolicitudTramite.rechazarDocumentos(solicitudSeleccionada, motivoRechazo);
+        SolicitudTramite solicitudActualizada = servicioSolicitudTramite.rechazarDocumentos(solicitudSeleccionada,
+                motivoRechazo);
         return solicitudActualizada;
 
     }
 
     public SolicitudTramite finalizarTramite(SolicitudTramite solicitudSeleccionada, Path pathDocTramiteFinalizado) {
-        SolicitudTramite solicitudActualizada = servicioSolicitudTramite.finalizarTramite(solicitudSeleccionada, pathDocTramiteFinalizado);
+        SolicitudTramite solicitudActualizada = servicioSolicitudTramite.finalizarTramite(solicitudSeleccionada,
+                pathDocTramiteFinalizado);
         return solicitudActualizada;
 
     }
@@ -80,5 +80,5 @@ public class ControlProcesarTramites {
     public void alternarVista() {
         ventana.finalizarTramite();
     }
-    
+
 }
