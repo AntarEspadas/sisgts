@@ -42,8 +42,6 @@ public class VentanaProcesarTramites extends Pantalla {
     private JFileChooser chooser;
     private FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos PDF","pdf");
 
-
-
     public VentanaProcesarTramites(){
         setBounds(new Rectangle(100, 100, 500, 500));
         setLayout(new BorderLayout());
@@ -143,21 +141,16 @@ public class VentanaProcesarTramites extends Pantalla {
         panelDatosSolicitud.setVisible(false);
 
 
-
         listaSolicitudes = new JList<String> ();
         barraDespl = new JScrollPane(listaSolicitudes);
         add(barraDespl, BorderLayout.WEST);
 
 
-
         listaSolicitudes.addListSelectionListener(new ListSelectionListener() {
-
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 int index = listaSolicitudes.getSelectedIndex();
-
                 SolicitudTramite solicitudSeleccionada;
-
                 String vista = btnAlternarVista.getText();
 
                 switch (vista) {
@@ -195,25 +188,23 @@ public class VentanaProcesarTramites extends Pantalla {
             }
         });
         
-        btnDescargarDocumentos.addActionListener(e -> guardarDocumentos(solicitudSeleccionada));
+        btnDescargarDocumentos.addActionListener(e -> control.guardarDocumentos(solicitudSeleccionada));
 
         radioBtnAceptar.addActionListener(e -> radioBtnRechazar.setSelected(false));
         
         radioBtnRechazar.addActionListener(e -> radioBtnAceptar.setSelected(false));
 
-        btnSiguiente.addActionListener(e -> procesarSolicitud(solicitudSeleccionada));
+        btnSiguiente.addActionListener(e -> control.procesarSolicitud(solicitudSeleccionada));
         
-        btnConfirmarRechazo.addActionListener(e -> confirmarRechazo(solicitudSeleccionada));
+        btnConfirmarRechazo.addActionListener(e -> control.confirmarRechazo(solicitudSeleccionada));
 
-        btnAdjuntarDocTramite.addActionListener(e -> adjuntarArchivo());
+        btnAdjuntarDocTramite.addActionListener(e -> control.adjuntarArchivo());
 
         btnFinalizarTramite.addActionListener(e -> finalizarTramite());
 
-        btnAlternarVista.addActionListener(e -> alternarVista());
-
+        btnAlternarVista.addActionListener(e -> control.alternarVista());
 
     }
-
 
     protected void muestra(List<SolicitudTramite> solicitudes_, List<SolicitudTramite> solicitudesFinalizadas_, ControlProcesarTramites control) {
         
@@ -236,7 +227,6 @@ public class VentanaProcesarTramites extends Pantalla {
         if (solicitudes.size() == 0 ) {
             JOptionPane.showMessageDialog(this, "No hay solicitudes de trámites activas", "", JOptionPane.INFORMATION_MESSAGE);
         }
-
         
     }
     
@@ -392,24 +382,35 @@ public class VentanaProcesarTramites extends Pantalla {
 
     }
 
-    private void guardarDocumentos(SolicitudTramite solicitudSeleccionada){
+    protected void guardarDocumentos(SolicitudTramite solicitudSeleccionada){
         
-        for (Documento documento : documentosAdjuntos) {
-            File path = new File (FileSystemView.getFileSystemView().getHomeDirectory()+"\\DocsSisGTS\\Solicitud"+
-            String.valueOf(solicitudSeleccionada.getIdSolicitud())+documento.getTipoDocumento()+".pdf");
+        chooser = new JFileChooser();
+        chooser.setCurrentDirectory(FileSystemView.getFileSystemView().getHomeDirectory());
+        chooser.setDialogTitle("Seleccione una ruta");
+        chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        chooser.setAcceptAllFileFilterUsed(false);
 
-            try (FileOutputStream out = new FileOutputStream(path)) {
-                out.write(documento.getArchivo());
-                out.close();
-
-            } catch (Exception e_) {
-                log.info("Error: "+e_.getMessage());
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            for (Documento documento : documentosAdjuntos) {
+                File path = new File (chooser.getSelectedFile()+"\\Solicitud"+String.valueOf(solicitudSeleccionada.getIdSolicitud())+documento.getTipoDocumento()+".pdf");
+    
+                try (FileOutputStream out = new FileOutputStream(path)) {
+                    out.write(documento.getArchivo());
+                    out.close();
+    
+                } catch (Exception e_) {
+                    log.info("Error: "+e_.getMessage());
+                }
             }
+
         }
+
+
+        
 
     }
     
-    private void procesarSolicitud(SolicitudTramite solicitudSeleccionada){
+    protected void procesarSolicitud(SolicitudTramite solicitudSeleccionada){
         if (radioBtnAceptar.isSelected()) {
             
             int opcionSeleccionada = JOptionPane.showConfirmDialog(this,"¿Esta seguro de aceptar los documentos y marcar la solicitud como \"En progreso\"?","Confirmar selección",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -448,7 +449,7 @@ public class VentanaProcesarTramites extends Pantalla {
 
     }
 
-    private void confirmarRechazo(SolicitudTramite solicitudSeleccionada) {
+    protected void confirmarRechazo(SolicitudTramite solicitudSeleccionada) {
         
         String motivoRechazo = comboBoxMotivosRechazo.getSelectedItem().toString();
         int index = solicitudes.indexOf(solicitudSeleccionada);
@@ -458,7 +459,7 @@ public class VentanaProcesarTramites extends Pantalla {
         
     }
 
-    private void actualizarLista(int index, SolicitudTramite solicitudActualizada) {
+    protected void actualizarLista(int index, SolicitudTramite solicitudActualizada) {
         
         if (solicitudSeleccionada.getEstado() == "Finalizado") {
             String [] datosListaSolicitudes = new String [solicitudes.size()];
@@ -494,9 +495,10 @@ public class VentanaProcesarTramites extends Pantalla {
 
     }
 
-    private void adjuntarArchivo() {
+    protected void adjuntarArchivo() {
         
         chooser = new JFileChooser();
+        chooser.setAcceptAllFileFilterUsed(false);
         chooser.setFileFilter(filter);
         
         int returnVal = chooser.showOpenDialog(this);
@@ -511,7 +513,7 @@ public class VentanaProcesarTramites extends Pantalla {
 
     }
 
-    private void finalizarTramite(){
+    protected void finalizarTramite(){
 
         solicitudes.remove(solicitudSeleccionada);
         SolicitudTramite solicitudActualizada = control.finalizarTramite(solicitudSeleccionada, pathDocTramiteFinalizado);
@@ -519,7 +521,7 @@ public class VentanaProcesarTramites extends Pantalla {
 
     }
 
-    private void alternarVista() {    
+    protected void alternarVista() {    
         if (btnAlternarVista.getText() == "Ver trámites finalizados") {
             panelDatosSolicitud.setVisible(false);
             btnAlternarVista.setText("Ver solicitudes de trámites activas");
