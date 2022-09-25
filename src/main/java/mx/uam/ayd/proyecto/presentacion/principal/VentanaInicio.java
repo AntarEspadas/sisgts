@@ -25,7 +25,7 @@ public class VentanaInicio extends Pantalla {
 		gridBagLayout.rowWeights = new double[]{1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		JLabel lblBienvenida = new JLabel("Bienvenodo al sistema de administración SISGTS");
+		JLabel lblBienvenida = new JLabel("Bienvenido al sistema de administración SISGTS");
 		GridBagConstraints gbc_lblBienvenida = new GridBagConstraints();
 		gbc_lblBienvenida.gridwidth = 3;
 		gbc_lblBienvenida.insets = new Insets(0, 0, 5, 5);
