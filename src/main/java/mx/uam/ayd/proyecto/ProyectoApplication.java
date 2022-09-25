@@ -183,7 +183,7 @@ public class ProyectoApplication {
 		solicitudTramiteRepository.save(solicitud1);
 
 		SolicitudTramite solicitud2 = new SolicitudTramite();
-		solicitud2.setEstado("En progreso");
+		solicitud2.setEstado("Pendiente");
 		solicitud2.setTipoTramite(tipo2);
 		solicitud2.setFechaSolicitud(new Date(System.currentTimeMillis()));
 		List<Documento> listaReqs2 = new ArrayList<Documento> ();

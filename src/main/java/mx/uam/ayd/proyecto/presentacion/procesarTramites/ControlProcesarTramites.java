@@ -30,8 +30,9 @@ public class ControlProcesarTramites {
     public void inicia() {
 
         List<SolicitudTramite> solicitudes = servicioSolicitudTramite.findByEstadoNotFinalizado();
+        List<SolicitudTramite> solicitudesFinalizadas = servicioSolicitudTramite.findByEstadoFinalizado();
 
-        ventana.muestra(solicitudes, this);
+        ventana.muestra(solicitudes, solicitudesFinalizadas, this);
 
     }
 
@@ -45,6 +46,10 @@ public class ControlProcesarTramites {
 
     public void tramiteRechazado(SolicitudTramite solicitudSeleccionada) {
         ventana.ventanaTramiteRechazado(solicitudSeleccionada);
+    }
+
+    public void tramiteFinalizado(SolicitudTramite solicitudSeleccionada) {
+        ventana.ventanaTramiteFinalizado(solicitudSeleccionada);
     }
 
     public SolicitudTramite aceptarDocumentos(SolicitudTramite solicitudSeleccionada) {
@@ -69,10 +74,6 @@ public class ControlProcesarTramites {
 
         return solicitudActualizada;
 
-    }
-
-    public void tramiteFinalizado(SolicitudTramite solicitudSeleccionada) {
-        
     }
     
 }

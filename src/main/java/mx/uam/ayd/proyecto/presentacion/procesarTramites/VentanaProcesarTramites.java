@@ -29,11 +29,11 @@ public class VentanaProcesarTramites extends Pantalla {
     private ControlProcesarTramites control;
 
     private JLabel lblNorth, lblNo, lblFecha, lblEstado, lblTipo, lblSolicitante, lblDocumentos, lblMotivoRechazo, lblArchivoAdjunto;
-    private List<SolicitudTramite> solicitudes;
+    private List<SolicitudTramite> solicitudes, solicitudesFinalizadas;
     private JList<String> listaSolicitudes;
     private JPanel panelProcesamientoSolicitudes, panelDatosSolicitud;
     private JScrollPane barraDespl;
-    private JButton btnDescargarDocumentos, btnSiguiente, btnTramitesFinalizados, btnConfirmarRechazo, btnAdjuntarDocTramite, btnFinalizarTramite;
+    private JButton btnDescargarDocumentos, btnSiguiente, btnAlternarVista, btnConfirmarRechazo, btnAdjuntarDocTramite, btnFinalizarTramite;
     private JRadioButton radioBtnAceptar, radioBtnRechazar;
     private List <Documento> documentosAdjuntos;
     private Path pathDocTramiteFinalizado;
@@ -54,8 +54,8 @@ public class VentanaProcesarTramites extends Pantalla {
         lblNorth.setHorizontalAlignment(SwingConstants.CENTER);
         add(lblNorth, BorderLayout.NORTH);
 
-        btnTramitesFinalizados = new JButton("Tramites finalizados");
-        add(btnTramitesFinalizados, BorderLayout.SOUTH);
+        btnAlternarVista = new JButton("Ver trámites finalizados");
+        add(btnAlternarVista, BorderLayout.SOUTH);
 
         panelProcesamientoSolicitudes = new JPanel();
         panelProcesamientoSolicitudes.setLayout(new FlowLayout());
@@ -140,54 +140,35 @@ public class VentanaProcesarTramites extends Pantalla {
 
         panelDatosSolicitud.add(btnFinalizarTramite);
 
-        
         panelDatosSolicitud.setVisible(false);
-        
-        btnDescargarDocumentos.addActionListener(e -> guardarDocumentos(solicitudSeleccionada));
-
-        radioBtnAceptar.addActionListener(e -> radioBtnRechazar.setSelected(false));
-        
-        radioBtnRechazar.addActionListener(e -> radioBtnAceptar.setSelected(false));
-
-        btnSiguiente.addActionListener(e -> procesarSolicitud(solicitudSeleccionada));
-        
-        btnConfirmarRechazo.addActionListener(e -> confirmarRechazo(solicitudSeleccionada));
-
-        btnAdjuntarDocTramite.addActionListener(e -> adjuntarArchivo());
-
-        btnFinalizarTramite.addActionListener(e -> finalizarTramite());
 
 
-    }
 
-
-    protected void muestra(List<SolicitudTramite> solicitudes_, ControlProcesarTramites control) {
-        
-        this.control = control;
-        this.solicitudes = solicitudes_;
-
-        String [] datosListaSolicitudes = new String [solicitudes.size()];
-        
-        int i = 0;
-        for (SolicitudTramite solicitud : solicitudes) {
-            datosListaSolicitudes[i] = solicitud.toString();
-            i++;
-        }
-
-        listaSolicitudes = new JList<String> (datosListaSolicitudes);
+        listaSolicitudes = new JList<String> ();
         barraDespl = new JScrollPane(listaSolicitudes);
-
         add(barraDespl, BorderLayout.WEST);
 
-        setVisible(true);
+
 
         listaSolicitudes.addListSelectionListener(new ListSelectionListener() {
 
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                
                 int index = listaSolicitudes.getSelectedIndex();
-                SolicitudTramite solicitudSeleccionada = solicitudes.get(index);
+
+                SolicitudTramite solicitudSeleccionada;
+
+                String vista = btnAlternarVista.getText();
+
+                switch (vista) {
+                    case "Ver trámites finalizados":
+                        solicitudSeleccionada = solicitudes.get(index);
+                        break;
+                    default:
+                        solicitudSeleccionada = solicitudesFinalizadas.get(index);
+                        break;
+                }
+                
                 String estadoSol = solicitudSeleccionada.getEstado();
 
                 switch (estadoSol) {
@@ -203,12 +184,60 @@ public class VentanaProcesarTramites extends Pantalla {
                         control.tramiteRechazado(solicitudSeleccionada);
                         break;
 
-                    default:
+                    case "Finalizado":
                         control.tramiteFinalizado(solicitudSeleccionada);
+                        break;
+
+                    default:
+                        panelDatosSolicitud.setVisible(false);
                         break;
                 }
             }
         });
+        
+        btnDescargarDocumentos.addActionListener(e -> guardarDocumentos(solicitudSeleccionada));
+
+        radioBtnAceptar.addActionListener(e -> radioBtnRechazar.setSelected(false));
+        
+        radioBtnRechazar.addActionListener(e -> radioBtnAceptar.setSelected(false));
+
+        btnSiguiente.addActionListener(e -> procesarSolicitud(solicitudSeleccionada));
+        
+        btnConfirmarRechazo.addActionListener(e -> confirmarRechazo(solicitudSeleccionada));
+
+        btnAdjuntarDocTramite.addActionListener(e -> adjuntarArchivo());
+
+        btnFinalizarTramite.addActionListener(e -> finalizarTramite());
+
+        btnAlternarVista.addActionListener(e -> alternarVista());
+
+
+    }
+
+
+    protected void muestra(List<SolicitudTramite> solicitudes_, List<SolicitudTramite> solicitudesFinalizadas_, ControlProcesarTramites control) {
+        
+        this.control = control;
+        this.solicitudes = solicitudes_;
+        this.solicitudesFinalizadas = solicitudesFinalizadas_;
+
+        String [] datosListaSolicitudes = new String [solicitudes.size()];
+        
+        int i = 0;
+        for (SolicitudTramite solicitud : solicitudes) {
+            datosListaSolicitudes[i] = solicitud.toString();
+            i++;
+        }
+
+        listaSolicitudes.setListData(datosListaSolicitudes);
+        
+        setVisible(true);
+
+        if (solicitudes.size() == 0 ) {
+            JOptionPane.showMessageDialog(this, "No hay solicitudes de trámites activas", "", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+        
     }
     
     protected void ventanaTramitePendiente(SolicitudTramite solicitudSeleccionada) {
@@ -332,7 +361,6 @@ public class VentanaProcesarTramites extends Pantalla {
         panelDatosSolicitud.setVisible(true);
 
         
-
     }
 
     protected void ventanaTramiteFinalizado(SolicitudTramite solicitudSeleccionada){
@@ -357,6 +385,9 @@ public class VentanaProcesarTramites extends Pantalla {
         lblTipo.setText("Trámite solicitado: "+solicitudSeleccionada.getTipoTramite().getNombreTramite());
 
         lblSolicitante.setText("Solicitante: "+solicitudSeleccionada.getSolicitante().getNombre() + " " + solicitudSeleccionada.getSolicitante().getApellidos()+" ("+solicitudSeleccionada.getSolicitante().getClave()+")");
+
+
+        panelDatosSolicitud.setVisible(true);
 
 
     }
@@ -429,21 +460,35 @@ public class VentanaProcesarTramites extends Pantalla {
 
     private void actualizarLista(int index, SolicitudTramite solicitudActualizada) {
         
-        this.solicitudes.add(index, solicitudActualizada);
+        if (solicitudSeleccionada.getEstado() == "Finalizado") {
+            String [] datosListaSolicitudes = new String [solicitudes.size()];
+            int i = 0;
+            for (SolicitudTramite solicitud : solicitudes) {
+                datosListaSolicitudes[i++] = solicitud.toString();
+            }
 
-        String [] datosListaSolicitudes = new String [solicitudes.size()];
-        
-        int i = 0;
-        for (SolicitudTramite solicitud : solicitudes) {
-            datosListaSolicitudes[i] = solicitud.toString();
-            i++;
-        }
+            try {
+                listaSolicitudes.setListData(datosListaSolicitudes);
+            } catch (IndexOutOfBoundsException e) {
+                ventanaTramiteFinalizado(solicitudActualizada);
+            }
 
-        try {
-            listaSolicitudes.setListData(datosListaSolicitudes);
-        } catch (IndexOutOfBoundsException e) {
-            listaSolicitudes.setSelectedIndex(index);
-            this.solicitudSeleccionada = solicitudActualizada;
+            this.solicitudesFinalizadas.add(solicitudActualizada);
+
+        } else {
+            this.solicitudes.add(index, solicitudActualizada);
+            String [] datosListaSolicitudes = new String [solicitudes.size()];
+            int i = 0;
+            for (SolicitudTramite solicitud : solicitudes) {
+                datosListaSolicitudes[i++] = solicitud.toString();
+            }
+    
+            try {
+                listaSolicitudes.setListData(datosListaSolicitudes);
+            } catch (IndexOutOfBoundsException e) {
+                listaSolicitudes.setSelectedIndex(index);
+                this.solicitudSeleccionada = solicitudActualizada;
+            }
         }
         
 
@@ -470,31 +515,53 @@ public class VentanaProcesarTramites extends Pantalla {
 
         solicitudes.remove(solicitudSeleccionada);
         SolicitudTramite solicitudActualizada = control.finalizarTramite(solicitudSeleccionada, pathDocTramiteFinalizado);
-        
-        actualizarListaTrasFinalizado(solicitudActualizada);
+        actualizarLista(-1, solicitudActualizada);
 
     }
 
+    private void alternarVista() {    
+        if (btnAlternarVista.getText() == "Ver trámites finalizados") {
+            panelDatosSolicitud.setVisible(false);
+            btnAlternarVista.setText("Ver solicitudes de trámites activas");
+            String[] datosListaSolicitudesFinalizadas = new String [solicitudesFinalizadas.size()];
+            int i = 0;
+            for (SolicitudTramite solicitudFinalizada : solicitudesFinalizadas) {
+                datosListaSolicitudesFinalizadas[i++] = solicitudFinalizada.toString();
+            }
 
-    private void actualizarListaTrasFinalizado(SolicitudTramite solicitudActualizada) {
+            try {
+                listaSolicitudes.setListData(datosListaSolicitudesFinalizadas);
+                if (solicitudesFinalizadas.size() == 0 ) {
+                    JOptionPane.showMessageDialog(this, "No hay registro de trámites finalizados", "", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (IndexOutOfBoundsException e) {
+                if (solicitudesFinalizadas.size() == 0 ) {
+                    JOptionPane.showMessageDialog(this, "No hay registro de trámites finalizados", "", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
 
-        String [] datosListaSolicitudes = new String [solicitudes.size()];
-        
-        int i = 0;
-        for (SolicitudTramite solicitud : solicitudes) {
-            datosListaSolicitudes[i] = solicitud.toString();
-            i++;
+        } else {
+            panelDatosSolicitud.setVisible(false);
+            btnAlternarVista.setText("Ver trámites finalizados");
+            String[] datosListaSolicitudes = new String [solicitudes.size()];
+            int i = 0;
+            for (SolicitudTramite solicitud : solicitudes) {
+                datosListaSolicitudes[i++] = solicitud.toString();
+            }
+
+            try {
+                listaSolicitudes.setListData(datosListaSolicitudes);
+                if (solicitudes.size() == 0 ) {
+                    JOptionPane.showMessageDialog(this, "No hay solicitudes de trámites activas", "", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } catch (IndexOutOfBoundsException e) {
+                if (solicitudes.size() == 0 ) {
+                    JOptionPane.showMessageDialog(this, "No hay solicitudes de trámites activas", "", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+
         }
-
-        try {
-            listaSolicitudes.setListData(datosListaSolicitudes);
-        } catch (IndexOutOfBoundsException e) {
-            ventanaTramiteFinalizado(solicitudActualizada);
-        }
-
-
     }
-
 
 
 }
