@@ -1,7 +1,5 @@
 package mx.uam.ayd.proyecto.negocio;
 
-import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
@@ -9,12 +7,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import lombok.extern.slf4j.Slf4j;
 import mx.uam.ayd.proyecto.datos.RepositorySolicitudTramite;
 import mx.uam.ayd.proyecto.negocio.modelo.Documento;
 import mx.uam.ayd.proyecto.negocio.modelo.SolicitudTramite;
 
-@Slf4j
 @Service
 public class ServicioSolicitudTramite {
 
@@ -24,7 +20,7 @@ public class ServicioSolicitudTramite {
     @Autowired
     private ServicioDocumento servicioDocumento;
 
-    public List<SolicitudTramite> findByEstadoNotFinalizado(){
+    public List<SolicitudTramite> findByEstadoNotFinalizado() {
         return solicitudTramiteRepository.findByEstadoNot("Finalizado");
     }
 
@@ -44,9 +40,9 @@ public class ServicioSolicitudTramite {
     }
 
     public SolicitudTramite rechazarDocumentos(SolicitudTramite solicitudSeleccionada, String motivoRechazo) {
-        
+
         SolicitudTramite solicitudActualizada = servicioDocumento.eliminarDocumentos(solicitudSeleccionada);
-        
+
         solicitudActualizada.setEstado("Rechazada");
 
         solicitudActualizada.setMotivoRechazo(motivoRechazo);
@@ -54,11 +50,11 @@ public class ServicioSolicitudTramite {
         solicitudTramiteRepository.save(solicitudActualizada);
 
         return solicitudActualizada;
-        
+
     }
 
     public SolicitudTramite finalizarTramite(SolicitudTramite solicitudSeleccionada, Path pathDocTramiteFinalizado) {
-        
+
         String tipoDocumento = solicitudSeleccionada.getTipoTramite().getNombreTramite();
         Documento documentoTramiteFinalizado = servicioDocumento.creaDocumento(pathDocTramiteFinalizado, tipoDocumento);
 
@@ -69,6 +65,5 @@ public class ServicioSolicitudTramite {
 
         return solicitudSeleccionada;
     }
-
 
 }
