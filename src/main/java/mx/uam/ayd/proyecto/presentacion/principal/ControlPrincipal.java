@@ -1,5 +1,6 @@
 package mx.uam.ayd.proyecto.presentacion.principal;
 
+import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -22,7 +23,7 @@ import mx.uam.ayd.proyecto.presentacion.procesarTramites.ControlProcesarTramites
  */
 @Component
 public class ControlPrincipal {
-	
+
 	@Autowired
 	private ControlConsultarCitas controlConsultarCitas;
 	
@@ -37,7 +38,10 @@ public class ControlPrincipal {
 	
 	@Autowired
 	private VentanaInicio ventanaInicio;
-	
+
+	@Autowired
+	private RepositoryAgremiado repositoryAgremiado;
+
 	private Agremiado agremiado;
 	
 	private Object empleado;
@@ -56,13 +60,12 @@ public class ControlPrincipal {
 		controlProcesarTramites.inicia();
 	}
 
-	
+
 	
 	public void loginAgremiado() {
 		empleado = null;
 
-		agremiado = new Agremiado();
-		agremiado.setClave("1234");
+		agremiado = repositoryAgremiado.findById("123456789").get();
 	}
 	
 	public void loginEmpleado() {

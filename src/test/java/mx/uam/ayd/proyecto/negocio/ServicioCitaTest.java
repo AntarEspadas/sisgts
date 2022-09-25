@@ -7,7 +7,6 @@ import mx.uam.ayd.proyecto.util.Filtro;
 import mx.uam.ayd.proyecto.util.Operador;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatcher;
 import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;

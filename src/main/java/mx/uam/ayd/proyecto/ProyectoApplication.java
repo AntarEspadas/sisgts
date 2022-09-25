@@ -9,14 +9,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.swing.*;
 
 import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLightLaf;
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
-import mx.uam.ayd.proyecto.datos.RepositoryCita;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
-import mx.uam.ayd.proyecto.negocio.modelo.Cita;
 import mx.uam.ayd.proyecto.util.ServicioDatosPrueba;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -31,8 +27,6 @@ import mx.uam.ayd.proyecto.negocio.modelo.Documento;
 import mx.uam.ayd.proyecto.negocio.modelo.SolicitudTramite;
 import mx.uam.ayd.proyecto.negocio.modelo.TipoTramite;
 import mx.uam.ayd.proyecto.presentacion.principal.ControlPrincipal;
-
-import java.awt.*;
 
 /**
  * 
@@ -65,6 +59,9 @@ public class ProyectoApplication {
 	@Autowired
 	ServicioDatosPrueba servicioDatosPrueba;
 
+	@Autowired
+	RepositoryAgremiado repositoryAgremiado;
+
 	/**
 	 * 
 	 * Método principal
@@ -85,7 +82,7 @@ public class ProyectoApplication {
 	}
 
 	/**
-	 * Metodo que arranca la aplicacion
+	 * Método que arranca la aplicación
 	 * inicializa la bd y arranca el controlador
 	 * otro comentario
 	 * @throws IOException
@@ -103,11 +100,11 @@ public class ProyectoApplication {
 	 * 
 	 * Inicializa la BD con datos
 	 * @throws IOException
-	 * 
+	 *
 	 * 
 	 */
 	public void inicializaBD() throws IOException {
-		
+
 		/***** Datos para Agremiado *****/
 		Agremiado empleado1 = new Agremiado();
 		empleado1.setClave("SD18SADS345");
@@ -126,7 +123,7 @@ public class ProyectoApplication {
 		empleado3.setNombre("GABRIEL");
 		empleado3.setApellidos("GONZALES CRUZ");
 		RepositoryAgremiado.save(empleado3);
-		
+
 
 		/***** Datos para TipoTramite *****/
 		TipoTramite tipo1 = new TipoTramite();
@@ -152,7 +149,7 @@ public class ProyectoApplication {
 		Documento documento1Sol1 = new Documento();
 		documento1Sol1.setTipoDocumento("Identificacion");
 		Path pdfPath1 = Paths.get(".\\src\\main\\resources\\Solicitud1Documento1.pdf");
-		byte[] pdf1 = Files.readAllBytes(pdfPath1);	
+		byte[] pdf1 = Files.readAllBytes(pdfPath1);
 		documento1Sol1.setArchivo(pdf1);
 		documentoRepository.save(documento1Sol1);
 
@@ -199,6 +196,13 @@ public class ProyectoApplication {
 		solicitud3.setSolicitante(empleado3);
 		solicitud3.setMotivoRechazo("Archivos ilegibles");
 		solicitudTramiteRepository.save(solicitud3);
-		
+
+		var agremiado = new Agremiado();
+		agremiado.setClave("123456789");
+		agremiado.setNombre("Alan");
+		agremiado.setApellidos("Turing");
+		repositoryAgremiado.save(agremiado);
+
+		servicioDatosPrueba.generarDatos();
 	}
 }
