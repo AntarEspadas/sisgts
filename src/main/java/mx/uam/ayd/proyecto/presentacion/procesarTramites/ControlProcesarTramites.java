@@ -9,6 +9,12 @@ import org.springframework.stereotype.Component;
 import mx.uam.ayd.proyecto.negocio.ServicioSolicitudTramite;
 import mx.uam.ayd.proyecto.negocio.modelo.SolicitudTramite;
 
+
+/**
+ * Controlador para las historias de usuario HU-05, HU-06 y HU-08
+ * 
+ * @author Adolfo Mejía
+ */
 @Component
 public class ControlProcesarTramites {
 
@@ -18,6 +24,9 @@ public class ControlProcesarTramites {
     @Autowired
     private VentanaProcesarTramites ventana;
 
+    /**
+     * Inicia el controlador
+     */
     public void inicia() {
         List<SolicitudTramite> solicitudes = servicioSolicitudTramite.findByEstadoNotFinalizado();
         List<SolicitudTramite> solicitudesFinalizadas = servicioSolicitudTramite.findByEstadoFinalizado();
@@ -25,60 +34,109 @@ public class ControlProcesarTramites {
 
     }
 
-    public void tramitePendiente(SolicitudTramite solicitudSeleccionada) {
+
+    /**
+     * Despliega la vista para un tramite pendiete
+     * @param solicitudSeleccionada la solicitud seleccionada de la lista por el usuario
+     */
+    void tramitePendiente(SolicitudTramite solicitudSeleccionada) {
         ventana.ventanaTramitePendiente(solicitudSeleccionada);
     }
 
-    public void tramiteEnProgreso(SolicitudTramite solicitudSeleccionada) {
+
+    /**
+     * Despliega la vista para un tramite en progreso
+     * @param solicitudSeleccionada la solicitud seleccionada de la lista por el usuario
+     */
+    void tramiteEnProgreso(SolicitudTramite solicitudSeleccionada) {
         ventana.ventanaTramiteEnProgreso(solicitudSeleccionada);
     }
 
-    public void tramiteRechazado(SolicitudTramite solicitudSeleccionada) {
+
+    /**
+     * Despliega la vista para un tramite rechazado
+     * @param solicitudSeleccionada la solicitud seleccionada de la lista por el usuario
+     */
+    void tramiteRechazado(SolicitudTramite solicitudSeleccionada) {
         ventana.ventanaTramiteRechazado(solicitudSeleccionada);
     }
 
-    public void tramiteFinalizado(SolicitudTramite solicitudSeleccionada) {
+
+    /**
+     * Despliega la vista para un tramite finalizado
+     * @param solicitudSeleccionada la solicitud seleccionada de la lista por el usuario
+     */
+    void tramiteFinalizado(SolicitudTramite solicitudSeleccionada) {
         ventana.ventanaTramiteFinalizado(solicitudSeleccionada);
     }
 
-    public SolicitudTramite aceptarDocumentos(SolicitudTramite solicitudSeleccionada) {
+
+    /**
+     * Indica a la vista analizar que opción fue marcada para realizar la llamada correspondiete a
+     * aceptarDocumentos o rechazarDocumento
+     * @param solicitudSeleccionada la solicitud seleccionada de la lista por el usuario
+     */
+    void procesarSolicitud(SolicitudTramite solicitudSeleccionada) {
+        ventana.procesarSolicitud(solicitudSeleccionada);
+    }
+
+
+    /**
+     * Comunica al servicio correspondiente que la solicitud debe actualizar su estado a "En progreso"
+     * @param solicitudSeleccionada la solicitud seleccionada de la lista por el usuario
+     * @return la solicitud actualizada
+     */
+    SolicitudTramite aceptarDocumentos(SolicitudTramite solicitudSeleccionada) {
         SolicitudTramite solicitudActualizada = servicioSolicitudTramite.aceptarDocumentos(solicitudSeleccionada);
         return solicitudActualizada;
 
     }
 
-    public SolicitudTramite rechazarDocumentos(SolicitudTramite solicitudSeleccionada, String motivoRechazo) {
+
+    /**
+     * Indica a la vista que se confirmó el rechazo en el cuadro de diálogo y que debe hacer visibles los
+     * elementos que permiten elegir el motivo del rechazo
+     * @param solicitudSeleccionada la solicitud seleccionada de la lista por el usuario
+     */
+    void confirmarRechazo(SolicitudTramite solicitudSeleccionada) {
+        ventana.confirmarRechazo(solicitudSeleccionada);
+    }
+
+
+    /**
+     * Comunica al servicio correspondiente que una solicitud debe actualizar su estado a "Rechazada"
+     * @param solicitudSeleccionada la solicitud seleccionada de la lista por el usuario
+     * @param motivoRechazo el motivo de rechazo seleccionado
+     * @return la solicitud actualizada
+     */
+    SolicitudTramite rechazarDocumentos(SolicitudTramite solicitudSeleccionada, String motivoRechazo) {
         SolicitudTramite solicitudActualizada = servicioSolicitudTramite.rechazarDocumentos(solicitudSeleccionada,
                 motivoRechazo);
         return solicitudActualizada;
 
     }
 
-    public SolicitudTramite finalizarTramite(SolicitudTramite solicitudSeleccionada, Path pathDocTramiteFinalizado) {
+
+    /**
+     * Comunica al servicio correspondiente que un trámite debe ser marcado como "Finalizado"
+     * @param solicitudSeleccionada la solicitud seleccionada de la lista por el usuario
+     * @param pathDocTramiteFinalizado la dirección del archivo de trámite a adjuntar
+     * @return la solicitud actualizada
+     */
+    SolicitudTramite finalizarTramite(SolicitudTramite solicitudSeleccionada, Path pathDocTramiteFinalizado) {
         SolicitudTramite solicitudActualizada = servicioSolicitudTramite.finalizarTramite(solicitudSeleccionada,
                 pathDocTramiteFinalizado);
         return solicitudActualizada;
 
     }
+    
 
-    public void guardarDocumentos(SolicitudTramite solicitudSeleccionada) {
-        ventana.guardarDocumentos(solicitudSeleccionada);
-    }
-
-    public void procesarSolicitud(SolicitudTramite solicitudSeleccionada) {
-        ventana.procesarSolicitud(solicitudSeleccionada);
-    }
-
-    public void confirmarRechazo(SolicitudTramite solicitudSeleccionada) {
-        ventana.confirmarRechazo(solicitudSeleccionada);
-    }
-
-    public void adjuntarArchivo() {
-        ventana.adjuntarArchivo();
-    }
-
-    public void alternarVista() {
-        ventana.finalizarTramite();
+    /**
+     * Indica a la vista que la lista de solicitudes debe ser alternada, de mostrar las solicitudes activas a
+     * mostrar los trámites finalizados o viceversa.
+     */
+    void alternarVista() {
+        ventana.alternarVista();
     }
 
 }

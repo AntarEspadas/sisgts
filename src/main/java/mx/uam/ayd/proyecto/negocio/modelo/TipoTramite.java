@@ -7,6 +7,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+
+/**
+ * Entidad TipoTramite
+ * 
+ * @author Adolfo Mejía
+ */
 @Data
 @Entity
 public class TipoTramite {

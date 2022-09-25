@@ -18,6 +18,11 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
+/**
+ * Entidad SolicitudTramite
+ * 
+ * @author Adolfo Mejía
+ */
 @Data
 @Entity
 @Table(name = "solicitudTramite")
