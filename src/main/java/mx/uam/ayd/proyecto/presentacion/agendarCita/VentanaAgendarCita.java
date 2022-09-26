@@ -162,7 +162,10 @@ public class VentanaAgendarCita extends Pantalla {
 		this.controlador = controlador;
 		this.horarios = horarios;
 		this.horariosNoDisponibles = horariosNoDisponibles;
-		
+
+		this.txtrMotivo.setText("");
+		actualizarHorarios();
+
 		setVisible(true);
 	}
 	
@@ -171,17 +174,16 @@ public class VentanaAgendarCita extends Pantalla {
 	}
 	
 	private void actualizarHorarios() {
-		var nuevaFecha = calendarPanel.getSelectedDate();
+		var fecha = calendarPanel.getSelectedDate();
 		
-		if (fechaSeleccionada != null && nuevaFecha.isEqual(fechaSeleccionada)) return;
-		fechaSeleccionada = nuevaFecha;
+		fechaSeleccionada = fecha;
 		
 		List<LocalTime> horariosDisponibles;
-		var horariosNoDisponibles = this.horariosNoDisponibles.getOrDefault(nuevaFecha, null);
+		var horariosNoDisponibles = this.horariosNoDisponibles.getOrDefault(fecha, null);
 		log.info("Fecha seleccionada: {}", fechaSeleccionada);
 		log.info("Horarios no disponibles: {}", horariosNoDisponibles);
 
-		if (nuevaFecha.isBefore(LocalDate.now().plusDays(1)))
+		if (fecha.isBefore(LocalDate.now().plusDays(1)))
 			horariosDisponibles = new ArrayList<>();
 		else if (horariosNoDisponibles == null || horariosNoDisponibles.size() == 0)
 			horariosDisponibles = horarios;
