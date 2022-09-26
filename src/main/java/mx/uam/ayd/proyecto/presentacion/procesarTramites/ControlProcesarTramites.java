@@ -126,20 +126,18 @@ public class ControlProcesarTramites {
      * @param solicitudSeleccionada la solicitud seleccionada de la lista por el
      *                              usuario
      * @param motivoRechazo         el motivo de rechazo seleccionado
-     * @throws Exception
+     * @throws IllegalArgumentException
      * @return la solicitud actualizada
      */
     SolicitudTramite rechazarDocumentos(SolicitudTramite solicitudSeleccionada, String motivoRechazo)
-            throws Exception {
+            throws IllegalArgumentException {
 
         try {
             SolicitudTramite solicitudActualizada = servicioSolicitudTramite.rechazarDocumentos(solicitudSeleccionada, motivoRechazo);
             return solicitudActualizada;
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             throw e;
         }
-
-        
 
     }
 
@@ -152,16 +150,19 @@ public class ControlProcesarTramites {
      * @param pathDocTramiteFinalizado la dirección del archivo de trámite a
      *                                 adjuntar
      * @throws IOException
+     * @throws IllegalArgumentException
      * @return la solicitud actualizada
      */
     SolicitudTramite finalizarTramite(SolicitudTramite solicitudSeleccionada, Path pathDocTramiteFinalizado)
-            throws Exception {
+            throws IOException, IllegalArgumentException {
 
         SolicitudTramite solicitudActualizada;
         try {
             solicitudActualizada = servicioSolicitudTramite.finalizarTramite(solicitudSeleccionada,
                     pathDocTramiteFinalizado);
-        } catch (Exception e) {
+        } catch (IOException e) {
+            throw e;
+        } catch (IllegalArgumentException e) {
             throw e;
         }
         return solicitudActualizada;
