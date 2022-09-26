@@ -4,7 +4,9 @@ import javax.annotation.PostConstruct;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
+import mx.uam.ayd.proyecto.datos.RepositoryEmpleado;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
+import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import mx.uam.ayd.proyecto.util.ServicioDatosPrueba;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -38,6 +40,9 @@ public class ProyectoApplication {
 
 	@Autowired
 	RepositoryAgremiado repositoryAgremiado;
+	
+	@Autowired
+	RepositoryEmpleado repositoryEmpleado;
 
 	/**
 	 * 
@@ -95,6 +100,17 @@ public class ProyectoApplication {
 		agremiado.setNombre("Alan");
 		agremiado.setApellidos("Turing");
 		repositoryAgremiado.save(agremiado);
+		
+		var empleado = new Empleado();
+		empleado.setId(987654321);
+		empleado.setNombre("Yanely");
+		empleado.setApellidos("Bermejo Hernandez");
+		empleado.setTipoEmpleado("encargada");
+		repositoryEmpleado.save(empleado);
+		
+		
+		
+		
 
 		servicioDatosPrueba.generarDatos();
 

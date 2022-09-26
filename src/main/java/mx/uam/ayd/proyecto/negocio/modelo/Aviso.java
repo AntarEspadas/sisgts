@@ -21,13 +21,12 @@ public class Aviso {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idAviso;
 	
-	@OneToMany(targetEntity = Empleado.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "idAviso")
 	
-	private Date fecha;
+	
+	private String fecha;
 	
 	private String contenido;
 	
-	private ImageIcon imagen;
+	private String imagen;
 
 }

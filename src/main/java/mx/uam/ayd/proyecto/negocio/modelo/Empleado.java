@@ -6,11 +6,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+/**
+ * Entidad de negocio Usuario
+ * 
+ * @author Brandon Villada
+ *
+ */
 
 @Data
 @Entity
 public class Empleado {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

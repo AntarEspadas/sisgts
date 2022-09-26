@@ -5,8 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import mx.uam.ayd.proyecto.datos.EmpleadoRepository;
+
 import mx.uam.ayd.proyecto.datos.GrupoRepository;
+import mx.uam.ayd.proyecto.datos.RepositoryEmpleado;
 import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
 
@@ -14,7 +15,7 @@ import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
 public class ServicioEmpleado {
 	
 	@Autowired 
-	EmpleadoRepository empleadoRepository;
+	RepositoryEmpleado empleadoRepository;
 
 	/**
 	 * 

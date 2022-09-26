@@ -13,6 +13,7 @@ import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
 
 
+
 @Slf4j
 @Component
 public class ControlCrearPublicacion {
@@ -20,9 +21,27 @@ public class ControlCrearPublicacion {
 	private ServicioAviso servicioAviso;
 	@Autowired
 	private ServicioEmpleado servicioEmpleado;
+	@Autowired
+	private VentanaCrearPublicacion ventanaCrearPublicacion;
+	
+	 public boolean esEncargada(Empleado empleado) {
+		if (empleado.getTipoEmpleado() == "encargada"){
+				return true;
+		}
+		return false;
+	}
 	
 	public void inicia(Empleado empleado) {
-		List<Empleado> emp = servicioEmpleado.recuperaEmpleados();
+		
+		if (esEncargada(empleado)) {
+			ventanaCrearPublicacion.muestra(this);
+		}
+	}
+
+	public void crearPublicacion(String imagen, String texto) {
+		if (servicioAviso.crearPublicacion(imagen,texto)) {
+			ventanaCrearPublicacion.activaLogoConfirmacionOcultaCrear();
+		}
 		
 	}	
 }
