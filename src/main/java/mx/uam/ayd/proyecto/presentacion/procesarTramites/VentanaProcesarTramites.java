@@ -1,5 +1,6 @@
 package mx.uam.ayd.proyecto.presentacion.procesarTramites;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
@@ -16,12 +17,10 @@ import java.nio.file.Path;
 
 import org.springframework.stereotype.Component;
 
-import lombok.extern.slf4j.Slf4j;
 import mx.uam.ayd.proyecto.negocio.modelo.Documento;
 import mx.uam.ayd.proyecto.negocio.modelo.SolicitudTramite;
 import mx.uam.ayd.proyecto.presentacion.agregarUsuario.Pantalla;
 
-@Slf4j
 @Component
 public class VentanaProcesarTramites extends Pantalla {
 
@@ -209,6 +208,13 @@ public class VentanaProcesarTramites extends Pantalla {
 
     }
 
+    /**
+     * Muestra la vista correspondiente al procesamiento de tramites
+     * 
+     * @param solicitudes_            lista de solicitudes de trámites pendientes
+     * @param solicitudesFinalizadas_ lista de trámites finalizados
+     * @param control                 apuntador a ControlProcesarTramites
+     */
     void muestra(List<SolicitudTramite> solicitudes_, List<SolicitudTramite> solicitudesFinalizadas_,
             ControlProcesarTramites control) {
 
@@ -234,6 +240,13 @@ public class VentanaProcesarTramites extends Pantalla {
 
     }
 
+    /**
+     * Adapta la visibilidad de los elementos del panel para mostrar los datos de un
+     * trámite pendiente
+     * 
+     * @param solicitudSeleccionada solicitud seleccionada de la lista por el
+     *                              usuario
+     */
     void ventanaTramitePendiente(SolicitudTramite solicitudSeleccionada) {
 
         this.solicitudSeleccionada = solicitudSeleccionada;
@@ -271,11 +284,17 @@ public class VentanaProcesarTramites extends Pantalla {
         }
         lblDocumentos.setText("Documentos: " + strDocumentos);
 
-        documentosAdjuntos = solicitudSeleccionada.getRequisitos();
         panelDatosSolicitud.setVisible(true);
 
     }
 
+    /**
+     * Adapta la visibilidad de los elementos del panel para mostrar los datos de un
+     * trámite en progreso
+     * 
+     * @param solicitudSeleccionada solicitud seleccionada de la lista por el
+     *                              usuario
+     */
     void ventanaTramiteEnProgreso(SolicitudTramite solicitudSeleccionada) {
 
         this.solicitudSeleccionada = solicitudSeleccionada;
@@ -314,12 +333,17 @@ public class VentanaProcesarTramites extends Pantalla {
         }
         lblDocumentos.setText("Documentos: " + strDocumentos);
 
-        documentosAdjuntos = solicitudSeleccionada.getRequisitos();
-
         panelDatosSolicitud.setVisible(true);
 
     }
 
+    /**
+     * Adapta la visibilidad de los elementos del panel para mostrar los datos de un
+     * trámite rechazado
+     * 
+     * @param solicitudSeleccionada solicitud seleccionada de la lista por el
+     *                              usuario
+     */
     void ventanaTramiteRechazado(SolicitudTramite solicitudSeleccionada) {
 
         this.solicitudSeleccionada = solicitudSeleccionada;
@@ -349,7 +373,7 @@ public class VentanaProcesarTramites extends Pantalla {
                 + solicitudSeleccionada.getSolicitante().getApellidos() + " ("
                 + solicitudSeleccionada.getSolicitante().getClave() + ")");
 
-        documentosAdjuntos = solicitudSeleccionada.getRequisitos();
+        documentosAdjuntos = new ArrayList<Documento> ();
 
         String strDocumentos = "";
         for (Documento documento : documentosAdjuntos) {
@@ -358,12 +382,17 @@ public class VentanaProcesarTramites extends Pantalla {
         strDocumentos += ".";
         lblDocumentos.setText("Documentos: " + strDocumentos);
 
-        documentosAdjuntos = solicitudSeleccionada.getRequisitos();
-
         panelDatosSolicitud.setVisible(true);
 
     }
 
+    /**
+     * Adapta la visibilidad de los elementos del panel para mostrar los datos de un
+     * trámite finalizado
+     * 
+     * @param solicitudSeleccionada solicitud seleccionada de la lista por el
+     *                              usuario
+     */
     void ventanaTramiteFinalizado(SolicitudTramite solicitudSeleccionada) {
 
         this.solicitudSeleccionada = solicitudSeleccionada;
@@ -395,6 +424,13 @@ public class VentanaProcesarTramites extends Pantalla {
 
     }
 
+    /**
+     * Abre una ventana que permite al usuario elegir la carpeta en la que desea
+     * guardar los documentos adjuntos a una solicitud de trámites
+     * 
+     * @param solicitudSeleccionada solicitud seleccionada de la lista por el
+     *                              usuario
+     */
     void guardarDocumentos(SolicitudTramite solicitudSeleccionada) {
 
         chooser = new JFileChooser();
@@ -414,7 +450,9 @@ public class VentanaProcesarTramites extends Pantalla {
                     out.close();
 
                 } catch (Exception e_) {
-                    log.info("Error: " + e_.getMessage());
+                    JOptionPane.showMessageDialog(this, "Ha ocurrido un error, selecciona una nueva ruta",
+                            "Ha ocurrido un error", JOptionPane.ERROR_MESSAGE);
+                    break;
                 }
 
             }
@@ -423,6 +461,13 @@ public class VentanaProcesarTramites extends Pantalla {
 
     }
 
+    /**
+     * Comunica al control si marcar una solicitud pendiente como "En progreso" o
+     * "Rechazada" acorde a la opción elegida por el usuario
+     * 
+     * @param solicitudSeleccionada solicitud seleccionada de la lista por el
+     *                              usuario
+     */
     void procesarSolicitud(SolicitudTramite solicitudSeleccionada) {
 
         if (radioBtnAceptar.isSelected()) {
@@ -435,7 +480,13 @@ public class VentanaProcesarTramites extends Pantalla {
 
                 int index = solicitudes.indexOf(solicitudSeleccionada);
                 solicitudes.remove(solicitudSeleccionada);
-                SolicitudTramite solicitudActualizada = control.aceptarDocumentos(solicitudSeleccionada);
+                SolicitudTramite solicitudActualizada = new SolicitudTramite();
+                try {
+                    solicitudActualizada = control.aceptarDocumentos(solicitudSeleccionada);
+                } catch (Exception e_) {
+                    JOptionPane.showMessageDialog(this, e_.getMessage(), "Ha ocurrido un error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
                 actualizarLista(index, solicitudActualizada);
 
             }
@@ -468,16 +519,40 @@ public class VentanaProcesarTramites extends Pantalla {
 
     }
 
+    /**
+     * Toma el motivo de rechazo seleccionado por el usuario y lo comunica al
+     * control junto con la solicitud a actualizar
+     * 
+     * @param solicitudSeleccionada solicitud de la lista seleccionada por el
+     *                              usuario
+     */
     void confirmarRechazo(SolicitudTramite solicitudSeleccionada) {
 
         String motivoRechazo = comboBoxMotivosRechazo.getSelectedItem().toString();
         int index = solicitudes.indexOf(solicitudSeleccionada);
         solicitudes.remove(solicitudSeleccionada);
-        SolicitudTramite solicitudActualizada = control.rechazarDocumentos(solicitudSeleccionada, motivoRechazo);
-        actualizarLista(index, solicitudActualizada);
+        try {
+            SolicitudTramite solicitudActualizada = control.rechazarDocumentos(solicitudSeleccionada, motivoRechazo);
+            actualizarLista(index, solicitudActualizada);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, e.getMessage(), "Ha ocurrido un error",
+                            JOptionPane.ERROR_MESSAGE);
+        }
+
 
     }
 
+    /**
+     * Actualiza los elementos desplegados en la lista de trámites tras actualizar
+     * el estado de una solicitud seleccionada
+     * 
+     * @param index                indica la posición a la que debe ser reinsertado
+     *                             el elemento con estado actualizado, si es -1
+     *                             indica que la solicitud fue marcadac como
+     *                             finalizada y debe ser agregada al final de la
+     *                             lista de solicitudes finalizadas
+     * @param solicitudActualizada solicitud con la información actualizada
+     */
     void actualizarLista(int index, SolicitudTramite solicitudActualizada) {
 
         if (index == -1) {
@@ -515,6 +590,10 @@ public class VentanaProcesarTramites extends Pantalla {
 
     }
 
+    /**
+     * Abre una ventana para elegir el archivo pdf que debe adjuntarse a un trámite
+     * va a darse por finalizado
+     */
     void adjuntarArchivo() {
 
         chooser = new JFileChooser();
@@ -533,23 +612,36 @@ public class VentanaProcesarTramites extends Pantalla {
 
     }
 
+    /**
+     * Despliega un cuadro de diálogo solicitanto la confirmación sobre la
+     * finalización de un trámite, de ser el caso, comunica la desición al control
+     */
     void finalizarTramite() {
 
         int opcionSeleccionada = JOptionPane.showConfirmDialog(this,
-                    "¿Esta seguro de adjuntar el documento y marcar el trámite como \"Finalizado\"?",
-                    "Confirmar selección", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                "¿Esta seguro de adjuntar el documento y marcar el trámite como \"Finalizado\"?",
+                "Confirmar selección", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
         if (opcionSeleccionada == 0) {
             solicitudes.remove(solicitudSeleccionada);
-            SolicitudTramite solicitudActualizada = control.finalizarTramite(solicitudSeleccionada,
-                    pathDocTramiteFinalizado);
-            actualizarLista(-1, solicitudActualizada);
-        }
+            SolicitudTramite solicitudActualizada;
+            try {
+                solicitudActualizada = control.finalizarTramite(solicitudSeleccionada,
+                        pathDocTramiteFinalizado);
+                actualizarLista(-1, solicitudActualizada);
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Ha ocurrido un error, seleccione nuevamente el documento",
+                        "Error al adjuntar documento", JOptionPane.ERROR_MESSAGE);
+            }
 
-        
+        }
 
     }
 
+    /**
+     * Alterna las solicitudes desplegadas, entre mostrar las solicitudes no
+     * finalizadas a las solicitudes finalizadas o viceversa.
+     */
     void alternarVista() {
 
         if (btnAlternarVista.getText() == "Ver trámites finalizados") {
@@ -573,6 +665,7 @@ public class VentanaProcesarTramites extends Pantalla {
                     JOptionPane.showMessageDialog(this, "No hay registro de trámites finalizados", "",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
+
             }
 
         } else {
