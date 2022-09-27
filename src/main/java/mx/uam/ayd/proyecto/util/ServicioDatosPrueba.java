@@ -4,11 +4,13 @@ import com.github.javafaker.Faker;
 import lombok.extern.slf4j.Slf4j;
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import mx.uam.ayd.proyecto.datos.RepositoryCita;
+import mx.uam.ayd.proyecto.negocio.ServicioCita;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.Cita;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.*;
@@ -24,11 +26,16 @@ public class ServicioDatosPrueba {
 
     private final Faker faker = new Faker(new Locale("es-MX"), new Random(0));
 
+    private final Map<LocalDate, List<LocalTime>> fechasYHoras = new HashMap<>();
+
     @Autowired
     RepositoryCita repositoryCita;
 
     @Autowired
     RepositoryAgremiado repositoryAgremiado;
+
+    @Autowired
+    ServicioCita servicioCita;
 
     public Agremiado generaAgremiado(){
         var agremiado = new Agremiado();
@@ -57,13 +64,15 @@ public class ServicioDatosPrueba {
 
         var date = faker.date().between(haceUnMes, enUnMes);
         var fecha = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        int horas = faker.random().nextInt(10, 18);
-        int minutos = faker.random().nextBoolean() ? 30 : 0;
+        var horarios = fechasYHoras.computeIfAbsent(fecha, v -> (servicioCita.getHorarios()));
+        var indice = faker.random().nextInt(0, horarios.size() - 1);
+        var hora = horarios.get(indice);
+        horarios.remove((int)indice);
 
         var cita = new Cita();
         cita.setMotivo("Motivo de la cita");
         cita.setFecha(fecha);
-        cita.setHora(LocalTime.of(horas, minutos));
+        cita.setHora(hora);
 
         return cita;
     }
