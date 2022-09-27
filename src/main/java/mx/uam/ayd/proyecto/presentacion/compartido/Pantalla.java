@@ -1,4 +1,4 @@
-package mx.uam.ayd.proyecto.presentacion.agregarUsuario;
+package mx.uam.ayd.proyecto.presentacion.compartido;
 
 import javax.swing.JPanel;
 

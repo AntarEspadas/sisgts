@@ -1,6 +1,5 @@
 package mx.uam.ayd.proyecto.presentacion.agendarCita;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -9,7 +8,7 @@ import javax.swing.JList;
 
 import mx.uam.ayd.proyecto.negocio.modelo.Cita;
 
-import mx.uam.ayd.proyecto.presentacion.agregarUsuario.Pantalla;
+import mx.uam.ayd.proyecto.presentacion.compartido.Pantalla;
 import org.springframework.stereotype.Component;
 
 import java.awt.Rectangle;

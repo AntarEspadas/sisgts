@@ -14,14 +14,12 @@ import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
 import mx.uam.ayd.proyecto.negocio.modelo.Cita;
-import mx.uam.ayd.proyecto.presentacion.agregarUsuario.Pantalla;
+import mx.uam.ayd.proyecto.presentacion.compartido.Pantalla;
 import mx.uam.ayd.proyecto.util.Filtro;
 
 import java.awt.Rectangle;
 import javax.swing.JPanel;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultComboBoxModel;
 

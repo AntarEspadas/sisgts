@@ -12,8 +12,7 @@ import javax.swing.JTabbedPane;
 import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.negocio.modelo.Aviso;
-import mx.uam.ayd.proyecto.presentacion.agregarUsuario.Pantalla;
-import mx.uam.ayd.proyecto.presentacion.crearPublicacion.ControlCrearPublicacion;
+import mx.uam.ayd.proyecto.presentacion.compartido.Pantalla;
 
 /**
  * @author Brandon Villada

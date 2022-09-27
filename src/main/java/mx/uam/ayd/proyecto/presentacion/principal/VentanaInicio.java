@@ -1,6 +1,6 @@
 package mx.uam.ayd.proyecto.presentacion.principal;
 
-import mx.uam.ayd.proyecto.presentacion.agregarUsuario.Pantalla;
+import mx.uam.ayd.proyecto.presentacion.compartido.Pantalla;
 import org.springframework.stereotype.Component;
 
 import java.awt.GridBagLayout;

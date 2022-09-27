@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.negocio.modelo.Documento;
 import mx.uam.ayd.proyecto.negocio.modelo.SolicitudTramite;
-import mx.uam.ayd.proyecto.presentacion.agregarUsuario.Pantalla;
+import mx.uam.ayd.proyecto.presentacion.compartido.Pantalla;
 
 @Component
 public class VentanaProcesarTramites extends Pantalla {
