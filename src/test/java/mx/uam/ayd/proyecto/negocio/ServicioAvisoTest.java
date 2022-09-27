@@ -22,7 +22,11 @@ class ServicioAvisoTest {
 	@Test
 	private Calendar obtenerFecha() {
 		Calendar fecha = Calendar.getInstance();
-		return fecha;
+		assertNotEquals(null, fecha);
+	}
+	@Test
+	public boolean crearPublicacion(String imagen, String texto) {
+		
 	}
 
 }
