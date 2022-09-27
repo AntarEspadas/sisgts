@@ -6,12 +6,14 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import mx.uam.ayd.proyecto.datos.RepositoryEmpleado;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
+import mx.uam.ayd.proyecto.negocio.modelo.Aviso;
 import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import mx.uam.ayd.proyecto.util.ServicioDatosPrueba;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
+import mx.uam.ayd.proyecto.datos.AvisoRepository;
 import mx.uam.ayd.proyecto.datos.GrupoRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
 import mx.uam.ayd.proyecto.presentacion.principal.ControlPrincipal;
@@ -34,6 +36,9 @@ public class ProyectoApplication {
 	
 	@Autowired
 	GrupoRepository grupoRepository;
+	
+	@Autowired
+	AvisoRepository repositoryAviso;
 
 	@Autowired
 	ServicioDatosPrueba servicioDatosPrueba;
@@ -108,6 +113,17 @@ public class ProyectoApplication {
 		empleado.setTipoEmpleado("encargada");
 		repositoryEmpleado.save(empleado);
 		
+		var aviso1 = new Aviso();
+		aviso1.setIdAviso(9909);
+		aviso1.setContenido("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at erat ac quam consequat tempus.");
+		aviso1.setFecha("2222-09-22");
+		repositoryAviso.save(aviso1);
+		
+		var aviso2 = new Aviso();
+		aviso2.setIdAviso(9907);
+		aviso2.setContenido("Prueba 2");
+		aviso2.setFecha("2222-09-22");
+		repositoryAviso.save(aviso2);
 		
 		
 		

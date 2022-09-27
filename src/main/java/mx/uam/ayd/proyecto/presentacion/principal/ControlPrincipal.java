@@ -13,6 +13,7 @@ import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import mx.uam.ayd.proyecto.presentacion.agendarCita.ControlAgendarCita;
 import mx.uam.ayd.proyecto.presentacion.agregarUsuario.ControlAgregarUsuario;
+import mx.uam.ayd.proyecto.presentacion.consultarAvisos.ControlConsultarAvisos;
 import mx.uam.ayd.proyecto.presentacion.consultarCitas.ControlConsultarCitas;
 import mx.uam.ayd.proyecto.presentacion.crearPublicacion.ControlCrearPublicacion;
 import mx.uam.ayd.proyecto.presentacion.listarUsuarios.ControlListarUsuarios;
@@ -41,6 +42,9 @@ public class ControlPrincipal {
 	
 	@Autowired
 	private ControlCrearPublicacion controlCrearPublicacion;
+	
+	@Autowired
+	private ControlConsultarAvisos controlConsultarAvisos;
 
 	@Autowired
 	private VentanaPrincipal ventana;
@@ -121,8 +125,8 @@ public class ControlPrincipal {
 
 	public void publicaciones() {
 		if (agremiado != null)
-			// TODO: llamar al controlador
-			throw new NotImplementedException();
+			controlConsultarAvisos.inicia(agremiado);
+			
 		else if (empleado != null)
 			controlCrearPublicacion.inicia(empleado);
 			

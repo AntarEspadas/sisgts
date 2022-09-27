@@ -11,10 +11,15 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.ImageFilter;
+import java.awt.image.RenderedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.Base64;
 
 import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageOutputStream;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -42,6 +47,9 @@ public class VentanaCrearPublicacion extends Pantalla {
 	private JTextArea textArea;
 	private JCheckBox validado;
 	private JButton publicar;
+	private JButton btnimagen;
+	private JLabel imagen_p;
+	private String ruta_imagen;
 
 	public VentanaCrearPublicacion() {
 		setBounds(new Rectangle(100, 100, 500, 500));
@@ -57,6 +65,7 @@ public class VentanaCrearPublicacion extends Pantalla {
 		model.addElement("2");
 		
 		JLabel imagen_placeholder = new JLabel();
+		imagen_p = imagen_placeholder;
 		GridBagConstraints gbc_imagen_placeholder = new GridBagConstraints();
 		gbc_imagen_placeholder.fill = GridBagConstraints.VERTICAL;
 		gbc_imagen_placeholder.insets = new Insets(0, 0, 5, 5);
@@ -67,9 +76,12 @@ public class VentanaCrearPublicacion extends Pantalla {
 		
 		
 		JButton btnNewButton_1 = new JButton("Imagen");
+		
+		btnimagen = btnNewButton_1;
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				if (btnNewButton_1.isEnabled()) {
 				Image imagen = null;
 				JFileChooser fc = new JFileChooser();
 
@@ -85,6 +97,7 @@ public class VentanaCrearPublicacion extends Pantalla {
 				if(option == JFileChooser.APPROVE_OPTION){
 						File file = fc.getSelectedFile();
 						String path = file.getAbsolutePath();
+						ruta_imagen = path;
 						ImageIcon imagen1 = new ImageIcon(path);
 						Image imagen_escalada = imagen1.getImage();
 						imagen_escalada = imagen_escalada.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
@@ -94,6 +107,7 @@ public class VentanaCrearPublicacion extends Pantalla {
 
 				}else{
 
+				}
 				}
 			}
 		});
@@ -135,7 +149,8 @@ public class VentanaCrearPublicacion extends Pantalla {
 					        // 0=yes, 1=no, 2=cancel
 					        if (input == 0) {
 					        	if(imagen_placeholder.getIcon()!= null) {
-					        	controlador.crearPublicacion(imagen_placeholder.getIcon().toString(),texto);
+					
+					        	controlador.crearPublicacion(ruta_imagen,texto);
 					        	}else {
 					        		controlador.crearPublicacion(null,texto);
 					        	}
@@ -172,6 +187,9 @@ public class VentanaCrearPublicacion extends Pantalla {
 
 	public void muestra(ControlCrearPublicacion controlador) {
 		// TODO Auto-generated method stub
+		validado.setSelected(false);
+		publicar.setEnabled(true);
+		btnimagen.setEnabled(true);
 		this.controlador = controlador;
 		setVisible(true);
 	}
@@ -180,6 +198,8 @@ public class VentanaCrearPublicacion extends Pantalla {
 		// TODO Auto-generated method stub
 		validado.setSelected(true);
 		publicar.setEnabled(false);
+		btnimagen.setEnabled(false);
+		imagen_p.setIcon(null);
 	}
 
 }

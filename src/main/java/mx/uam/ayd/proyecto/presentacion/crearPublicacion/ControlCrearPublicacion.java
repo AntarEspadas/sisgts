@@ -14,13 +14,11 @@ import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
 
 
 
-@Slf4j
+
 @Component
 public class ControlCrearPublicacion {
 	@Autowired
 	private ServicioAviso servicioAviso;
-	@Autowired
-	private ServicioEmpleado servicioEmpleado;
 	@Autowired
 	private VentanaCrearPublicacion ventanaCrearPublicacion;
 	
