@@ -1,6 +1,9 @@
 package mx.uam.ayd.proyecto.presentacion.principal;
 
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,6 +13,7 @@ import mx.uam.ayd.proyecto.presentacion.agendarCita.ControlAgendarCita;
 import mx.uam.ayd.proyecto.presentacion.agregarUsuario.ControlAgregarUsuario;
 import mx.uam.ayd.proyecto.presentacion.consultarCitas.ControlConsultarCitas;
 import mx.uam.ayd.proyecto.presentacion.listarUsuarios.ControlListarUsuarios;
+import mx.uam.ayd.proyecto.presentacion.procesarTramites.ControlProcesarTramites;
 
 /**
  * Esta clase lleva el flujo de control de la ventana principal
@@ -21,16 +25,13 @@ import mx.uam.ayd.proyecto.presentacion.listarUsuarios.ControlListarUsuarios;
 public class ControlPrincipal {
 
 	@Autowired
-	private ControlAgregarUsuario controlAgregarUsuario;
-	
-	@Autowired
-	private ControlListarUsuarios controlListarUsuarios;
-	
-	@Autowired
 	private ControlConsultarCitas controlConsultarCitas;
 	
 	@Autowired
 	private ControlAgendarCita controlAgendarCita;
+
+	@Autowired
+	private ControlProcesarTramites controlProcesarTramites;
 
 	@Autowired
 	private VentanaPrincipal ventana;
@@ -40,7 +41,7 @@ public class ControlPrincipal {
 
 	@Autowired
 	private RepositoryAgremiado repositoryAgremiado;
-	
+
 	private Agremiado agremiado;
 	
 	private Object empleado;
@@ -55,23 +56,11 @@ public class ControlPrincipal {
 		ventana.muestra(this);
 	}
 
-	/**
-	 * Método que arranca la historia de usuario "agregar usuario"
-	 * 
-	 */
-	public void agregarUsuario() {
-		
-		controlAgregarUsuario.inicia();
-		
+	public void procesarTramites() {
+		controlProcesarTramites.inicia();
 	}
-	
-	/**
-	 * Método que arranca la historia de usuario "listar usuarios"
-	 * 
-	 */
-	public void listarUsuarios() {
-		controlListarUsuarios.inicia();
-	}
+
+
 	
 	public void loginAgremiado() {
 		empleado = null;
@@ -94,8 +83,7 @@ public class ControlPrincipal {
 			// TODO: llamar al controlador
 			throw new NotImplementedException();
 		else if (empleado != null)
-			// TODO: llamar al controlador
-			throw new NotImplementedException();
+			controlProcesarTramites.inicia();
 	}
 	
 	public void citas() {
