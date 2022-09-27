@@ -56,7 +56,6 @@ public class VentanaConsultarAvisos extends Pantalla{
 
 	public void muestra(List<Aviso> avisos) {
 		paneles.removeAll();
-		System.out.println(avisos);
 		for (Aviso aviso : avisos) {
 			Componente aux = new Componente();
             String contenido = (aviso.getContenido());
