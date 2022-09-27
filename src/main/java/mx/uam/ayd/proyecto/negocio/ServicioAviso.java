@@ -1,7 +1,6 @@
 package mx.uam.ayd.proyecto.negocio;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import mx.uam.ayd.proyecto.datos.AvisoRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.Aviso;
-import net.bytebuddy.implementation.bytecode.Throw;
+
 
 @Service
 public class ServicioAviso {
@@ -24,7 +23,6 @@ public class ServicioAviso {
 	public boolean crearPublicacion(String imagen, String texto) {
 		Calendar fecha = obtenerFecha();
 		String cadenaFecha = String.format("%04d-%02d-%02d",fecha.get(Calendar.YEAR),(fecha.get(Calendar.MONTH)+1),fecha.get(Calendar.DAY_OF_MONTH));
-		System.out.println(cadenaFecha);
 		Aviso aviso = new Aviso();
 		aviso.setFecha(cadenaFecha);
 		aviso.setImagen(imagen);
