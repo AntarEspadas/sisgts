@@ -1,6 +1,8 @@
 package mx.uam.ayd.proyecto.presentacion.principal;
 
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
+import mx.uam.ayd.proyecto.datos.RepositoryEmpleado;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -8,10 +10,15 @@ import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
+import mx.uam.ayd.proyecto.negocio.ServicioUsuario;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
+import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import mx.uam.ayd.proyecto.presentacion.agendarCita.ControlAgendarCita;
 import mx.uam.ayd.proyecto.presentacion.agregarUsuario.ControlAgregarUsuario;
+import mx.uam.ayd.proyecto.presentacion.consultarAvisos.ControlConsultarAvisos;
 import mx.uam.ayd.proyecto.presentacion.consultarCitas.ControlConsultarCitas;
+import mx.uam.ayd.proyecto.presentacion.crearPublicacion.ControlCrearPublicacion;
 import mx.uam.ayd.proyecto.presentacion.listarUsuarios.ControlListarUsuarios;
 import mx.uam.ayd.proyecto.presentacion.procesarTramites.ControlProcesarTramites;
 
@@ -21,6 +28,7 @@ import mx.uam.ayd.proyecto.presentacion.procesarTramites.ControlProcesarTramites
  * @author humbertocervantes
  *
  */
+@Slf4j
 @Component
 public class ControlPrincipal {
 
@@ -29,6 +37,12 @@ public class ControlPrincipal {
 	
 	@Autowired
 	private ControlAgendarCita controlAgendarCita;
+
+	@Autowired
+	private ControlCrearPublicacion controlCrearPublicacion;
+
+	@Autowired
+	private ControlConsultarAvisos controlConsultarAvisos;
 
 	@Autowired
 	private ControlProcesarTramites controlProcesarTramites;
@@ -42,9 +56,12 @@ public class ControlPrincipal {
 	@Autowired
 	private RepositoryAgremiado repositoryAgremiado;
 
+	@Autowired
+	private RepositoryEmpleado repositoryEmpleado;
+
 	private Agremiado agremiado;
 	
-	private Object empleado;
+	private Empleado empleado;
 	
 	/**
 	 * Inicia el flujo de control de la ventana principal
@@ -71,7 +88,9 @@ public class ControlPrincipal {
 	public void loginEmpleado() {
 		agremiado = null;
 		
-		empleado = new Object();
+		empleado = repositoryEmpleado.findByTipoEmpleado("encargada");
+
+
 	}
 	
 	public void ventanaInicio() {
@@ -95,10 +114,10 @@ public class ControlPrincipal {
 
 	public void publicaciones() {
 		if (agremiado != null)
-			// TODO: llamar al controlador
-			throw new NotImplementedException();
+			controlConsultarAvisos.inicia(agremiado);
+
 		else if (empleado != null)
-			// TODO: llamar al controlador
-			throw new NotImplementedException();
+			controlCrearPublicacion.inicia(empleado);
+
 	}
 }

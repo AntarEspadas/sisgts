@@ -12,12 +12,18 @@ import javax.annotation.PostConstruct;
 
 import com.formdev.flatlaf.FlatDarkLaf;
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
+import mx.uam.ayd.proyecto.datos.RepositoryEmpleado;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
+import mx.uam.ayd.proyecto.negocio.modelo.Aviso;
+import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import mx.uam.ayd.proyecto.util.ServicioDatosPrueba;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
+import mx.uam.ayd.proyecto.datos.AvisoRepository;
+import mx.uam.ayd.proyecto.datos.GrupoRepository;
+import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import mx.uam.ayd.proyecto.datos.RepositoryDocumento;
 import mx.uam.ayd.proyecto.datos.RepositorySolicitudTramite;
@@ -45,6 +51,12 @@ public class ProyectoApplication {
 	ControlPrincipal controlPrincipal;
 	
 	@Autowired
+	GrupoRepository grupoRepository;
+
+	@Autowired
+	AvisoRepository repositoryAviso;
+
+	@Autowired
 	RepositoryAgremiado RepositoryAgremiado;
 
 	@Autowired
@@ -61,6 +73,9 @@ public class ProyectoApplication {
 
 	@Autowired
 	RepositoryAgremiado repositoryAgremiado;
+
+	@Autowired
+	RepositoryEmpleado repositoryEmpleado;
 
 	/**
 	 * 
@@ -202,6 +217,28 @@ public class ProyectoApplication {
 		agremiado.setNombre("Alan");
 		agremiado.setApellidos("Turing");
 		repositoryAgremiado.save(agremiado);
+
+		var empleado = new Empleado();
+		empleado.setId(987654321);
+		empleado.setNombre("Yanely");
+		empleado.setApellidos("Bermejo Hernandez");
+		empleado.setTipoEmpleado("encargada");
+		repositoryEmpleado.save(empleado);
+
+		var aviso1 = new Aviso();
+		aviso1.setIdAviso(9909);
+		aviso1.setContenido("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at erat ac quam consequat tempus.");
+		aviso1.setFecha("2222-09-22");
+		repositoryAviso.save(aviso1);
+
+		var aviso2 = new Aviso();
+		aviso2.setIdAviso(9907);
+		aviso2.setContenido("Prueba 2");
+		aviso2.setFecha("2222-09-22");
+		repositoryAviso.save(aviso2);
+
+
+
 
 		servicioDatosPrueba.generarDatos();
 	}
