@@ -1,7 +1,9 @@
 package mx.uam.ayd.proyecto.negocio;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.mockito.AdditionalAnswers.*;
 
 
 import java.util.LinkedList;
@@ -63,7 +65,8 @@ class ServicioAvisoTest {
 		assertThrows(IllegalArgumentException.class, () -> servicioAviso.crearPublicacion(null, null));
 		
 		// Prueba 4 Se puede crear una publicacion sin una Imagen (RN-10)
-		
+
+		when(avisosRepository.save(any(Aviso.class))).then(returnsFirstArg());
 		Boolean salida2 = servicioAviso.crearPublicacion(null, "texto de prueba");
 		assertEquals(true,salida2);
 		// Prueba 5 No puede crear una publicacion con una Imagen y sin texto (RN-10)
