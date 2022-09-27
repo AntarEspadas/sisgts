@@ -22,13 +22,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
 import mx.uam.ayd.proyecto.datos.AvisoRepository;
-import mx.uam.ayd.proyecto.datos.GrupoRepository;
-import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
-import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import mx.uam.ayd.proyecto.datos.RepositoryDocumento;
 import mx.uam.ayd.proyecto.datos.RepositorySolicitudTramite;
 import mx.uam.ayd.proyecto.datos.RepositoryTipoTramite;
-import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.Documento;
 import mx.uam.ayd.proyecto.negocio.modelo.SolicitudTramite;
 import mx.uam.ayd.proyecto.negocio.modelo.TipoTramite;
@@ -49,9 +45,6 @@ public class ProyectoApplication {
 
 	@Autowired
 	ControlPrincipal controlPrincipal;
-	
-	@Autowired
-	GrupoRepository grupoRepository;
 
 	@Autowired
 	AvisoRepository repositoryAviso;
