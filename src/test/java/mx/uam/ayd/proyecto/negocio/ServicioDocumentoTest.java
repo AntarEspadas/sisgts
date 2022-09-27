@@ -98,7 +98,7 @@ class ServicioDocumentoTest {
 		 */
 		assertThrows(
 			IllegalArgumentException.class, () -> servicio
-						.creaDocumento(Paths.get(".\\src\\main\\resources\\Solicitud1Documento1.pdf"), null),
+						.creaDocumento(Paths.get("./src/main/resources/Solicitud1Documento1.pdf"), null),
 				"Debió lanzar una excepción");
 
 		/**
@@ -106,7 +106,7 @@ class ServicioDocumentoTest {
 		 */
 		assertThrows(
 				IOException.class, () -> servicio
-						.creaDocumento(Paths.get(".\\src\\main\\resources\\esteDocNoExiste.pdf"), tipoDocumento),
+						.creaDocumento(Paths.get("./src/main/resources/esteDocNoExiste.pdf"), tipoDocumento),
 				"Debió lanzar una excepción");
 
 		/**
@@ -114,7 +114,7 @@ class ServicioDocumentoTest {
 		 */
 		try {
 			assertInstanceOf(Documento.class, servicio.creaDocumento(
-					Paths.get(".\\src\\main\\resources\\Solicitud1Documento1.pdf"),
+					Paths.get("./src/main/resources/Solicitud1Documento1.pdf"),
 					"No devolvió un objeto tipo documento"));
 		} catch (IOException e) {
 			fail("No debió lanzar una excepción");
