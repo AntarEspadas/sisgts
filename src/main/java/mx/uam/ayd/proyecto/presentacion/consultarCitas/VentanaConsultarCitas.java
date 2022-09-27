@@ -158,8 +158,6 @@ public class VentanaConsultarCitas extends Pantalla {
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"UwU", "Onii", "Chan"},
-				{null, null, null},
 			},
 			new String[] {
 				"Fecha", "Nombre", "Motivo"
@@ -217,7 +215,7 @@ public class VentanaConsultarCitas extends Pantalla {
 	private void mostrarCitas(List<Cita> citas) {
 		var filas = citas.stream()
 				.sorted()
-				.map(cita -> new Object[] {cita.getFecha().toString(), cita.getAgremiado().getNombreCompleto(), cita.getMotivo()})
+				.map(cita -> new Object[] {cita.getFecha().toString() + " - " + cita.getHora().toString(), cita.getAgremiado().getNombreCompleto(), cita.getMotivo()})
 				.toArray(Object[][]::new);
 
 		table.setModel(new DefaultTableModel(filas, columnas));
