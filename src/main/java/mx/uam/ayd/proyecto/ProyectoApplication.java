@@ -163,21 +163,21 @@ public class ProyectoApplication {
 		/***** Datos para Documento *****/
 		Documento documento1Sol1 = new Documento();
 		documento1Sol1.setTipoDocumento("Identificacion");
-		Path pdfPath1 = Paths.get(".\\src\\main\\resources\\Solicitud1Documento1.pdf");
+		Path pdfPath1 = Paths.get("./src/main/resources/Solicitud1Documento1.pdf");
 		byte[] pdf1 = Files.readAllBytes(pdfPath1);
 		documento1Sol1.setArchivo(pdf1);
 		documentoRepository.save(documento1Sol1);
 
 		Documento documento1Sol2 = new Documento();
 		documento1Sol2.setTipoDocumento("Identificacion");
-		Path pdfPath2 = Paths.get(".\\src\\main\\resources\\Solicitud2Documento1.pdf");
+		Path pdfPath2 = Paths.get("./src/main/resources/Solicitud2Documento1.pdf");
 		byte[] pdf2 = Files.readAllBytes(pdfPath2);
 		documento1Sol2.setArchivo(pdf2);
 		documentoRepository.save(documento1Sol2);
 
 		Documento documento2Sol2 = new Documento();
 		documento2Sol2.setTipoDocumento("Comprobante");
-		Path pdfPath3 = Paths.get(".\\src\\main\\resources\\Solicitud2Documento2.pdf");
+		Path pdfPath3 = Paths.get("./src/main/resources/Solicitud2Documento2.pdf");
 		byte[] pdf3 = Files.readAllBytes(pdfPath3);
 		documento2Sol2.setArchivo(pdf3);
 		documentoRepository.save(documento2Sol2);

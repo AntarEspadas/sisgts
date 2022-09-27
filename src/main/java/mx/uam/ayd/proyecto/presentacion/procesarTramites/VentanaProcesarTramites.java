@@ -441,7 +441,7 @@ public class VentanaProcesarTramites extends Pantalla {
 
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             for (Documento documento : documentosAdjuntos) {
-                File path = new File(chooser.getSelectedFile() + "\\Solicitud"
+                File path = new File(chooser.getSelectedFile() + "/Solicitud"
                         + String.valueOf(solicitudSeleccionada.getIdSolicitud()) + documento.getTipoDocumento()
                         + ".pdf");
 
