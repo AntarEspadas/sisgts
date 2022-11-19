@@ -114,23 +114,23 @@ public class ProyectoApplication {
 	public void inicializaBD() throws IOException {
 
 		/***** Datos para Agremiado *****/
-		Agremiado empleado1 = new Agremiado();
-		empleado1.setClave("SD18SADS345");
-		empleado1.setNombre("JOSE");
-		empleado1.setApellidos("CAMPOS GALINDO");
-		RepositoryAgremiado.save(empleado1);
+		Agremiado agremiado1 = new Agremiado();
+		agremiado1.setClave("SD18SADS345");
+		agremiado1.setNombre("JOSE");
+		agremiado1.setApellidos("CAMPOS GALINDO");
+		RepositoryAgremiado.save(agremiado1);
 
-		Agremiado empleado2 = new Agremiado();
-		empleado2.setClave("FD1F5SFD3S");
-		empleado2.setNombre("ALAN");
-		empleado2.setApellidos("ESPINOZA GARCÍA");
-		RepositoryAgremiado.save(empleado2);
+		Agremiado agremiado2 = new Agremiado();
+		agremiado2.setClave("FD1F5SFD3S");
+		agremiado2.setNombre("ALAN");
+		agremiado2.setApellidos("ESPINOZA GARCÍA");
+		RepositoryAgremiado.save(agremiado2);
 
-		Agremiado empleado3 = new Agremiado();
-		empleado3.setClave("D1F8D641C4");
-		empleado3.setNombre("GABRIEL");
-		empleado3.setApellidos("GONZALES CRUZ");
-		RepositoryAgremiado.save(empleado3);
+		Agremiado agremiado3 = new Agremiado();
+		agremiado3.setClave("D1F8D641C4");
+		agremiado3.setNombre("GABRIEL");
+		agremiado3.setApellidos("GONZALES CRUZ");
+		RepositoryAgremiado.save(agremiado3);
 
 
 		/***** Datos para TipoTramite *****/
@@ -182,26 +182,26 @@ public class ProyectoApplication {
 		solicitud1.setTipoTramite(tipo1);
 		solicitud1.setFechaSolicitud(new Date(System.currentTimeMillis()));
 		List<Documento> listaReqs1 = new ArrayList<Documento> ();
-		listaReqs1.add(documento1Sol1);
 		solicitud1.setRequisitos(listaReqs1);
-		solicitud1.setSolicitante(empleado1);
+		solicitud1.setSolicitante(agremiado1);
 		solicitudTramiteRepository.save(solicitud1);
 
 		SolicitudTramite solicitud2 = new SolicitudTramite();
 		solicitud2.setEstado("Pendiente");
 		solicitud2.setTipoTramite(tipo2);
 		solicitud2.setFechaSolicitud(new Date(System.currentTimeMillis()));
-		List<Documento> listaReqs2 = new ArrayList<Documento> ();
-		listaReqs2.add(documento1Sol2); listaReqs2.add(documento2Sol2);
-		solicitud2.setRequisitos(listaReqs2);
-		solicitud2.setSolicitante(empleado2);
-		solicitudTramiteRepository.save(solicitud2);
+		agremiado2.addSolicitud(solicitud2);
+		solicitud2.addDocumentoRequerido(documento1Sol2);
+		solicitud2.addDocumentoRequerido(documento2Sol2);
+//		solicitud2.setSolicitante(agremiado2);
+//		solicitudTramiteRepository.save(solicitud2);
+		repositoryAgremiado.save(agremiado2);
 
 		SolicitudTramite solicitud3 = new SolicitudTramite();
 		solicitud3.setEstado("Rechazada");
 		solicitud3.setTipoTramite(tipo3);
 		solicitud3.setFechaSolicitud(new Date(System.currentTimeMillis()));
-		solicitud3.setSolicitante(empleado3);
+		solicitud3.setSolicitante(agremiado3);
 		solicitud3.setMotivoRechazo("Archivos ilegibles");
 		solicitudTramiteRepository.save(solicitud3);
 

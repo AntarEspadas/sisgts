@@ -7,8 +7,11 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
+import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,6 +31,9 @@ class ServicioSolicitudTramiteTest {
 
 	@Mock
 	private RepositorySolicitudTramite repositorySolicitudTramite;
+
+	@Mock
+	RepositoryAgremiado repositoryAgremiado;
 
 	@InjectMocks
 	private ServicioSolicitudTramite servicio;
@@ -158,6 +164,7 @@ class ServicioSolicitudTramiteTest {
 		/**
 		 * Caso 3 - SolicitudTramite con requisitos nulos
 		 */
+		solicitudNoNula.setRequisitos(null);
 
 		assertThrows(IllegalArgumentException.class, () -> servicio.rechazarDocumentos(solicitudNoNula, strNoNula));
 
@@ -241,6 +248,32 @@ class ServicioSolicitudTramiteTest {
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
+	}
+
+	@Test
+	void testSolicitarTramite(){
+		var agremiado = new Agremiado();
+		var tipoTramite = new TipoTramite();
+		tipoTramite.setRequerimientos(new String[]{"doc1", "doc2", "doc3"});
+		var archivos = new HashMap<String, byte[]>(3);
+		for (var requerimiento : tipoTramite.getRequerimientos()){
+			archivos.put(requerimiento, new byte[1024]);
+		}
+
+		// Caso 1 - Las cosas salen correctamente cuando los argumentos son válidos
+
+		assertDoesNotThrow(() -> servicio.solicitarTramite(agremiado, tipoTramite, archivos));
+
+		// Caso 2 - El método arroja un IllegalArgumentException cuando alguno de los parámetros es nulo
+
+		assertThrows(IllegalArgumentException.class, () -> servicio.solicitarTramite(null, tipoTramite, archivos));
+		assertThrows(IllegalArgumentException.class, () -> servicio.solicitarTramite(agremiado, null, archivos));
+		assertThrows(IllegalArgumentException.class, () -> servicio.solicitarTramite(agremiado, tipoTramite, null));
+
+		// Caso 3 - El método arroja un IllegalArgumentException cuando falta algún archivo requerido
+
+		archivos.remove("doc1");
+		assertThrows(IllegalArgumentException.class, () -> servicio.solicitarTramite(agremiado, tipoTramite, archivos));
 	}
 
 }
