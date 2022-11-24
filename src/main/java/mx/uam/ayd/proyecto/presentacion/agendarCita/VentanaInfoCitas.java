@@ -85,18 +85,65 @@ public class VentanaInfoCitas extends Pantalla {
 		GridBagConstraints gbc_btnAgendarCita = new GridBagConstraints();
 		gbc_btnAgendarCita.insets = new Insets(0, 0, 5, 5);
 		gbc_btnAgendarCita.anchor = GridBagConstraints.NORTH;
-		gbc_btnAgendarCita.gridx = 2;
+		gbc_btnAgendarCita.gridx = 1;
 		gbc_btnAgendarCita.gridy = 6;
 		add(btnAgendarCita, gbc_btnAgendarCita);
 		
-
-
 		btnAgendarCita.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				controlador.agendarCita();
 			}
 		});
+
+		JButton btnEditarCita = new JButton("Editar Cita");
+		GridBagConstraints gbc_btnEditarCita = new GridBagConstraints();
+		gbc_btnEditarCita.insets = new Insets(0, 0, 5, 5);
+		gbc_btnEditarCita.anchor = GridBagConstraints.NORTH;
+		gbc_btnEditarCita.gridx = 2;
+		gbc_btnEditarCita.gridy = 6;
+		add(btnEditarCita, gbc_btnEditarCita);
+		
+		btnEditarCita.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(listaCitas.getSelectedIndex()==-1){
+					controlador.verificar();
+				}else {
+					int indice;
+					indice = listaCitas.getSelectedIndex();
+					DefaultListModel modelo = (DefaultListModel) listaCitas.getModel();
+					modelo.remove(listaCitas.getSelectedIndex());
+					
+					controlador.agendarCita();
+					controlador.editarCita();
+				}
+			}
+		});
+
+		JButton btnEliminar = new JButton("Eliminar");
+		GridBagConstraints gbc_btnEliminar = new GridBagConstraints();
+		gbc_btnEliminar.insets = new Insets(0, 0, 5, 5);
+		gbc_btnEliminar.anchor = GridBagConstraints.NORTH;
+		gbc_btnEliminar.gridx = 3;
+		gbc_btnEliminar.gridy = 6;
+		add(btnEliminar, gbc_btnEliminar);
+		
+		btnEliminar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(listaCitas.getSelectedIndex()==-1){
+					controlador.verificar();
+				}else {
+					
+					DefaultListModel modelo = (DefaultListModel) listaCitas.getModel();
+					modelo.remove(listaCitas.getSelectedIndex());
+					
+					controlador.eliminarCita();
+				}
+			}
+		});
+		
 	}
 	
 	public void muestra(ControlAgendarCita controlador, List<Cita> citas) {
