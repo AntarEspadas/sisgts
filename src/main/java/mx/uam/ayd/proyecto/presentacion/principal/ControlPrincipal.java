@@ -2,7 +2,7 @@ package mx.uam.ayd.proyecto.presentacion.principal;
 
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import mx.uam.ayd.proyecto.datos.RepositoryEmpleado;
-
+import mx.uam.ayd.proyecto.datos.RepositoryUsuario;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,11 +10,15 @@ import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
+import mx.uam.ayd.proyecto.presentacion.RegistrarAgremiado.ControlRegistraAgremiado;
+import mx.uam.ayd.proyecto.presentacion.RegistroEmpleado.ControlRegistraEmpleado;
+//import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
 import mx.uam.ayd.proyecto.presentacion.agendarCita.ControlAgendarCita;
 import mx.uam.ayd.proyecto.presentacion.consultarAvisos.ControlConsultarAvisos;
 import mx.uam.ayd.proyecto.presentacion.consultarCitas.ControlConsultarCitas;
 import mx.uam.ayd.proyecto.presentacion.crearPublicacion.ControlCrearPublicacion;
 import mx.uam.ayd.proyecto.presentacion.procesarTramites.ControlProcesarTramites;
+
 
 /**
  * Esta clase lleva el flujo de control de la ventana principal
@@ -53,9 +57,17 @@ public class ControlPrincipal {
 	@Autowired
 	private RepositoryEmpleado repositoryEmpleado;
 
+	@Autowired
+	private ControlRegistraEmpleado controlregistraempleado;
+	
+	@Autowired
+	private ControlRegistraAgremiado controlregistraagremiado;
+	
 	private Agremiado agremiado;
 	
 	private Empleado empleado;
+	
+	//private RegistraEmpleado registraempleado;
 	
 	/**
 	 * Inicia el flujo de control de la ventana principal
@@ -67,6 +79,7 @@ public class ControlPrincipal {
 		ventana.muestra(this);
 	}
 
+	
 	public void procesarTramites() {
 		controlProcesarTramites.inicia();
 	}
@@ -113,5 +126,15 @@ public class ControlPrincipal {
 		else if (empleado != null)
 			controlCrearPublicacion.inicia(empleado);
 
+	}
+	
+	public void RegistraEmpleado() {
+		controlregistraempleado.inicia();
+		System.out.println("Estoy en el boton registra empleado");
+	}
+	
+	public void RegistraAgremiado() {
+		controlregistraagremiado.inicia();
+		System.out.println("Estoy en el boton registra agremiado");
 	}
 }
