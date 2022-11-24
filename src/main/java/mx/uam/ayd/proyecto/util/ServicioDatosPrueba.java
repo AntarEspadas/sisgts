@@ -65,6 +65,9 @@ public class ServicioDatosPrueba {
         var date = faker.date().between(haceUnMes, enUnMes);
         var fecha = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         var horarios = fechasYHoras.computeIfAbsent(fecha, v -> (servicioCita.getHorarios()));
+        if (horarios.size() == 0){
+            return new Cita();
+        }
         var indice = faker.random().nextInt(0, horarios.size() - 1);
         var hora = horarios.get(indice);
         horarios.remove((int)indice);

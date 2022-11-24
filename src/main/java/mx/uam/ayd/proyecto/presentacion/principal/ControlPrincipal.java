@@ -18,6 +18,7 @@ import mx.uam.ayd.proyecto.presentacion.consultarAvisos.ControlConsultarAvisos;
 import mx.uam.ayd.proyecto.presentacion.consultarCitas.ControlConsultarCitas;
 import mx.uam.ayd.proyecto.presentacion.crearPublicacion.ControlCrearPublicacion;
 import mx.uam.ayd.proyecto.presentacion.procesarTramites.ControlProcesarTramites;
+import mx.uam.ayd.proyecto.presentacion.solicitarTramite.ControlSolicitarTramite;
 
 
 /**
@@ -29,6 +30,9 @@ import mx.uam.ayd.proyecto.presentacion.procesarTramites.ControlProcesarTramites
 @Slf4j
 @Component
 public class ControlPrincipal {
+	
+	@Autowired
+	private ControlSolicitarTramite controlSolicitarTramite;
 
 	@Autowired
 	private ControlConsultarCitas controlConsultarCitas;
@@ -106,8 +110,7 @@ public class ControlPrincipal {
 
 	public void tramites() {
 		if (agremiado != null)
-			// TODO: llamar al controlador
-			throw new NotImplementedException();
+			controlSolicitarTramite.inicia(agremiado);
 		else if (empleado != null)
 			controlProcesarTramites.inicia();
 	}
