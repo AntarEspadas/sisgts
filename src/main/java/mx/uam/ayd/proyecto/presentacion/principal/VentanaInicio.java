@@ -68,6 +68,7 @@ public class VentanaInicio extends Pantalla {
 		gbc_btnLoginempleado.gridx = 3;
 		gbc_btnLoginempleado.gridy = 5;
 		add(btnLoginempleado, gbc_btnLoginempleado);
+		
 	}
 	
 	public void muestra(ControlPrincipal controlPrincipal) {
