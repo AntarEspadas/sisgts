@@ -52,6 +52,12 @@ public class ControlSolicitarTramite {
 	 * @param tipoTramite El tipo de trámite para el cual se van a subir los archivos
 	 */
 	public void subirArchivos(TipoTramite tipoTramite) {
+
+		if (!servicioSolicitudTramite.puedeSolicitarTramite(this.agremiado)){
+			ventanaElegirTramite.muestraDialogoError();
+			return;
+		}
+
 		this.tipoTramite = tipoTramite;
 
 		ventanaSubirArchivos.muestra(this, tipoTramite);

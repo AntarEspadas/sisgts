@@ -276,4 +276,42 @@ class ServicioSolicitudTramiteTest {
 		assertThrows(IllegalArgumentException.class, () -> servicio.solicitarTramite(agremiado, tipoTramite, archivos));
 	}
 
+	@Test
+	void testPuedeSolicitarTramite(){
+
+		// Caso 1 - El método arroja un IllegalArgumentException cuando se le pasa un argumento nulo
+
+		assertThrows(IllegalArgumentException.class, () -> servicio.puedeSolicitarTramite(null));
+
+		// Caso 2 - El método regresa 'true' cuando el agremiado no tiene ningún trámite pendiente
+
+		var agremiado = new Agremiado();
+		agremiado.setClave("1234");
+		var solicitudes = agremiado.getSolicitudes();
+		for (int i = 0; i < 5; i++) {
+			var solicitud = new SolicitudTramite();
+			solicitud.setEstado("Finalizado");
+			solicitudes.add(solicitud);
+		}
+
+		assertTrue(servicio.puedeSolicitarTramite(agremiado));
+
+		// Caso 3 - El método regresa 'false' cuando el agremiado tiene un trámite pendiente
+
+		var solicitud = new SolicitudTramite();
+		solicitud.setEstado("Pendiente");
+		solicitudes.add(solicitud);
+
+		assertFalse(servicio.puedeSolicitarTramite(agremiado));
+
+		// Caso 3 - el método regresa 'false' cuando el agremiado tiene un trámite pendiente
+
+		solicitudes.remove(solicitud);
+		solicitud = new SolicitudTramite();
+		solicitud.setEstado("En progreso");
+		solicitudes.add(solicitud);
+
+		assertFalse(servicio.puedeSolicitarTramite(agremiado));
+	}
+
 }

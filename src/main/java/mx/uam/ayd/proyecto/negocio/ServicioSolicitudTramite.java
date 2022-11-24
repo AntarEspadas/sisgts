@@ -202,4 +202,24 @@ public class ServicioSolicitudTramite {
         repositoryAgremiado.save(agremiado);
     }
 
+    /**
+     *
+     * Indica si el agremiado tiene derecho a solicitar un trámite
+     *
+     * @author Antar Espadas
+     *
+     * @param agremiado El agremiado en cuestión
+     * @return true en caso de que el agremiado tenga permitido solicitar un trámite, false de lo contrario
+     */
+    public boolean puedeSolicitarTramite(@NotNull Agremiado agremiado){
+
+        if (agremiado == null) throw new IllegalArgumentException("agremiado no puede ser null");
+
+        boolean tieneTramitesPendientes = agremiado.getSolicitudes()
+                .stream()
+                .map(SolicitudTramite::getEstado)
+                .anyMatch(estado -> estado.equalsIgnoreCase("pendiente") || estado.equalsIgnoreCase("en progreso"));
+        return !tieneTramitesPendientes;
+    }
+
 }

@@ -7,20 +7,14 @@ import lombok.Getter;
 import mx.uam.ayd.proyecto.negocio.modelo.TipoTramite;
 import mx.uam.ayd.proyecto.presentacion.compartido.Pantalla;
 import java.awt.GridBagLayout;
-import javax.swing.JLabel;
+import javax.swing.*;
 import java.awt.GridBagConstraints;
-import javax.swing.JComboBox;
 import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.MouseAdapter;
@@ -130,6 +124,10 @@ public class VentanaElegirTramite extends Pantalla {
 		model.addAll(vistaTipos);
 		comboBox.setModel(model);
 		setVisible(true);
+	}
+
+	public void muestraDialogoError(){
+		JOptionPane.showMessageDialog(this, "No puede solicitar un trámite en este momento porque ya tiene un trámite en curso");
 	}
 }
 
