@@ -12,9 +12,6 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JLabel;
 
 
 @SuppressWarnings("serial")
@@ -22,7 +19,7 @@ import javax.swing.JLabel;
 public class VentanaPrincipal extends JFrame {
 
 	private final JPanel contentPane;
-	private JPanel panel1;
+	
 	private ControlPrincipal control;
 	private final JPanel panelContenido;
 	
@@ -56,75 +53,15 @@ public class VentanaPrincipal extends JFrame {
 		contentPane.add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{0, 0};
-		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0};
 		gbl_panel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
-		
-		panel1 = new JPanel();
-		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.fill = GridBagConstraints.BOTH;
-		gbc_panel_1.gridx = 2;
-		gbc_panel_1.gridy = 0;
-		contentPane.add(panel1, gbc_panel_1);
-		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[]{0, 0};
-		gbl_panel_1.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel_1.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_1.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		panel1.setLayout(gbl_panel_1);
-		
-		JLabel lblNewLabel = new JLabel("Registrar Empleado");
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel.gridx = 0;
-		gbc_lblNewLabel.gridy = 3;
-		panel1.add(lblNewLabel, gbc_lblNewLabel);
-		
-		JButton btnRegistrar = new JButton("Registrar");
-		GridBagConstraints gbc_btnRegistrar = new GridBagConstraints();
-		gbc_btnRegistrar.insets = new Insets(0, 0, 5, 0);
-		gbc_btnRegistrar.gridx = 0;
-		gbc_btnRegistrar.gridy = 4;
-		panel1.add(btnRegistrar, gbc_btnRegistrar);
-		
-		JLabel lblNewLabel_1 = new JLabel("Registrar Agremiado");
-		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
-		gbc_lblNewLabel_1.insets = new Insets(0, 0, 5, 0);
-		gbc_lblNewLabel_1.gridx = 0;
-		gbc_lblNewLabel_1.gridy = 5;
-		panel1.add(lblNewLabel_1, gbc_lblNewLabel_1);
-		
-		JButton btnRegistrar_1 = new JButton("Registrar");
-		GridBagConstraints gbc_btnRegistrar_1 = new GridBagConstraints();
-		gbc_btnRegistrar_1.fill = GridBagConstraints.VERTICAL;
-		gbc_btnRegistrar_1.insets = new Insets(0, 0, 5, 0);
-		gbc_btnRegistrar_1.gridx = 0;
-		gbc_btnRegistrar_1.gridy = 6;
-		panel1.add(btnRegistrar_1, gbc_btnRegistrar_1);
-		
-		panel1.setVisible(false);
-		
-		btnRegistrar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				control.RegistraEmpleado();
-			}
-		});
-		
-		btnRegistrar_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				control.RegistraAgremiado();
-			}
-		});
-		
 		
 		JButton btnInicio = new JButton("Inicio");
 		btnInicio.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel1.setVisible(false);
 				control.ventanaInicio();
 			}
 		});
@@ -139,7 +76,6 @@ public class VentanaPrincipal extends JFrame {
 		btnTramites.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel1.setVisible(false);				
 				control.tramites();
 			}
 		});
@@ -154,7 +90,6 @@ public class VentanaPrincipal extends JFrame {
 		btnCitas.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel1.setVisible(false);
 				control.citas();
 			}
 		});
@@ -169,36 +104,21 @@ public class VentanaPrincipal extends JFrame {
 		btnPublicaciones.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panel1.setVisible(false);
 				control.publicaciones();
 			}
 		});
 		GridBagConstraints gbc_btnPublicaciones = new GridBagConstraints();
 		gbc_btnPublicaciones.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnPublicaciones.insets = new Insets(0, 0, 5, 0);
 		gbc_btnPublicaciones.gridx = 0;
 		gbc_btnPublicaciones.gridy = 3;
 		panel.add(btnPublicaciones, gbc_btnPublicaciones);
-		
-		JButton btnNewButton = new JButton("Administrador");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				panel1.setVisible(true);
-			}
-		});
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNewButton.fill = GridBagConstraints.BOTH;
-		gbc_btnNewButton.gridx = 0;
-		gbc_btnNewButton.gridy = 4;
-		panel.add(btnNewButton, gbc_btnNewButton);
 		
 		panelContenido = new JPanel();
 		gbc_contenido = new GridBagConstraints();
 		gbc_contenido.fill = GridBagConstraints.BOTH;
 		gbc_contenido.gridx = 2;
 		gbc_contenido.gridy = 0;
-		contentPane.add(panelContenido, gbc_contenido);
+		//contentPane.add(panelContenido, gbc_contenido);
 	}
 	
 	public void muestra(ControlPrincipal control) {
