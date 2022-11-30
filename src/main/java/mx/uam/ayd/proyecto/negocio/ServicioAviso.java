@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import mx.uam.ayd.proyecto.datos.AvisoRepository;
@@ -20,26 +22,33 @@ public class ServicioAviso {
 		return fecha;
 	}
 
-	public boolean crearPublicacion(String imagen, String texto) {
-		Calendar fecha = obtenerFecha();
-		String cadenaFecha = String.format("%04d-%02d-%02d",fecha.get(Calendar.YEAR),(fecha.get(Calendar.MONTH)+1),fecha.get(Calendar.DAY_OF_MONTH));
-		Aviso aviso = new Aviso();
-		aviso.setFecha(cadenaFecha);
-		aviso.setImagen(imagen);
+	public boolean crearPublicacion(@Nullable String imagen, @NonNull String texto){
+		return guardarPublicacion(imagen, texto, null);
+	}
+
+	/**
+	 * Crea una nueva publicación con los argumentos dados o actualiza una publicación ya existente
+	 * @param imagen La imagen asociada con la publicación
+	 * @param texto El contenido textual de la publicación
+	 * @param aviso La publicación que se va a actualizar. Si es null, crea una nueva publicación
+	 * @return true si la publicación se pudo guardad correctamente, false de lo contrario
+	 */
+	public boolean guardarPublicacion(@Nullable String imagen, @NonNull String texto, @Nullable Aviso aviso) {
 		if (texto == null) {
 			throw new IllegalArgumentException();
 		}
+		if (aviso == null){
+			aviso = new Aviso();
+			var fecha = obtenerFecha();
+			var cadenaFecha = String.format("%04d-%02d-%02d",fecha.get(Calendar.YEAR),(fecha.get(Calendar.MONTH)+1),fecha.get(Calendar.DAY_OF_MONTH));
+			aviso.setFecha(cadenaFecha);
+		}
+		aviso.setImagen(imagen);
 		aviso.setContenido(texto);
 		
 		aviso = avisoRepository.save(aviso);
-		
-		if (aviso.getIdAviso()>-1) {
-			return true;
-		}else {
-			return false;
-		}
-		
-		
+
+		return aviso.getIdAviso() > -1;
 	}
 
 	public List<Aviso> recuperaTodos() {
