@@ -1,4 +1,4 @@
-package mx.uam.ayd.proyecto.presentacion.consultarAvisos;
+package mx.uam.ayd.proyecto.presentacion.publicaciones;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -9,6 +9,8 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JTabbedPane;
 
+import mx.uam.ayd.proyecto.presentacion.publicaciones.consultarAvisos.Componente;
+import mx.uam.ayd.proyecto.presentacion.publicaciones.consultarAvisos.ControlConsultarAvisos;
 import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.negocio.modelo.Aviso;
@@ -19,11 +21,11 @@ import mx.uam.ayd.proyecto.presentacion.compartido.Pantalla;
  *
  */
 @Component
-public class VentanaConsultarAvisos extends Pantalla{
+public class VentanaAvisos extends Pantalla{
 	private ControlConsultarAvisos controlador;
 	private JTabbedPane paneles;
 
-	public VentanaConsultarAvisos() {
+	public VentanaAvisos() {
 	setBounds(new Rectangle(100, 100, 500, 500));
 	GridBagLayout gridBagLayout = new GridBagLayout();
 	gridBagLayout.columnWidths = new int[]{40, 300, 40, 0};

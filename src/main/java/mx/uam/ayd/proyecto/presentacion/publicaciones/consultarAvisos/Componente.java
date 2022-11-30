@@ -1,4 +1,4 @@
-package mx.uam.ayd.proyecto.presentacion.consultarAvisos;
+package mx.uam.ayd.proyecto.presentacion.publicaciones.consultarAvisos;
 
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;

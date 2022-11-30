@@ -1,4 +1,4 @@
-package mx.uam.ayd.proyecto.presentacion.crearPublicacion;
+package mx.uam.ayd.proyecto.presentacion.publicaciones.crearPublicacion;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
