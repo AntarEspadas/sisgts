@@ -3,6 +3,7 @@ package mx.uam.ayd.proyecto.presentacion.principal;
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import mx.uam.ayd.proyecto.datos.RepositoryEmpleado;
 
+import mx.uam.ayd.proyecto.presentacion.publicaciones.administrarPublicaciones.ControlAdministrarPublicaciones;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -36,7 +37,7 @@ public class ControlPrincipal {
 	private ControlAgendarCita controlAgendarCita;
 
 	@Autowired
-	private ControlCrearPublicacion controlCrearPublicacion;
+	private ControlAdministrarPublicaciones controlAdministrarPublicaciones;
 
 	@Autowired
 	private ControlConsultarAvisos controlConsultarAvisos;
@@ -113,7 +114,7 @@ public class ControlPrincipal {
 			controlConsultarAvisos.inicia(agremiado);
 
 		else if (empleado != null)
-			controlCrearPublicacion.inicia(empleado);
+			controlAdministrarPublicaciones.inicia(empleado);
 
 	}
 }
