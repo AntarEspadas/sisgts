@@ -13,7 +13,6 @@ import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import mx.uam.ayd.proyecto.presentacion.agendarCita.ControlAgendarCita;
 import mx.uam.ayd.proyecto.presentacion.publicaciones.consultarAvisos.ControlConsultarAvisos;
 import mx.uam.ayd.proyecto.presentacion.consultarCitas.ControlConsultarCitas;
-import mx.uam.ayd.proyecto.presentacion.publicaciones.crearPublicacion.ControlCrearPublicacion;
 import mx.uam.ayd.proyecto.presentacion.procesarTramites.ControlProcesarTramites;
 import mx.uam.ayd.proyecto.presentacion.solicitarTramite.ControlSolicitarTramite;
 

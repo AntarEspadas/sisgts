@@ -5,7 +5,7 @@ import mx.uam.ayd.proyecto.negocio.modelo.Aviso;
 import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import mx.uam.ayd.proyecto.presentacion.publicaciones.ControlAvisos;
 import mx.uam.ayd.proyecto.presentacion.publicaciones.VentanaAvisos;
-import mx.uam.ayd.proyecto.presentacion.publicaciones.crearPublicacion.ControlCrearPublicacion;
+import mx.uam.ayd.proyecto.presentacion.publicaciones.editarPublicación.ControlEditarPublicacion;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ public class ControlAdministrarPublicaciones implements ControlAvisos {
     @Autowired
     private ServicioAviso servicioAviso;
     @Autowired
-    private ControlCrearPublicacion controlCrearPublicacion;
+    private ControlEditarPublicacion controlEditarPublicacion;
     @Autowired
     private VentanaAvisos ventanaAvisos;
 
@@ -29,7 +29,7 @@ public class ControlAdministrarPublicaciones implements ControlAvisos {
 
     @Override
     public void editar(Aviso aviso) {
-        throw new NotImplementedException();
+        controlEditarPublicacion.inicia(this, empleado, aviso);
     }
 
     @Override
@@ -43,6 +43,6 @@ public class ControlAdministrarPublicaciones implements ControlAvisos {
 
     @Override
     public void crear() {
-        controlCrearPublicacion.inicia(this, empleado);
+        controlEditarPublicacion.inicia(this, empleado, null);
     }
 }

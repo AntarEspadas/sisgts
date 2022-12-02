@@ -1,6 +1,8 @@
-package mx.uam.ayd.proyecto.presentacion.publicaciones.crearPublicacion;
+package mx.uam.ayd.proyecto.presentacion.publicaciones.editarPublicación;
 
+import mx.uam.ayd.proyecto.negocio.modelo.Aviso;
 import mx.uam.ayd.proyecto.presentacion.publicaciones.administrarPublicaciones.ControlAdministrarPublicaciones;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 
@@ -17,14 +19,15 @@ import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 
 
 @Component
-public class ControlCrearPublicacion {
+public class ControlEditarPublicacion {
 	@Autowired
 	private ServicioAviso servicioAviso;
 	@Autowired
-	private VentanaCrearPublicacion ventanaCrearPublicacion;
+	private VentanaEditarPublicacion ventanaEditarPublicacion;
 	private ControlAdministrarPublicaciones controladorPadre;
 
 	private Empleado empleado;
+	private Aviso aviso;
 	
 	 public boolean esEncargada(Empleado empleado) {
 		if (empleado.getTipoEmpleado() == "encargada"){
@@ -33,19 +36,24 @@ public class ControlCrearPublicacion {
 		return false;
 	}
 	
-	public void inicia(ControlAdministrarPublicaciones controladorPadre, Empleado empleado) {
+	public void inicia(ControlAdministrarPublicaciones controladorPadre, Empleado empleado, @Nullable Aviso aviso) {
 		 this.controladorPadre = controladorPadre;
 		 this.empleado = empleado;
-		
+		 this.aviso = aviso;
+
 		if (esEncargada(empleado)) {
-			ventanaCrearPublicacion.muestra(this);
+			ventanaEditarPublicacion.muestra(this, aviso);
 		}
 	}
 
-	public void crearPublicacion(String imagen, String texto) {
-		if (servicioAviso.crearPublicacion(imagen,texto)) {
-			ventanaCrearPublicacion.activaLogoConfirmacionOcultaCrear();
+	public void guardadPublicacion(String imagen, String texto) {
+		if (servicioAviso.guardarPublicacion(imagen, texto, aviso)) {
+			ventanaEditarPublicacion.activaLogoConfirmacionOcultaCrear();
 			controladorPadre.inicia(empleado);
 		}
+	}
+
+	public void cancelar() {
+		controladorPadre.inicia(empleado);
 	}
 }
