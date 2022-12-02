@@ -6,16 +6,14 @@ import java.awt.Insets;
 import java.awt.Rectangle;
 import java.util.List;
 
-import javax.swing.ImageIcon;
-import javax.swing.JTabbedPane;
+import javax.swing.*;
 
 import mx.uam.ayd.proyecto.presentacion.publicaciones.consultarAvisos.Componente;
 import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.negocio.modelo.Aviso;
 import mx.uam.ayd.proyecto.presentacion.compartido.Pantalla;
-import javax.swing.JPanel;
-import javax.swing.JButton;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -124,6 +122,10 @@ public class VentanaAvisos extends Pantalla{
 		panelAdmin.setVisible(true);
 		setAvisos(avisos);
 		setVisible(true);
+	}
+
+	public boolean muestraConfirmacionEliminar(){
+		return JOptionPane.showConfirmDialog(this, "¿Está seguro de querer eliminar esta publicación?") == 0;
 	}
 
 	public void setAvisos(List<Aviso> avisos){

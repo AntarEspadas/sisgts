@@ -1,5 +1,6 @@
 package mx.uam.ayd.proyecto.presentacion.publicaciones.crearPublicacion;
 
+import mx.uam.ayd.proyecto.presentacion.publicaciones.administrarPublicaciones.ControlAdministrarPublicaciones;
 import org.springframework.stereotype.Component;
 
 
@@ -21,6 +22,9 @@ public class ControlCrearPublicacion {
 	private ServicioAviso servicioAviso;
 	@Autowired
 	private VentanaCrearPublicacion ventanaCrearPublicacion;
+	private ControlAdministrarPublicaciones controladorPadre;
+
+	private Empleado empleado;
 	
 	 public boolean esEncargada(Empleado empleado) {
 		if (empleado.getTipoEmpleado() == "encargada"){
@@ -29,7 +33,9 @@ public class ControlCrearPublicacion {
 		return false;
 	}
 	
-	public void inicia(Empleado empleado) {
+	public void inicia(ControlAdministrarPublicaciones controladorPadre, Empleado empleado) {
+		 this.controladorPadre = controladorPadre;
+		 this.empleado = empleado;
 		
 		if (esEncargada(empleado)) {
 			ventanaCrearPublicacion.muestra(this);
@@ -39,7 +45,7 @@ public class ControlCrearPublicacion {
 	public void crearPublicacion(String imagen, String texto) {
 		if (servicioAviso.crearPublicacion(imagen,texto)) {
 			ventanaCrearPublicacion.activaLogoConfirmacionOcultaCrear();
+			controladorPadre.inicia(empleado);
 		}
-		
-	}	
+	}
 }

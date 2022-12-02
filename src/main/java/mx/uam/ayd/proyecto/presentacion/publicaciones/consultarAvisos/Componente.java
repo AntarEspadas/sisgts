@@ -74,6 +74,7 @@ public class Componente extends JPanel {
 	}
 
 	public void setAviso(Aviso aviso){
+		this.aviso = aviso;
 		texto.setText(aviso.getContenido());
 		fecha1.setText(aviso.getFecha());
 		var rutaImg = aviso.getImagen();

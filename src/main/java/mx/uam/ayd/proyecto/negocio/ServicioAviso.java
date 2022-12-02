@@ -55,5 +55,19 @@ public class ServicioAviso {
 		return avisoRepository.findAll();
 	}
 
+	/**
+	 * Elimina un aviso de la base de datos
+	 *
+	 * @param aviso el aviso que se desea eliminar
+	 *
+	 * @throws IllegalArgumentException En caso de que algún argumento sea null
+	 *
+	 * @author Antar Espadas
+	 */
+	public void eliminarPublicacion(@NonNull Aviso aviso){
+		if (aviso == null) throw new IllegalArgumentException("aviso no puede ser null");
+
+		avisoRepository.delete(aviso);
+	}
 	
 }

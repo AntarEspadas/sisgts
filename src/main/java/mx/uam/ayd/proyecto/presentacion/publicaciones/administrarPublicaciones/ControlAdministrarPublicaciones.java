@@ -5,6 +5,7 @@ import mx.uam.ayd.proyecto.negocio.modelo.Aviso;
 import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import mx.uam.ayd.proyecto.presentacion.publicaciones.ControlAvisos;
 import mx.uam.ayd.proyecto.presentacion.publicaciones.VentanaAvisos;
+import mx.uam.ayd.proyecto.presentacion.publicaciones.crearPublicacion.ControlCrearPublicacion;
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,9 @@ public class ControlAdministrarPublicaciones implements ControlAvisos {
     @Autowired
     private ServicioAviso servicioAviso;
     @Autowired
-    VentanaAvisos ventanaAvisos;
+    private ControlCrearPublicacion controlCrearPublicacion;
+    @Autowired
+    private VentanaAvisos ventanaAvisos;
 
     Empleado empleado;
 
@@ -31,11 +34,15 @@ public class ControlAdministrarPublicaciones implements ControlAvisos {
 
     @Override
     public void eliminar(Aviso aviso) {
-        throw new NotImplementedException();
+        if (!ventanaAvisos.muestraConfirmacionEliminar())
+            return;
+        servicioAviso.eliminarPublicacion(aviso);
+        var avisos = servicioAviso.recuperaTodos();
+        ventanaAvisos.setAvisos(avisos);
     }
 
     @Override
     public void crear() {
-        throw new NotImplementedException();
+        controlCrearPublicacion.inicia(this, empleado);
     }
 }
