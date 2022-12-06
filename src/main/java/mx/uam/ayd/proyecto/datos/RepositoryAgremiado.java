@@ -6,9 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface RepositoryAgremiado extends CrudRepository<Agremiado, String> {
 	
-	  Agremiado findByCorreo(String correo);
+	  public Agremiado findByCorreo(String correo);
 	  
-	  Agremiado findByCorreoandContrasenia(String correo, String contrasenia);
-	  
-	  Agremiado findByContrasenia(String contrasenia);
+	  public Agremiado findByContrasenia(String contrasenia);
 }

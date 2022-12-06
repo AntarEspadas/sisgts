@@ -50,7 +50,7 @@ public class VentanaInicio extends Pantalla {
 			public void mouseClicked(MouseEvent e) {
 				
 				controlPrincipal.loginAgremiado();
-				//lblSesion.setText("Sesión iniciado como agremiado");
+				lblSesion.setText("Sesión iniciado como agremiado");
 			}
 		});
 		GridBagConstraints gbc_btnLoginagremiado = new GridBagConstraints();
@@ -65,7 +65,7 @@ public class VentanaInicio extends Pantalla {
 			public void mouseClicked(MouseEvent e) {
 				
 				controlPrincipal.loginEmpleado();
-				//lblSesion.setText("Sesión iniciado como empleado");
+				lblSesion.setText("Sesión iniciado como empleado");
 			}
 		});
 		GridBagConstraints gbc_btnLoginempleado = new GridBagConstraints();

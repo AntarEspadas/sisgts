@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 import mx.uam.ayd.proyecto.datos.RepositoryEmpleado;
+import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 
 @Service
@@ -14,6 +15,10 @@ public class ServicioEmpleado {
 	
 	@Autowired 
 	RepositoryEmpleado empleadoRepository;
+	
+	private Empleado empleado;
+	
+	private Agremiado agremiado;
 
 	/**
 	 * 
@@ -33,12 +38,17 @@ public class ServicioEmpleado {
 		return empleados;
 	}
 	
-	public boolean RecuperaCorreo(String correo) {
+	public boolean RecuperaCorreo(String correo, String contrasenia) {
+		
+		empleado=empleadoRepository.findByCorreo(correo);
 
-        if(empleadoRepository.findByCorreo(correo)!=null) {
+        if(empleadoRepository.findByCorreo(correo)!=null && contrasenia.equals(empleado.getContrasenia())) {
 
-       // if(empleadoRepository.findByCorreo(correo)==null && empleadoRepository.findByContrasenia(contrasenia)==null ){
-            
+        	/*agremiado = null;
+        	empleado=empleadoRepository.findByCorreo(correo);
+        	*/
+        	//empleadoRepository.findByCorreo(correo);
+        	
             return true;
 
         }else {

@@ -93,7 +93,8 @@ public class VentanaIniciaSesion extends JFrame{
 					if(Correo.getText().equals("") || Contrasenia.getText().equals("")) {
 					muestraDialogoConMensaje("Ningun campo debe estar vacio");
 					}else {
-						control.RecuperaCorreo(Correo.getText());
+						control.RecuperaCorreo(Correo.getText(),Contrasenia.getText());
+						//lblSesion.setText("Sesión iniciado como agremiado");
 					    contentPane1.setVisible(true);
 					    limpia();
 						

@@ -28,10 +28,8 @@ public interface RepositoryEmpleado extends CrudRepository<Empleado, Long> {
 	 */
 	public Empleado findByTipoEmpleado(String tipoEmpleado);
 	
-	Empleado findByCorreoandContrasenia(String correo, String contrasenia);
+	public Empleado findByContrasenia(String contrasenia);
 	
-	Empleado findByContrasenia(String contrasenia);
-	
-	Empleado findByCorreo(String correo);
+	public Empleado findByCorreo(String correo);
 
 }

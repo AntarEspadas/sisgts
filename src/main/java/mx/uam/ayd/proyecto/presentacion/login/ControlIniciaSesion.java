@@ -37,18 +37,22 @@ public class ControlIniciaSesion {
 	}
 	
 	//METODO QUE RECUPERA CORREO
-	public void RecuperaCorreo(String correo) {
-		boolean exito = servicioAgremiado.RecuperaCorreo(correo);
+	public void RecuperaCorreo(String correo, String contrasenia) {
+		boolean exito = servicioAgremiado.RecuperaCorreo(correo, contrasenia);
+		boolean exito1= servicioEmpleado.RecuperaCorreo(correo, contrasenia);
 
-		if(exito==true){
+		if((exito==true && exito1==false)||(exito==false && exito1==true)){
 			ventana.muestraDialogoConMensaje("¡Ha iniciado correctamente, bienvenido!");
+			
 		}else{
 			ventana.muestraDialogoConMensaje("Error al iniciar sesion ");
 		}
-
+		
 	termina();//TERMINA EL PROCESO DE INICIAR SESION
 			
 	}//FIN DEL METODO INICIAR SESION
+	
+	
 	
 	//METODO TERMINA
 	public void termina() {
