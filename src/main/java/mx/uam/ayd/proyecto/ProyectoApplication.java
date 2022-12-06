@@ -118,6 +118,8 @@ public class ProyectoApplication {
 		agremiado1.setClave("SD18SADS345");
 		agremiado1.setNombre("JOSE");
 		agremiado1.setApellidos("CAMPOS GALINDO");
+		agremiado1.setContrasenia("11");
+		agremiado1.setCorreo("jaja");
 		RepositoryAgremiado.save(agremiado1);
 
 		Agremiado agremiado2 = new Agremiado();

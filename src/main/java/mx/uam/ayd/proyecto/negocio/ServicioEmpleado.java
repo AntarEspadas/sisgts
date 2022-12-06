@@ -32,4 +32,19 @@ public class ServicioEmpleado {
 				
 		return empleados;
 	}
+	
+	public boolean RecuperaCorreo(String correo) {
+
+        if(empleadoRepository.findByCorreo(correo)!=null) {
+
+       // if(empleadoRepository.findByCorreo(correo)==null && empleadoRepository.findByContrasenia(contrasenia)==null ){
+            
+            return true;
+
+        }else {
+            return false;
+        }
+
+    }
+	
 }

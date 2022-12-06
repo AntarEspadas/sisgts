@@ -14,6 +14,7 @@ import mx.uam.ayd.proyecto.presentacion.agendarCita.ControlAgendarCita;
 import mx.uam.ayd.proyecto.presentacion.consultarAvisos.ControlConsultarAvisos;
 import mx.uam.ayd.proyecto.presentacion.consultarCitas.ControlConsultarCitas;
 import mx.uam.ayd.proyecto.presentacion.crearPublicacion.ControlCrearPublicacion;
+import mx.uam.ayd.proyecto.presentacion.login.ControlIniciaSesion;
 import mx.uam.ayd.proyecto.presentacion.procesarTramites.ControlProcesarTramites;
 import mx.uam.ayd.proyecto.presentacion.solicitarTramite.ControlSolicitarTramite;
 
@@ -44,6 +45,9 @@ public class ControlPrincipal {
 
 	@Autowired
 	private ControlProcesarTramites controlProcesarTramites;
+	
+	@Autowired
+	private ControlIniciaSesion controllogin;
 
 	@Autowired
 	private VentanaPrincipal ventana;
@@ -78,15 +82,19 @@ public class ControlPrincipal {
 
 	
 	public void loginAgremiado() {
-		empleado = null;
+		
+		controllogin.inicia();
+		//empleado = null;
 
-		agremiado = repositoryAgremiado.findById("123456789").get();
+		//agremiado = repositoryAgremiado.findById("123456789").get();
 	}
 	
 	public void loginEmpleado() {
-		agremiado = null;
 		
-		empleado = repositoryEmpleado.findByTipoEmpleado("encargada");
+		controllogin.inicia();
+		//agremiado = null;
+		
+		//empleado = repositoryEmpleado.findByTipoEmpleado("encargada");
 
 
 	}
