@@ -30,7 +30,7 @@ public class Componente extends JPanel {
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
-		JLabel fecha = new JLabel("New label");
+		JLabel fecha = new JLabel("Label principal");
 		fecha1 = fecha;
 		GridBagConstraints gbc_fecha = new GridBagConstraints();
 		gbc_fecha.insets = new Insets(0, 0, 5, 5);
@@ -38,7 +38,7 @@ public class Componente extends JPanel {
 		gbc_fecha.gridy = 1;
 		add(fecha, gbc_fecha);
 		
-		JLabel Imagen = new JLabel("Sin Imagen");
+		JLabel Imagen = new JLabel("No hay Imagen");
 		imagen = Imagen;
 		GridBagConstraints gbc_Imagen = new GridBagConstraints();
 		gbc_Imagen.insets = new Insets(0, 0, 5, 5);
