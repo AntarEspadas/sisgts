@@ -18,7 +18,8 @@ public class ServicioEmpleado {
 	
 	private Empleado empleado;
 	
-	private ServicioAgremiado servicioagremiado;
+	@Autowired 
+	private ServicioAgremiado servicioagremiado=new ServicioAgremiado();
 
 	/**
 	 * 
@@ -43,11 +44,13 @@ public class ServicioEmpleado {
 		empleado=empleadoRepository.findByCorreo(correo);
 
         if(empleadoRepository.findByCorreo(correo)!=null && contrasenia.equals(empleado.getContrasenia())) {
-
+        	
         	servicioagremiado.logOut();
         	
+        	Empleado();
+        	
             return true;
-
+            
         }else {
         	
             return false;
@@ -68,6 +71,7 @@ public class ServicioEmpleado {
 	/*CIERRA LA SESION DEL EMPLEADO DESPUES DE LLAMAR A ESTE METODO, DE AHORA EN  ADELANTE GETEMPLEADOACTUAL DEBE REGRESAR
 	 * NULL HASTA QUE UN EMPLEADO VUELVA A INICIAR SESION*/
 	public void logOut() {
+		
 		empleado=null;
 	}
 	
