@@ -229,6 +229,8 @@ public class ProyectoApplication {
 		empleado.setNombre("Yanely");
 		empleado.setApellidos("Bermejo Hernandez");
 		empleado.setTipoEmpleado("encargada");
+		empleado.setCorreo("encargada@example.com");
+		empleado.setContrasenia("1234");
 		repositoryEmpleado.save(empleado);
 
 		var aviso1 = new Aviso();

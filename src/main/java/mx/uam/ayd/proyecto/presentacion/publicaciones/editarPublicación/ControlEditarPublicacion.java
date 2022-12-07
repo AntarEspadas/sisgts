@@ -29,21 +29,12 @@ public class ControlEditarPublicacion {
 	private Empleado empleado;
 	private Aviso aviso;
 	
-	 public boolean esEncargada(Empleado empleado) {
-		if (empleado.getTipoEmpleado() == "encargada"){
-				return true;
-		}
-		return false;
-	}
-	
 	public void inicia(ControlAdministrarPublicaciones controladorPadre, Empleado empleado, @Nullable Aviso aviso) {
 		 this.controladorPadre = controladorPadre;
 		 this.empleado = empleado;
 		 this.aviso = aviso;
 
-		if (esEncargada(empleado)) {
-			ventanaEditarPublicacion.muestra(this, aviso);
-		}
+		ventanaEditarPublicacion.muestra(this, aviso);
 	}
 
 	public void guardadPublicacion(String imagen, String texto) {

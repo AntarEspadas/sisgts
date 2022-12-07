@@ -22,6 +22,8 @@ public class ControlAdministrarPublicaciones implements ControlAvisos {
     Empleado empleado;
 
     public void inicia(Empleado empleado){
+        if (!empleado.esEncargada())
+            return;
         this.empleado = empleado;
         var avisos = servicioAviso.recuperaTodos();
         ventanaAvisos.muestraAdmin(this, avisos);
