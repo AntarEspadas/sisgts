@@ -22,44 +22,29 @@ public class Componente extends JPanel {
 	private JLabel imagen;
 	
 	public Componente() {
-		
-		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{10, 200, 10, 0};
-		gridBagLayout.rowHeights = new int[]{23, 0, 0, 200, 0, 123, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
-		setLayout(gridBagLayout);
+		setLayout(null);
 		
 		JLabel fecha = new JLabel("Label principal");
+		fecha.setBounds(189, 5, 67, 14);
 		fecha1 = fecha;
-		GridBagConstraints gbc_fecha = new GridBagConstraints();
-		gbc_fecha.insets = new Insets(0, 0, 5, 5);
-		gbc_fecha.gridx = 1;
-		gbc_fecha.gridy = 1;
-		add(fecha, gbc_fecha);
+		add(fecha);
 		
 		JLabel Imagen = new JLabel("No hay Imagen");
+		Imagen.setBounds(186, 144, 73, 14);
 		imagen = Imagen;
-		GridBagConstraints gbc_Imagen = new GridBagConstraints();
-		gbc_Imagen.insets = new Insets(0, 0, 5, 5);
-		gbc_Imagen.gridx = 1;
-		gbc_Imagen.gridy = 3;
-		add(Imagen, gbc_Imagen);
+		add(Imagen);
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(42, 254, 385, 37);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridx = 1;
-		gbc_scrollPane.gridy = 5;
-		add(scrollPane, gbc_scrollPane);
+		add(scrollPane);
 		
 		JTextArea textArea = new JTextArea();
+		textArea.setBounds(32, 254, 383, 35);
+		add(textArea);
 		textArea.setEnabled(false);
 		texto = textArea;
 		textArea.setLineWrap(true);
-		scrollPane.setViewportView(textArea);
 		
 		
 		

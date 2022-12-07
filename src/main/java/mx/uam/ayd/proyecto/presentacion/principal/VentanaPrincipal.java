@@ -12,6 +12,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 @SuppressWarnings("serial")
@@ -53,9 +55,9 @@ public class VentanaPrincipal extends JFrame {
 		contentPane.add(panel, gbc_panel);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.columnWidths = new int[]{0, 0};
-		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
 		gbl_panel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gbl_panel);
 		
 		JButton btnInicio = new JButton("Inicio");
@@ -108,10 +110,25 @@ public class VentanaPrincipal extends JFrame {
 			}
 		});
 		GridBagConstraints gbc_btnPublicaciones = new GridBagConstraints();
+		gbc_btnPublicaciones.insets = new Insets(0, 0, 5, 0);
 		gbc_btnPublicaciones.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnPublicaciones.gridx = 0;
 		gbc_btnPublicaciones.gridy = 3;
 		panel.add(btnPublicaciones, gbc_btnPublicaciones);
+		
+		JButton btnNotificaciones = new JButton("Avisos");
+		btnNotificaciones.addMouseListener(new MouseAdapter() {	
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				control.avisos();
+			}
+		});	
+		GridBagConstraints gbc_btnNotificaciones = new GridBagConstraints();
+		gbc_btnNotificaciones.insets = new Insets(0, 0, 5, 0);
+		gbc_btnNotificaciones.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnNotificaciones.gridx = 0;
+		gbc_btnNotificaciones.gridy = 4;
+		panel.add(btnNotificaciones, gbc_btnNotificaciones);
 		
 		panelContenido = new JPanel();
 		gbc_contenido = new GridBagConstraints();
