@@ -8,11 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
+import mx.uam.ayd.proyecto.negocio.ServicioAgremiado;
+import mx.uam.ayd.proyecto.negocio.ServicioEmpleado;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import mx.uam.ayd.proyecto.presentacion.agendarCita.ControlAgendarCita;
 import mx.uam.ayd.proyecto.presentacion.publicaciones.consultarAvisos.ControlConsultarAvisos;
 import mx.uam.ayd.proyecto.presentacion.consultarCitas.ControlConsultarCitas;
+import mx.uam.ayd.proyecto.presentacion.login.ControlIniciaSesion;
 import mx.uam.ayd.proyecto.presentacion.procesarTramites.ControlProcesarTramites;
 import mx.uam.ayd.proyecto.presentacion.solicitarTramite.ControlSolicitarTramite;
 
@@ -45,6 +48,9 @@ public class ControlPrincipal {
 	private ControlProcesarTramites controlProcesarTramites;
 
 	@Autowired
+	private ControlIniciaSesion controllogin;
+
+	@Autowired
 	private VentanaPrincipal ventana;
 	
 	@Autowired
@@ -55,6 +61,12 @@ public class ControlPrincipal {
 
 	@Autowired
 	private RepositoryEmpleado repositoryEmpleado;
+
+	@Autowired
+	private ServicioAgremiado servicioagremiado;
+
+	@Autowired
+	private ServicioEmpleado servicioempleado;
 
 	private Agremiado agremiado;
 	
@@ -77,15 +89,19 @@ public class ControlPrincipal {
 
 	
 	public void loginAgremiado() {
-		empleado = null;
 
-		agremiado = repositoryAgremiado.findById("123456789").get();
+		controllogin.inicia("Agremiado");
+		//empleado = null;
+
+		//agremiado = repositoryAgremiado.findById("123456789").get();
 	}
 	
 	public void loginEmpleado() {
-		agremiado = null;
 		
-		empleado = repositoryEmpleado.findByTipoEmpleado("encargada");
+		controllogin.inicia("Empleado");
+		//agremiado = null;
+
+		//empleado = repositoryEmpleado.findByTipoEmpleado("encargada");
 
 
 	}
@@ -95,25 +111,25 @@ public class ControlPrincipal {
 	}
 
 	public void tramites() {
-		if (agremiado != null)
-			controlSolicitarTramite.inicia(agremiado);
-		else if (empleado != null)
+		if (servicioagremiado.getAgremiadoActual() != null)
+			controlSolicitarTramite.inicia(servicioagremiado.getAgremiadoActual());
+		else if (servicioempleado.getEmpleadoActual() != null)
 			controlProcesarTramites.inicia();
 	}
 	
 	public void citas() {
-		if (agremiado != null)
-			controlAgendarCita.inicia(agremiado);
-		else if (empleado != null)
+		if (servicioagremiado.getAgremiadoActual() != null)
+			controlAgendarCita.inicia(servicioagremiado.getAgremiadoActual());
+		else if (servicioempleado.getEmpleadoActual() != null)
 			controlConsultarCitas.inicia();
 	}
 
 	public void publicaciones() {
-		if (agremiado != null)
-			controlConsultarAvisos.inicia(agremiado);
+		if (servicioagremiado.getAgremiadoActual() != null)
+			controlConsultarAvisos.inicia(servicioagremiado.getAgremiadoActual());
 
-		else if (empleado != null)
-			controlAdministrarPublicaciones.inicia(empleado);
+		else if (servicioempleado.getEmpleadoActual() != null)
+			controlAdministrarPublicaciones.inicia(servicioempleado.getEmpleadoActual());
 
 	}
 }

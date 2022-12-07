@@ -25,4 +25,9 @@ public class Empleado {
     private String apellidos;
 
     private String tipoEmpleado;
+    
+    private String correo;
+    
+    private String contrasenia;
+
 }
