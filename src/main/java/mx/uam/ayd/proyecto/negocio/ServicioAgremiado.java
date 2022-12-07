@@ -13,7 +13,9 @@ public class ServicioAgremiado {
     RepositoryAgremiado agremiadoRepository;
 	
 	private Agremiado agremiado;
-	private Empleado empleado;
+	
+	private ServicioEmpleado servicioempleado;
+	
 	
 	public boolean RecuperaCorreo(String correo, String contrasenia) {
 		
@@ -21,11 +23,7 @@ public class ServicioAgremiado {
 
         if (agremiadoRepository.findByCorreo(correo)!=null && contrasenia.equals(agremiado.getContrasenia()) ) {
 
-        	/*empleado=null;
-        	agremiado = agremiadoRepository.findByCorreo(correo);
-        	
-        	*/
-        	//agremiadoRepository.findByCorreo(correo);
+        	servicioempleado.logOut();
         	
             return true;
 
@@ -34,5 +32,20 @@ public class ServicioAgremiado {
         }
 
     }
+	
+	//SI HAY UN AGREMIADO CON SESION INICIADA, RECUPERA ESE AGREMIADO, SI NO REGRESA NULL
+	public void Agremiado() {
+		getAgremiadoActual();
+	}
+	
+	public Agremiado getAgremiadoActual() {
+		return agremiado;
+	}
+	
+	/*CIERRA LA SESION DEL AGFREMIADO DESPUES DE LLAMAR A ESTE METODO, DE AHORA EN  ADELANTE GETAGREMIADOACTUAL DEBE REGRESAR
+	 * NULL HASTA QUE UN AGREMIADO VUELVA A INICIAR SESION*/
+	public void logOut() {
+		agremiado=null;
+	}
 	
 }

@@ -28,8 +28,6 @@ import mx.uam.ayd.proyecto.presentacion.solicitarTramite.ControlSolicitarTramite
 @Component
 public class ControlPrincipal {
 	
-	private static final String String = null;
-
 	@Autowired
 	private ControlSolicitarTramite controlSolicitarTramite;
 

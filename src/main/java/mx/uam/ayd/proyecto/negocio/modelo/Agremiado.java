@@ -72,4 +72,5 @@ public class Agremiado {
         solicitudes.add(solicitudTramite);
         solicitudTramite.setSolicitante(this);
     }
+
 }
