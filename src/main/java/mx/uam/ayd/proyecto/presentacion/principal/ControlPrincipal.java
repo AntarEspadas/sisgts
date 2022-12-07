@@ -113,24 +113,24 @@ public class ControlPrincipal {
 
 	public void tramites() {
 		if (servicioagremiado.getAgremiadoActual() != null)
-			controlSolicitarTramite.inicia(agremiado);
+			controlSolicitarTramite.inicia(servicioagremiado.getAgremiadoActual());
 		else if (servicioempleado.getEmpleadoActual() != null)
 			controlProcesarTramites.inicia();
 	}
 	
 	public void citas() {
 		if (servicioagremiado.getAgremiadoActual() != null)
-			controlAgendarCita.inicia(agremiado);
+			controlAgendarCita.inicia(servicioagremiado.getAgremiadoActual());
 		else if (servicioempleado.getEmpleadoActual() != null)
 			controlConsultarCitas.inicia();
 	}
 
 	public void publicaciones() {
 		if (servicioagremiado.getAgremiadoActual() != null)
-			controlConsultarAvisos.inicia(agremiado);
+			controlConsultarAvisos.inicia(servicioagremiado.getAgremiadoActual());
 
 		else if (servicioempleado.getEmpleadoActual() != null)
-			controlCrearPublicacion.inicia(empleado);
+			controlCrearPublicacion.inicia(servicioempleado.getEmpleadoActual());
 
 	}
 }
