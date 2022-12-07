@@ -28,6 +28,8 @@ import mx.uam.ayd.proyecto.presentacion.solicitarTramite.ControlSolicitarTramite
 @Component
 public class ControlPrincipal {
 	
+	private static final String String = null;
+
 	@Autowired
 	private ControlSolicitarTramite controlSolicitarTramite;
 
@@ -83,7 +85,7 @@ public class ControlPrincipal {
 	
 	public void loginAgremiado() {
 		
-		controllogin.inicia();
+		controllogin.inicia("Agremiado");
 		//empleado = null;
 
 		//agremiado = repositoryAgremiado.findById("123456789").get();
@@ -91,7 +93,7 @@ public class ControlPrincipal {
 	
 	public void loginEmpleado() {
 		
-		controllogin.inicia();
+		controllogin.inicia("Empleado");
 		//agremiado = null;
 		
 		//empleado = repositoryEmpleado.findByTipoEmpleado("encargada");

@@ -27,12 +27,19 @@ public class ControlIniciaSesion {
 	@Autowired
 	private RepositoryAgremiado repositoryAgremiado;
 	
+	boolean opcion;
 	//METODO INICIO
-	public void inicia() {
+	public void inicia(String Usuario) {
 		
 		//List <Grupo> grupos = servicioGrupo.recuperaGrupos();
 		
 		ventana.muestra(this);//, grupos);
+		
+		if(Usuario.equals("Agremiado")) {
+			opcion=true;
+		}else {
+			opcion=false;
+		}
 		
 	}
 	
@@ -41,12 +48,26 @@ public class ControlIniciaSesion {
 		boolean exito = servicioAgremiado.RecuperaCorreo(correo, contrasenia);
 		boolean exito1= servicioEmpleado.RecuperaCorreo(correo, contrasenia);
 
-		if((exito==true && exito1==false)||(exito==false && exito1==true)){
-			ventana.muestraDialogoConMensaje("¡Ha iniciado correctamente, bienvenido!");
+		if(opcion==true) {
 			
-		}else{
-			ventana.muestraDialogoConMensaje("Error al iniciar sesion ");
+			if(exito==true){
+				ventana.muestraDialogoConMensaje("¡Ha iniciado correctamente, bienvenido!");
+			
+			}else{
+				ventana.muestraDialogoConMensaje("Error al iniciar sesion ");
+			}
+			
+		}else {
+			
+			if(exito1==true){
+				ventana.muestraDialogoConMensaje("¡Ha iniciado correctamente, bienvenido!");
+			
+			}else{
+				ventana.muestraDialogoConMensaje("Error al iniciar sesion ");
+			}
+			
 		}
+		
 		
 	termina();//TERMINA EL PROCESO DE INICIAR SESION
 			
