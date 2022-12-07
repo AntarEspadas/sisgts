@@ -46,6 +46,8 @@ public class Agremiado {
     private String telefono;
 
     private String correo;
+    
+    private String contrasenia;
 
     public List<Cita> getCitas(){
         return new ArrayList<>(this.citas);
@@ -70,4 +72,5 @@ public class Agremiado {
         solicitudes.add(solicitudTramite);
         solicitudTramite.setSolicitante(this);
     }
+
 }

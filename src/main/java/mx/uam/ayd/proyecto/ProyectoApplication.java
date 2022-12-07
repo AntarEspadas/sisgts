@@ -51,6 +51,9 @@ public class ProyectoApplication {
 
 	@Autowired
 	RepositoryAgremiado RepositoryAgremiado;
+	
+	@Autowired
+	RepositoryEmpleado RepositoryEmpleado;
 
 	@Autowired
 	RepositorySolicitudTramite solicitudTramiteRepository;
@@ -118,6 +121,8 @@ public class ProyectoApplication {
 		agremiado1.setClave("SD18SADS345");
 		agremiado1.setNombre("JOSE");
 		agremiado1.setApellidos("CAMPOS GALINDO");
+		agremiado1.setContrasenia("11");
+		agremiado1.setCorreo("jaja");
 		RepositoryAgremiado.save(agremiado1);
 
 		Agremiado agremiado2 = new Agremiado();
@@ -131,6 +136,14 @@ public class ProyectoApplication {
 		agremiado3.setNombre("GABRIEL");
 		agremiado3.setApellidos("GONZALES CRUZ");
 		RepositoryAgremiado.save(agremiado3);
+		
+		
+		Empleado empleado1 = new Empleado();
+		empleado1.setNombre("GABRIEL");
+		empleado1.setApellidos("CRUZ");
+		empleado1.setContrasenia("12");
+		empleado1.setCorreo("ja");
+		RepositoryEmpleado.save(empleado1);
 
 
 		/***** Datos para TipoTramite *****/
