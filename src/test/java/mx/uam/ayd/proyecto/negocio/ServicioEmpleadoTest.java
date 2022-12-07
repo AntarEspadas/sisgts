@@ -21,7 +21,7 @@ class ServicioEmpleadoTest {
 	private ServicioEmpleado servicio;
 	
 	@Test
-	void RecuperaCorreo() {
+	void testRecuperaCorreo() {
 		
 		boolean empleado= servicio.RecuperaCorreo("jose@","1111");
 		if(empleado=true) {

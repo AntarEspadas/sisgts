@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,7 +25,7 @@ import org.springframework.stereotype.Component;
 public class VentanaIniciaSesion extends JFrame{
 	private ControlIniciaSesion control;
 	private JTextField Correo;
-	private JTextField Contrasenia;
+	private JPasswordField Contrasenia;
 	private JPanel contentPane1;
 	
 	public VentanaIniciaSesion() {
@@ -77,7 +78,7 @@ public class VentanaIniciaSesion extends JFrame{
 		contentPane1.add(Correo);
 		Correo.setColumns(10);
 		
-		Contrasenia = new JTextField();
+		Contrasenia = new JPasswordField();
 		Contrasenia.setBounds(210, 190, 130, 26);
 		contentPane1.add(Contrasenia);
 		Contrasenia.setColumns(10);

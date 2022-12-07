@@ -21,7 +21,7 @@ class ServicioAgremiadoTest {
 	private ServicioAgremiado servicio;
 	
 	@Test
-	void RecuperaCorreo() {
+	void testRecuperaCorreo() {
 		
 	}
 
