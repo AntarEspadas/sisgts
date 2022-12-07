@@ -3,6 +3,7 @@ package mx.uam.ayd.proyecto.presentacion.solicitarTramite;
 import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.negocio.modelo.TipoTramite;
+import mx.uam.ayd.proyecto.presentacion.Notificaciones.ControlNotificaciones;
 import mx.uam.ayd.proyecto.presentacion.compartido.Pantalla;
 import java.awt.GridBagLayout;
 import javax.swing.*;
@@ -28,6 +29,7 @@ public class VentanaSubirArchivos extends Pantalla {
 	private final HashMap<String, File> archivos = new HashMap<>();
 	
 	private TipoTramite tipoTramite;
+	private ControlNotificaciones control;
 
 	public VentanaSubirArchivos() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -99,6 +101,7 @@ public class VentanaSubirArchivos extends Pantalla {
 			public void mouseClicked(MouseEvent e) {
 				try {
 					leerArchivosYSolicitar();
+					
 				}
 				catch (IOException ex) {
 					ex.printStackTrace();

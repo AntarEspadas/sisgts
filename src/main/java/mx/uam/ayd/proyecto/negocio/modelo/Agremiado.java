@@ -23,6 +23,10 @@ public class Agremiado {
     @ToString.Exclude
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "solicitante")
     private final Set<SolicitudTramite> solicitudes = new HashSet<>();
+    
+    @ToString.Exclude
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "destinatario")
+    private final Set<Mensaje> mensajes = new HashSet<>();
 
     @Id
     private String clave;
@@ -49,6 +53,10 @@ public class Agremiado {
 
     public List<Cita> getCitas(){
         return new ArrayList<>(this.citas);
+    }
+    
+    public List<Mensaje> getMensaje(){
+        return new ArrayList<>(this.mensajes);
     }
 
     public void addCita(Cita cita){

@@ -31,7 +31,7 @@ public class ControlNotificaciones {
 	    /**
 	     * Inicia el controlador
 	     *
-	     * @param agremiado El agremiado que va a agendar la cita
+	     * @param agremiado El agremiado que va a ver sus notificaciones
 	     */
 	    public void inicia(Agremiado agremiado){
 	        this.agremiado = agremiado;
@@ -40,16 +40,33 @@ public class ControlNotificaciones {
 	    }
 	    
 	    /**
-	     * Navega a la ventana de información de citas
+	     * Navega a la ventana de información de notificacones
 	     */
 	    public void infoNotificaciones() {
 	        ventanaNotificaciones.cierra();
 
-	    	ventanaInfoNotificaciones.muestra();
+	    	ventanaInfoNotificaciones.muestra(this, agremiado.getMensaje());
 	    }
 
+	    /**
+	     * 
+	     */
 		public void inicia(Empleado empleado) {
 			// TODO Auto-generated method stub
+			ventanaNotificaciones.cierra();
+
+	   
+		}
+
+		public void notificar() {
+			// TODO Auto-generated method stub
+			
+			
+		}
+
+		public void desplegar() {
+			// TODO Auto-generated method stub
+			
 			
 		}
 }
