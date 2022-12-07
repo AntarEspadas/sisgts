@@ -23,12 +23,38 @@ class ServicioEmpleadoTest {
 	@Test
 	void testRecuperaCorreo() {
 		
+		boolean existe;
+		//SE REVISA QUE SEA NULL SI NO EXISTE UN CORREO
 		boolean empleado= servicio.RecuperaCorreo("jose@","1111");
-		if(empleado=true) {
-			
+		if(empleado==true) {
+			existe=false;
+			//throw new IllegalArgumentException("no regresa null");
 		}
 		
+		//SE REVISA QUE SE MANDA UNA EXCEPCION CUANDO EXISTE UN USUARIO
+		Empleado empleado1 = new Empleado();
+		empleado1.setCorreo("jo");
+		when(repositoryempleado.findByCorreo("jo")).thenReturn(empleado1);
+						
+		boolean bien;
+		boolean correcto;
+			
+		if(servicio.RecuperaCorreo("jo", "1111")) {
+			
+			bien=true;
+		}else {
+			
+			bien=false;
 		}
+				
+		if(bien==false) {
+			correcto=false;
+			//throw new IllegalArgumentException("Falla");
+		}
+		
+		
+		
+	  }
 		
 		
 	}
