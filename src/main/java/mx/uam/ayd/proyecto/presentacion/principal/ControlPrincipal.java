@@ -3,7 +3,7 @@ package mx.uam.ayd.proyecto.presentacion.principal;
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import mx.uam.ayd.proyecto.datos.RepositoryEmpleado;
 
-import org.apache.commons.lang3.NotImplementedException;
+import mx.uam.ayd.proyecto.presentacion.publicaciones.administrarPublicaciones.ControlAdministrarPublicaciones;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,9 +13,8 @@ import mx.uam.ayd.proyecto.negocio.ServicioEmpleado;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import mx.uam.ayd.proyecto.presentacion.agendarCita.ControlAgendarCita;
-import mx.uam.ayd.proyecto.presentacion.consultarAvisos.ControlConsultarAvisos;
+import mx.uam.ayd.proyecto.presentacion.publicaciones.consultarAvisos.ControlConsultarAvisos;
 import mx.uam.ayd.proyecto.presentacion.consultarCitas.ControlConsultarCitas;
-import mx.uam.ayd.proyecto.presentacion.crearPublicacion.ControlCrearPublicacion;
 import mx.uam.ayd.proyecto.presentacion.login.ControlIniciaSesion;
 import mx.uam.ayd.proyecto.presentacion.procesarTramites.ControlProcesarTramites;
 import mx.uam.ayd.proyecto.presentacion.solicitarTramite.ControlSolicitarTramite;
@@ -40,14 +39,14 @@ public class ControlPrincipal {
 	private ControlAgendarCita controlAgendarCita;
 
 	@Autowired
-	private ControlCrearPublicacion controlCrearPublicacion;
+	private ControlAdministrarPublicaciones controlAdministrarPublicaciones;
 
 	@Autowired
 	private ControlConsultarAvisos controlConsultarAvisos;
 
 	@Autowired
 	private ControlProcesarTramites controlProcesarTramites;
-	
+
 	@Autowired
 	private ControlIniciaSesion controllogin;
 
@@ -62,10 +61,10 @@ public class ControlPrincipal {
 
 	@Autowired
 	private RepositoryEmpleado repositoryEmpleado;
-	
+
 	@Autowired
 	private ServicioAgremiado servicioagremiado;
-	
+
 	@Autowired
 	private ServicioEmpleado servicioempleado;
 
@@ -90,7 +89,7 @@ public class ControlPrincipal {
 
 	
 	public void loginAgremiado() {
-		
+
 		controllogin.inicia("Agremiado");
 		//empleado = null;
 
@@ -101,7 +100,7 @@ public class ControlPrincipal {
 		
 		controllogin.inicia("Empleado");
 		//agremiado = null;
-		
+
 		//empleado = repositoryEmpleado.findByTipoEmpleado("encargada");
 
 
@@ -130,7 +129,7 @@ public class ControlPrincipal {
 			controlConsultarAvisos.inicia(servicioagremiado.getAgremiadoActual());
 
 		else if (servicioempleado.getEmpleadoActual() != null)
-			controlCrearPublicacion.inicia(servicioempleado.getEmpleadoActual());
+			controlAdministrarPublicaciones.inicia(servicioempleado.getEmpleadoActual());
 
 	}
 }

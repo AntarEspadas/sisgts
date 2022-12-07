@@ -1,14 +1,15 @@
-package mx.uam.ayd.proyecto.presentacion.consultarAvisos;
+package mx.uam.ayd.proyecto.presentacion.publicaciones.consultarAvisos;
 
 import java.util.List;
 
+import mx.uam.ayd.proyecto.presentacion.publicaciones.ControlAvisos;
+import mx.uam.ayd.proyecto.presentacion.publicaciones.VentanaAvisos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.negocio.ServicioAviso;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.Aviso;
-import mx.uam.ayd.proyecto.negocio.modelo.Cita;
 
 
 /**
@@ -16,11 +17,11 @@ import mx.uam.ayd.proyecto.negocio.modelo.Cita;
  *
  */
 @Component
-public class ControlConsultarAvisos {
+public class ControlConsultarAvisos implements ControlAvisos {
 	@Autowired
 	private ServicioAviso servicioAviso;
 	@Autowired
-	private VentanaConsultarAvisos ventanaConsultarAvisos; 
+	private VentanaAvisos ventanaAvisos;
 
 	public List<Aviso> damePublicaciones() {
 		return servicioAviso.recuperaTodos();
@@ -28,10 +29,21 @@ public class ControlConsultarAvisos {
 public void inicia(Agremiado agremiado) {
 		
 			List<Aviso> avisos = damePublicaciones();
-			ventanaConsultarAvisos.muestra(avisos);
-			ventanaConsultarAvisos.muestra(this);
+			ventanaAvisos.muestra(this, avisos);
 	}
-	
-	
 
+
+	@Override
+	public void editar(Aviso aviso) {
+	}
+
+	@Override
+	public void eliminar(Aviso aviso) {
+
+	}
+
+	@Override
+	public void crear() {
+
+	}
 }
