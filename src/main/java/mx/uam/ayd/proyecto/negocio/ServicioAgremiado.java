@@ -1,6 +1,7 @@
 package mx.uam.ayd.proyecto.negocio;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
@@ -15,7 +16,8 @@ public class ServicioAgremiado {
 	private Agremiado agremiado;
 	
 	@Autowired
-	private ServicioEmpleado servicioempleado=new ServicioEmpleado();
+	@Lazy
+	private ServicioEmpleado servicioempleado;
 	
 	public boolean RecuperaCorreo(String correo, String contrasenia) {
 		
@@ -24,8 +26,6 @@ public class ServicioAgremiado {
         if (agremiadoRepository.findByCorreo(correo)!=null && contrasenia.equals(agremiado.getContrasenia()) ) {
         	
         	servicioempleado.logOut();
-        	
-        	Agremiado();
         	
             return true;
 
@@ -38,11 +38,6 @@ public class ServicioAgremiado {
     }
 	
 	//SI HAY UN AGREMIADO CON SESION INICIADA, RECUPERA ESE AGREMIADO, SI NO REGRESA NULL
-	public void Agremiado() {
-		getAgremiadoActual();
-		
-	}
-	
 	public Agremiado getAgremiadoActual() {
 		return agremiado;
 	}

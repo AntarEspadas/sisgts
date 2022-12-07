@@ -19,7 +19,7 @@ public class ServicioEmpleado {
 	private Empleado empleado;
 	
 	@Autowired 
-	private ServicioAgremiado servicioagremiado=new ServicioAgremiado();
+	private ServicioAgremiado servicioagremiado;
 
 	/**
 	 * 
@@ -47,8 +47,6 @@ public class ServicioEmpleado {
         	
         	servicioagremiado.logOut();
         	
-        	Empleado();
-        	
             return true;
             
         }else {
@@ -60,10 +58,6 @@ public class ServicioEmpleado {
     }
 	
 	//SI HAY UN EMPLEADO CON SESION INICIADA, RECUPERA ESE AGREMIADO, SI NO REGRESA NULL
-	public void Empleado() {
-		getEmpleadoActual();
-	}
-	
 	public Empleado getEmpleadoActual() {
 		return empleado;
 	}

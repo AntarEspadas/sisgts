@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
+import mx.uam.ayd.proyecto.negocio.ServicioAgremiado;
+import mx.uam.ayd.proyecto.negocio.ServicioEmpleado;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import mx.uam.ayd.proyecto.presentacion.agendarCita.ControlAgendarCita;
@@ -60,6 +62,12 @@ public class ControlPrincipal {
 
 	@Autowired
 	private RepositoryEmpleado repositoryEmpleado;
+	
+	@Autowired
+	private ServicioAgremiado servicioagremiado;
+	
+	@Autowired
+	private ServicioEmpleado servicioempleado;
 
 	private Agremiado agremiado;
 	
@@ -104,24 +112,24 @@ public class ControlPrincipal {
 	}
 
 	public void tramites() {
-		if (agremiado != null)
+		if (servicioagremiado.getAgremiadoActual() != null)
 			controlSolicitarTramite.inicia(agremiado);
-		else if (empleado != null)
+		else if (servicioempleado.getEmpleadoActual() != null)
 			controlProcesarTramites.inicia();
 	}
 	
 	public void citas() {
-		if (agremiado != null)
+		if (servicioagremiado.getAgremiadoActual() != null)
 			controlAgendarCita.inicia(agremiado);
-		else if (empleado != null)
+		else if (servicioempleado.getEmpleadoActual() != null)
 			controlConsultarCitas.inicia();
 	}
 
 	public void publicaciones() {
-		if (agremiado != null)
+		if (servicioagremiado.getAgremiadoActual() != null)
 			controlConsultarAvisos.inicia(agremiado);
 
-		else if (empleado != null)
+		else if (servicioempleado.getEmpleadoActual() != null)
 			controlCrearPublicacion.inicia(empleado);
 
 	}
