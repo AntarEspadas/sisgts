@@ -17,7 +17,14 @@ public class ServicioAgremiado {
 	@Autowired
 	@Lazy
 	private ServicioEmpleado servicioempleado;
-	
+
+	/**
+	 * Verifica que exista un usuario con el correo dado y que la contraseña coincida
+	 * @param correo El correo que se va a busca. Debe ser distinto de null
+	 * @param contrasenia Contraseña que se debe coincidir con la contraseña del usuario. Debe ser distinto de null
+	 * @return Si el correo existe y la contraseña coincide, regresa true. Si el correo no existe o la contraseña no
+	 * coincide, regresa false
+	 */
 	public boolean verificaCorreoYContrasenia(String correo, String contrasenia) {
 		
 		agremiado=agremiadoRepository.findByCorreo(correo);

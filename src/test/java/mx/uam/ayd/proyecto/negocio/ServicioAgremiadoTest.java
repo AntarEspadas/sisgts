@@ -52,8 +52,12 @@ class ServicioAgremiadoTest {
 			correcto=false;
 			//throw new IllegalArgumentException("Falla");
 		}
-		
-		
+
+		// Caso 1: Si el correo existe y la contraseña coincide, regresa true
+
+		// Caso 2: Si el correo no existe regresa false
+
+		// Caso 3: Si el correo existe y la contraseña no coincide, regresa false
 	}
 
 }
