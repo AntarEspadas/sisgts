@@ -1,5 +1,7 @@
 package mx.uam.ayd.proyecto.presentacion.Notificaciones;
 
+import javax.swing.JOptionPane;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -39,15 +41,22 @@ public class ControlNotificaciones {
 	        infoNotificaciones();
 	    }
 	    
+	    public void descargar(){
+	        ventanaInfoNotificaciones.cierra();
+	        
+	    	ventanaNotificaciones.muestra(this, agremiado.getMensaje().get(0));
+	    }
+	    	    
 	    /**
 	     * Navega a la ventana de información de notificacones
+	     * 
 	     */
 	    public void infoNotificaciones() {
 	        ventanaNotificaciones.cierra();
 
 	    	ventanaInfoNotificaciones.muestra(this, agremiado.getMensaje());
 	    }
-
+	    
 	    /**
 	     * 
 	     */
@@ -55,18 +64,27 @@ public class ControlNotificaciones {
 			// TODO Auto-generated method stub
 			ventanaNotificaciones.cierra();
 
-	   
 		}
 
-		public void notificar() {
+		public void descargar(int position) {
 			// TODO Auto-generated method stub
+			ventanaInfoNotificaciones.cierra();
 			
+	    	ventanaNotificaciones.muestra(this, agremiado.getMensaje().get(position));
+			
+	    	/*String[] opciones = {"Aceptar"};
+	    	JOptionPane.showOptionDialog(ventanaNotificaciones, "Descargar Mensaje "+position, "", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, opciones, null);
+			//JOptionPane.showMessageDialog(ventanaInfoNotificaciones, agremiado.getMensaje().get(position));
+	    	JOptionPane.showMessageDialog(ventanaNotificaciones, "Descargar Mensaje "+position);
+	    	infoNotificaciones();*/
+	    	
+		}
+		
+	    public void verificar() {
+			// TODO Auto-generated method stub
+			JOptionPane.showMessageDialog(ventanaNotificaciones, "seleccione una cita");
 			
 		}
 
-		public void desplegar() {
-			// TODO Auto-generated method stub
-			
-			
-		}
+
 }

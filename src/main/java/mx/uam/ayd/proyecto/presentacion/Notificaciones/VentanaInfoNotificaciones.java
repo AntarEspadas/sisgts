@@ -9,6 +9,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import antlr.collections.List;
@@ -19,13 +20,25 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JButton;
+import java.awt.event.ContainerAdapter;
+import java.awt.event.ContainerEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
+@SuppressWarnings("serial")
 @Slf4j
 @Component
 public class VentanaInfoNotificaciones extends Pantalla {
+	
+	@Autowired
+    private VentanaNotificaciones ventanaNotificaciones;
 	
 	private ControlNotificaciones controlador;
 	
@@ -44,10 +57,36 @@ public class VentanaInfoNotificaciones extends Pantalla {
 				
 		
 		listaNotifi = new JList<String>();
-		listaNotifi.setBounds(10, 71, 472, 159);
+		listaNotifi.setBounds(10, 71, 472, 188);
 		
 		add(listaNotifi);
 		
+		JButton btnMostrar = new JButton("Descargar");
+		GridBagConstraints gbc_btnMostrar = new GridBagConstraints();
+		gbc_btnMostrar.insets = new Insets(0, 0, 0, 0);
+		gbc_btnMostrar.anchor = GridBagConstraints.NORTH;
+		gbc_btnMostrar.gridx = 3;
+		gbc_btnMostrar.gridy = 6;
+		btnMostrar.setBounds(393, 298, 89, 23);
+		add(btnMostrar, gbc_btnMostrar);
+		
+		btnMostrar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(listaNotifi.getSelectedIndex()==-1) {
+					JOptionPane.showMessageDialog(null, "Seleccione un mensaje ");
+					controlador.verificar();
+				}else {
+					int indice;
+					indice = listaNotifi.getSelectedIndex();
+					ventanaNotificaciones.muestra(controlador);
+					controlador.descargar();
+					System.out.println("valor mensaje "+indice);
+					JOptionPane.showMessageDialog(null, "Descargar Mensaje "+indice);
+					//controlador.descargar(indice);
+				}
+			}
+		});	
 	
 	}
 	
@@ -65,7 +104,7 @@ public class VentanaInfoNotificaciones extends Pantalla {
 			for(int i=0; i<mensajes.size(); i++) {
 			    //Añadir cada elemento del ArrayList en el modelo de la lista
 			    listModel.add(i, mensajes.get(i));
-			    listModel.addElement("Ya hay mensajes");
+			    //listModel.addElement("Ya hay mensajes");
 			}
 			
 		}else
@@ -79,5 +118,8 @@ public class VentanaInfoNotificaciones extends Pantalla {
 		setVisible(false);
 	}
 
-	
+	public void muestra(ControlNotificaciones controlador2) {
+		// TODO Auto-generated method stub
+		setVisible(true);
+	}
 }

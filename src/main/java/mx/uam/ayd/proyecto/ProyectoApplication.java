@@ -222,6 +222,10 @@ public class ProyectoApplication {
 		message1.setDestinatario(agremiado);
 		message1.setContenido("Documentos recibidos ");
 		agremiado.getMensajes().add(message1);
+		var message2 = new Mensaje();
+		message2.setDestinatario(agremiado);
+		message2.setContenido("Documentos recibidos 2 ");
+		agremiado.getMensajes().add(message2);
 		repositoryAgremiado.save(agremiado);
 
 		var empleado = new Empleado();
