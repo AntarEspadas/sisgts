@@ -59,9 +59,7 @@ class ServicioDocumentoTest {
 		 * Caso 2 - Se proporciona una entrada SolicitudTramite no nulo, pero con
 		 * atributo requisitos nulo
 		 */
-		SolicitudTramite solicitudNoNula = new SolicitudTramite();
-
-		assertThrows(IllegalArgumentException.class, () -> servicio.eliminarDocumentos(solicitudNoNula));
+		assertThrows(IllegalArgumentException.class, () -> servicio.eliminarDocumentos(null));
 
 		/**
 		 * Caso 3 - se proporciona una entrada SolicitudTramite "completa"
