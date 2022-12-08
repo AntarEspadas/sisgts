@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 
 import mx.uam.ayd.proyecto.datos.RepositoryEmpleado;
-import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 
 @Service
@@ -39,7 +38,7 @@ public class ServicioEmpleado {
 		return empleados;
 	}
 	
-	public boolean RecuperaCorreo(String correo, String contrasenia) {
+	public boolean VerificaCorreoYContrasenia(String correo, String contrasenia) {
 		
 		empleado=empleadoRepository.findByCorreo(correo);
 

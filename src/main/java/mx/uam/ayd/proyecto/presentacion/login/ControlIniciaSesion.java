@@ -44,9 +44,9 @@ public class ControlIniciaSesion {
 	}
 	
 	//METODO QUE RECUPERA CORREO
-	public void RecuperaCorreo(String correo, String contrasenia) {
-		boolean exito = servicioAgremiado.RecuperaCorreo(correo, contrasenia);
-		boolean exito1= servicioEmpleado.RecuperaCorreo(correo, contrasenia);
+	public void VerificaCorreoYContrasenia(String correo, String contrasenia) {
+		boolean exito = servicioAgremiado.verificaCorreoYContrasenia(correo, contrasenia);
+		boolean exito1= servicioEmpleado.VerificaCorreoYContrasenia(correo, contrasenia);
 
 		if(opcion==true) {
 			

@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
-import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 
 @Service
 public class ServicioAgremiado {
@@ -18,8 +17,15 @@ public class ServicioAgremiado {
 	@Autowired
 	@Lazy
 	private ServicioEmpleado servicioempleado;
-	
-	public boolean RecuperaCorreo(String correo, String contrasenia) {
+
+	/**
+	 * Verifica que exista un usuario con el correo dado y que la contraseña coincida
+	 * @param correo El correo que se va a busca. Debe ser distinto de null
+	 * @param contrasenia Contraseña que se debe coincidir con la contraseña del usuario. Debe ser distinto de null
+	 * @return Si el correo existe y la contraseña coincide, regresa true. Si el correo no existe o la contraseña no
+	 * coincide, regresa false
+	 */
+	public boolean verificaCorreoYContrasenia(String correo, String contrasenia) {
 		
 		agremiado=agremiadoRepository.findByCorreo(correo);
 
