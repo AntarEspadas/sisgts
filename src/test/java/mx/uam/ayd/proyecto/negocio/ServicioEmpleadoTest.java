@@ -8,7 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import mx.uam.ayd.proyecto.datos.RepositoryEmpleado;
 import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
-
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class ServicioEmpleadoTest {
@@ -22,40 +22,41 @@ class ServicioEmpleadoTest {
 	@Test
 	void testRecuperaCorreo() {
 		
-		boolean existe;
-		//SE REVISA QUE SEA NULL SI NO EXISTE UN CORREO
-		boolean empleado= servicio.VerificaCorreoYContrasenia("jose@","1111");
-		if(empleado==true) {
-			existe=false;
-			//throw new IllegalArgumentException("no regresa null");
-		}
+		// Caso 1: Si el correo existe y la contraseña coincide, regresa true
 		
-		//SE REVISA QUE SE MANDA UNA EXCEPCION CUANDO EXISTE UN USUARIO
-		Empleado empleado1 = new Empleado();
-		empleado1.setCorreo("jo");
-		when(repositoryempleado.findByCorreo("jo")).thenReturn(empleado1);
-						
-		boolean bien;
-		boolean correcto;
-			
-		if(servicio.VerificaCorreoYContrasenia("jo", "1111")) {
-			
-			bien=true;
-		}else {
-			
-			bien=false;
-		}
+		Empleado empleado1= new Empleado();
 				
-		if(bien==false) {
-			correcto=false;
-			//throw new IllegalArgumentException("Falla");
-		}
-		
-		
-		
-	  }
-		
-		
+		empleado1.setCorreo("Raul");
+		empleado1.setContrasenia("1234");
+		when(repositoryempleado.findByCorreo("Raul")).thenReturn(empleado1);
+				
+		boolean resultado=servicio.VerificaCorreoYContrasenia("Raul", "1234")==true;
+		assertTrue(resultado);
+				
+		// Caso 2: Si el correo no existe regresa false
+				
+		Empleado empleado2= new Empleado();
+				
+		empleado2.setCorreo("Marcos");
+		empleado2.setContrasenia("4321");
+				
+	    boolean resultado1=servicio.VerificaCorreoYContrasenia("Marcos", "4321")==false;
+		assertTrue(resultado1);
+				
+
+		// Caso 3: Si el correo existe y la contraseña no coincide, regresa false
+	
+		Empleado empleado3= new Empleado();
+				
+		empleado3.setCorreo("Antar");
+		empleado3.setContrasenia("6789");
+		when(repositoryempleado.findByCorreo("Antar")).thenReturn(empleado3);
+				
+	    boolean resultado2=servicio.VerificaCorreoYContrasenia("Antar", "4321")==false;
+				
+	    assertTrue(resultado2);
 	}
+		
+}
 
 

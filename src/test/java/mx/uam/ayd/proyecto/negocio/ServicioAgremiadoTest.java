@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
-
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class ServicioAgremiadoTest {
@@ -23,41 +23,41 @@ class ServicioAgremiadoTest {
 	@Test
 	void testVerificaCorreoYContrasenia() {
 
-
-		boolean existe;
-		//SE REVISA QUE SEA NULL SI NO EXISTE UN CORREO
-		boolean agremiado= servicio.verificaCorreoYContrasenia("jose@","1111");
-		if(agremiado==true) {
-			existe=false;
-			//throw new IllegalArgumentException("no regresa null");
-		}
-		
-		//SE REVISA QUE SE MANDA UNA EXCEPCION CUANDO EXISTE UN USUARIO
-		Agremiado agremiado1 = new Agremiado();
-		agremiado1.setCorreo("jo");
-		when(repositoryagremiado.findByCorreo("jo")).thenReturn(agremiado1);
-						
-		boolean bien;
-		boolean correcto;
-			
-		if(servicio.verificaCorreoYContrasenia("jo", "1111")) {
-			
-			bien=true;
-		}else {
-			
-			bien=false;
-		}
-				
-		if(bien==false) {
-			correcto=false;
-			//throw new IllegalArgumentException("Falla");
-		}
-
 		// Caso 1: Si el correo existe y la contraseña coincide, regresa true
-
+		
+		Agremiado agremiado1= new Agremiado();
+		
+		agremiado1.setCorreo("Raul");
+		agremiado1.setContrasenia("1234");
+		when(repositoryagremiado.findByCorreo("Raul")).thenReturn(agremiado1);
+		
+		boolean resultado=(servicio.verificaCorreoYContrasenia("Raul", "1234")==true);
+		
+		assertTrue(resultado);
+		
 		// Caso 2: Si el correo no existe regresa false
+		
+		Agremiado agremiado2= new Agremiado();
+		
+		agremiado2.setCorreo("Marcos");
+		agremiado2.setContrasenia("4321");
+		
+		boolean resultado1=servicio.verificaCorreoYContrasenia("Marcos", "4321")==false;
+		assertTrue(resultado1);
+		
 
 		// Caso 3: Si el correo existe y la contraseña no coincide, regresa false
+		 
+        Agremiado agremiado3= new Agremiado();
+		
+		agremiado3.setCorreo("Antar");
+		agremiado3.setContrasenia("6789");
+		when(repositoryagremiado.findByCorreo("Antar")).thenReturn(agremiado3);
+		
+		boolean resultado2=servicio.verificaCorreoYContrasenia("Antar", "4321")==false;
+		
+		assertTrue(resultado2);
+		
 	}
 
 }
