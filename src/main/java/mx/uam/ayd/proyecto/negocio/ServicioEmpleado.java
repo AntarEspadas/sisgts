@@ -14,6 +14,11 @@ public class ServicioEmpleado {
 	
 	@Autowired 
 	RepositoryEmpleado empleadoRepository;
+	
+	private Empleado empleado;
+	
+	@Autowired 
+	private ServicioAgremiado servicioagremiado;
 
 	/**
 	 * 
@@ -32,4 +37,35 @@ public class ServicioEmpleado {
 				
 		return empleados;
 	}
+	
+	public boolean VerificaCorreoYContrasenia(String correo, String contrasenia) {
+		
+		empleado=empleadoRepository.findByCorreo(correo);
+
+        if(empleadoRepository.findByCorreo(correo)!=null && contrasenia.equals(empleado.getContrasenia())) {
+        	
+        	servicioagremiado.logOut();
+        	
+            return true;
+            
+        }else {
+        	
+            return false;
+            
+        }
+
+    }
+	
+	//SI HAY UN EMPLEADO CON SESION INICIADA, RECUPERA ESE AGREMIADO, SI NO REGRESA NULL
+	public Empleado getEmpleadoActual() {
+		return empleado;
+	}
+		
+	/*CIERRA LA SESION DEL EMPLEADO DESPUES DE LLAMAR A ESTE METODO, DE AHORA EN  ADELANTE GETEMPLEADOACTUAL DEBE REGRESAR
+	 * NULL HASTA QUE UN EMPLEADO VUELVA A INICIAR SESION*/
+	public void logOut() {
+		
+		empleado=null;
+	}
+	
 }

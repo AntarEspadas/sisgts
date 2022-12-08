@@ -92,4 +92,21 @@ public class ControlAgendarCita {
         JOptionPane.showMessageDialog(ventanaAgendarCita, "Su cita se agendó correctamente");
         infoCitas();
     }
+
+    public void editarCita() {
+		
+		JOptionPane.showMessageDialog(ventanaAgendarCita, "Su cita se edito correctamente");
+	}
+
+	public void eliminarCita() {
+		
+		JOptionPane.showMessageDialog(ventanaAgendarCita, "Su cita se elimino correctamente");
+	}
+
+    public void verificar() {
+		// TODO Auto-generated method stub
+		JOptionPane.showMessageDialog(ventanaAgendarCita, "seleccione una cita");
+		
+	}
+
 }

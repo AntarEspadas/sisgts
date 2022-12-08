@@ -2,9 +2,15 @@ package mx.uam.ayd.proyecto.negocio;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import com.sun.istack.NotNull;
+import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
+import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
+import mx.uam.ayd.proyecto.negocio.modelo.TipoTramite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +31,9 @@ public class ServicioSolicitudTramite {
 
     @Autowired
     private ServicioDocumento servicioDocumento;
+
+    @Autowired
+    private RepositoryAgremiado repositoryAgremiado;
 
     /**
      * Comunica al repositorio recuperar aquellas solicitudes de trámite cuyo estado
@@ -154,6 +163,63 @@ public class ServicioSolicitudTramite {
         } catch (IllegalArgumentException e) {
             throw e;
         }
+    }
+
+    /**
+     * Crea una nueva solicitud de trámite que es añadida a la base de datos
+     *
+     * @author Antar Espadas
+     *
+     * @param agremiado El agremiado que solicita el trámite
+     * @param tipoTramite El tipo de trámite que solicita el agremiado
+     * @param archivos Un Map en el que cada valor es un archivo y cada llave el nombre del tipo de documento al que
+     *                 corresponde. Debe contener todos los archivos especificados en los requerimientos de tipoTramite
+     *
+     * @throws IllegalArgumentException Cuando alguno de los argumentos es nulo o cuando falta algún archivo requerido
+     */
+
+    public void solicitarTramite(@NotNull Agremiado agremiado, @NotNull TipoTramite tipoTramite, @NotNull Map<String, byte[]> archivos){
+        if (agremiado == null) throw new IllegalArgumentException("agremiado no debe ser null");
+        if (tipoTramite == null) throw new IllegalArgumentException("tipoTramite no debe ser null");
+        if (archivos == null) throw new IllegalArgumentException("archivos no debe ser null");
+
+        var solicitudTramite = new SolicitudTramite();
+        solicitudTramite.setFechaSolicitud(new Date(System.currentTimeMillis()));
+        solicitudTramite.setTipoTramite(tipoTramite);
+        solicitudTramite.setEstado("Pendiente");
+
+        for (var requerimiento : tipoTramite.getRequerimientos()) {
+            var archivo = archivos.computeIfAbsent(requerimiento,
+                    (k) -> {
+                        throw new IllegalArgumentException("No se especificó un archivo para el campo " + requerimiento);
+                    });
+            var documento = new Documento(requerimiento, archivo);
+            solicitudTramite.addDocumentoRequerido(documento);
+        }
+
+        agremiado.addSolicitud(solicitudTramite);
+
+        repositoryAgremiado.save(agremiado);
+    }
+
+    /**
+     *
+     * Indica si el agremiado tiene derecho a solicitar un trámite
+     *
+     * @author Antar Espadas
+     *
+     * @param agremiado El agremiado en cuestión
+     * @return true en caso de que el agremiado tenga permitido solicitar un trámite, false de lo contrario
+     */
+    public boolean puedeSolicitarTramite(@NotNull Agremiado agremiado){
+
+        if (agremiado == null) throw new IllegalArgumentException("agremiado no puede ser null");
+
+        boolean tieneTramitesPendientes = agremiado.getSolicitudes()
+                .stream()
+                .map(SolicitudTramite::getEstado)
+                .anyMatch(estado -> estado.equalsIgnoreCase("pendiente") || estado.equalsIgnoreCase("en progreso"));
+        return !tieneTramitesPendientes;
     }
 
 }

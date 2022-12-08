@@ -14,6 +14,7 @@ import java.awt.*;
 
 import java.io.*;
 import java.nio.file.Path;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -222,6 +223,7 @@ public class VentanaProcesarTramites extends Pantalla {
         this.solicitudes = solicitudes_;
         this.solicitudesFinalizadas = solicitudesFinalizadas_;
 
+
         String[] datosListaSolicitudes = new String[solicitudes.size()];
 
         int i = 0;
@@ -230,7 +232,13 @@ public class VentanaProcesarTramites extends Pantalla {
             i++;
         }
 
-        listaSolicitudes.setListData(datosListaSolicitudes);
+        try {
+
+            listaSolicitudes.setListData(datosListaSolicitudes);
+        }
+        catch (IndexOutOfBoundsException ignored) {
+
+        }
         setVisible(true);
 
         if (solicitudes.size() == 0) {
@@ -276,7 +284,7 @@ public class VentanaProcesarTramites extends Pantalla {
                 + solicitudSeleccionada.getSolicitante().getApellidos() + " ("
                 + solicitudSeleccionada.getSolicitante().getClave() + ")");
 
-        documentosAdjuntos = solicitudSeleccionada.getRequisitos();
+        documentosAdjuntos = new ArrayList<>(solicitudSeleccionada.getRequisitos());
 
         String strDocumentos = "";
         for (Documento documento : documentosAdjuntos) {
@@ -325,7 +333,7 @@ public class VentanaProcesarTramites extends Pantalla {
                 + solicitudSeleccionada.getSolicitante().getApellidos() + " ("
                 + solicitudSeleccionada.getSolicitante().getClave() + ")");
 
-        documentosAdjuntos = solicitudSeleccionada.getRequisitos();
+        documentosAdjuntos = new ArrayList<>(solicitudSeleccionada.getRequisitos());
 
         String strDocumentos = "";
         for (Documento documento : documentosAdjuntos) {

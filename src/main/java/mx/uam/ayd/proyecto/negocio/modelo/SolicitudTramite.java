@@ -1,7 +1,12 @@
 package mx.uam.ayd.proyecto.negocio.modelo;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +28,8 @@ import javax.persistence.Table;
  * 
  * @author Adolfo Mejía
  */
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "solicitudTramite")
 public class SolicitudTramite {
@@ -31,7 +37,6 @@ public class SolicitudTramite {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idSolicitud;
-
     private String estado;
 
     private Date fechaSolicitud;
@@ -42,14 +47,15 @@ public class SolicitudTramite {
     @ManyToOne(targetEntity = TipoTramite.class, fetch = FetchType.EAGER)
     private TipoTramite tipoTramite;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_solicitud")
-    private List <Documento> requisitos;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    //@JoinColumn(name = "id_solicitud")
+    private List <Documento> requisitos = new ArrayList<>();
 
     private String motivoRechazo;
 
 	private Date fechaAceptacion;
 
+    @ToString.Exclude
     @OneToOne(targetEntity = Documento.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Documento documentoTramite;
 
@@ -60,6 +66,11 @@ public class SolicitudTramite {
         
         return "Solicitud " + String.valueOf(idSolicitud) + ". Solicitud " + estado.toLowerCase();
 
+    }
+
+    public void addDocumentoRequerido(Documento documento){
+        this.requisitos.add(documento);
+        //documento.setSolicitudTramite(this);
     }
     
 }

@@ -1,6 +1,7 @@
 package mx.uam.ayd.proyecto.negocio.modelo;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,7 @@ import javax.persistence.Table;
  */
 @Data
 @Entity
+@NoArgsConstructor
 @Table(name = "documentos")
 public class Documento {
     
@@ -30,8 +32,9 @@ public class Documento {
     @Lob
     private byte[] archivo;
 
-    @ManyToOne
-    @JoinColumn (name = "id_solicitud", insertable = false, updatable = false)
-    private SolicitudTramite solicitudTramite;
+    public Documento(String tipoDocumento, byte[] archivo){
+        this.tipoDocumento = tipoDocumento;
+        this.archivo = archivo;
+    }
 
 }
