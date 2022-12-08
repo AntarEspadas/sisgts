@@ -1,6 +1,5 @@
 package mx.uam.ayd.proyecto.negocio;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +24,7 @@ class ServicioEmpleadoTest {
 		
 		boolean existe;
 		//SE REVISA QUE SEA NULL SI NO EXISTE UN CORREO
-		boolean empleado= servicio.RecuperaCorreo("jose@","1111");
+		boolean empleado= servicio.VerificaCorreoYContrasenia("jose@","1111");
 		if(empleado==true) {
 			existe=false;
 			//throw new IllegalArgumentException("no regresa null");
@@ -39,7 +38,7 @@ class ServicioEmpleadoTest {
 		boolean bien;
 		boolean correcto;
 			
-		if(servicio.RecuperaCorreo("jo", "1111")) {
+		if(servicio.VerificaCorreoYContrasenia("jo", "1111")) {
 			
 			bien=true;
 		}else {

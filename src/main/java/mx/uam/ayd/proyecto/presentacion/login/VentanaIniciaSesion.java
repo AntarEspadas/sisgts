@@ -1,11 +1,7 @@
 package mx.uam.ayd.proyecto.presentacion.login;
 
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
 
-import java.awt.BorderLayout;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,7 +12,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
@@ -94,7 +89,7 @@ public class VentanaIniciaSesion extends JFrame{
 					if(Correo.getText().equals("") || Contrasenia.getText().equals("")) {
 					muestraDialogoConMensaje("Ningun campo debe estar vacio");
 					}else {
-						control.RecuperaCorreo(Correo.getText(),Contrasenia.getText());
+						control.VerificaCorreoYContrasenia(Correo.getText(),Contrasenia.getText());
 						//lblSesion.setText("Sesión iniciado como agremiado");
 					    contentPane1.setVisible(true);
 					    limpia();

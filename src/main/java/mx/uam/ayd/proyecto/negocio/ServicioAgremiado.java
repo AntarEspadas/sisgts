@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
-import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 
 @Service
 public class ServicioAgremiado {
@@ -19,7 +18,7 @@ public class ServicioAgremiado {
 	@Lazy
 	private ServicioEmpleado servicioempleado;
 	
-	public boolean RecuperaCorreo(String correo, String contrasenia) {
+	public boolean verificaCorreoYContrasenia(String correo, String contrasenia) {
 		
 		agremiado=agremiadoRepository.findByCorreo(correo);
 

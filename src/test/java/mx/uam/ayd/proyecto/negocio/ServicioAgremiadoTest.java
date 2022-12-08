@@ -1,6 +1,5 @@
 package mx.uam.ayd.proyecto.negocio;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
@@ -10,7 +9,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
-import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -23,12 +21,12 @@ class ServicioAgremiadoTest {
 	private ServicioAgremiado servicio;
 	
 	@Test
-	void testRecuperaCorreo() {
+	void testVerificaCorreoYContrasenia() {
 
 
 		boolean existe;
 		//SE REVISA QUE SEA NULL SI NO EXISTE UN CORREO
-		boolean agremiado= servicio.RecuperaCorreo("jose@","1111");
+		boolean agremiado= servicio.verificaCorreoYContrasenia("jose@","1111");
 		if(agremiado==true) {
 			existe=false;
 			//throw new IllegalArgumentException("no regresa null");
@@ -42,7 +40,7 @@ class ServicioAgremiadoTest {
 		boolean bien;
 		boolean correcto;
 			
-		if(servicio.RecuperaCorreo("jo", "1111")) {
+		if(servicio.verificaCorreoYContrasenia("jo", "1111")) {
 			
 			bien=true;
 		}else {
