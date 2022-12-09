@@ -108,6 +108,20 @@ public class VentanaPrincipal extends JFrame {
 		gbcBtnPublicaciones.gridx = 0;
 		gbcBtnPublicaciones.gridy = 3;
 		panel.add(btnPublicaciones, gbcBtnPublicaciones);
+
+		JButton btnNotificaciones = new JButton("Avisos");
+		btnNotificaciones.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				control.avisos();
+			}
+		});
+		GridBagConstraints gbc_btnNotificaciones = new GridBagConstraints();
+		gbc_btnNotificaciones.insets = new Insets(0, 0, 5, 0);
+		gbc_btnNotificaciones.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnNotificaciones.gridx = 0;
+		gbc_btnNotificaciones.gridy = 4;
+		panel.add(btnNotificaciones, gbc_btnNotificaciones);
 	}
 	
 	public void muestra(ControlPrincipal control) {

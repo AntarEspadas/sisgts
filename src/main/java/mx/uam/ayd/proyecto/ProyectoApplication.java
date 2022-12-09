@@ -14,6 +14,11 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import mx.uam.ayd.proyecto.datos.RepositoryEmpleado;
 import mx.uam.ayd.proyecto.negocio.modelo.*;
+import mx.uam.ayd.proyecto.datos.RepositoryMensaje;
+import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
+import mx.uam.ayd.proyecto.negocio.modelo.Aviso;
+import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
+import mx.uam.ayd.proyecto.negocio.modelo.Mensaje;
 import mx.uam.ayd.proyecto.util.ServicioDatosPrueba;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -61,6 +66,9 @@ public class ProyectoApplication {
 
 	@Autowired
 	RepositoryEmpleado repositoryEmpleado;
+
+	@Autowired
+	RepositoryMensaje repositoryMensaje;
 
 	/**
 	 * 
@@ -111,6 +119,10 @@ public class ProyectoApplication {
 		agremiado1.setApellidos("CAMPOS GALINDO");
 		agremiado1.setContrasenia("11");
 		agremiado1.setCorreo("jaja");
+		var message = new Mensaje();
+		message.setDestinatario(agremiado1);
+		message.setContenido("Documentos recibidos ");
+		agremiado1.getMensajes().add(message);
 		repositoryAgremiado.save(agremiado1);
 
 		Agremiado agremiado2 = new Agremiado();
@@ -210,6 +222,14 @@ public class ProyectoApplication {
 		agremiado.setClave("123456789");
 		agremiado.setNombre("Alan");
 		agremiado.setApellidos("Turing");
+		var message1 = new Mensaje();
+		message1.setDestinatario(agremiado);
+		message1.setContenido("Documentos recibidos ");
+		agremiado.getMensajes().add(message1);
+		var message2 = new Mensaje();
+		message2.setDestinatario(agremiado);
+		message2.setContenido("Documentos recibidos 2 ");
+		agremiado.getMensajes().add(message2);
 		repositoryAgremiado.save(agremiado);
 
 		var empleado = new Empleado();
@@ -232,6 +252,8 @@ public class ProyectoApplication {
 		aviso2.setContenido("Prueba 2");
 		aviso2.setFecha("2222-09-22");
 		repositoryAviso.save(aviso2);
+
+
 
 
 
