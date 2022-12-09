@@ -25,4 +25,12 @@ public class Empleado {
     private String apellidos;
 
     private String tipoEmpleado;
+    
+    private String correo;
+    
+    private String contrasenia;
+
+    public boolean esEncargada(){
+        return "encargada".equalsIgnoreCase(tipoEmpleado);
+    }
 }

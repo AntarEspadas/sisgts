@@ -55,6 +55,9 @@ public class ProyectoApplication {
 	RepositoryAgremiado RepositoryAgremiado;
 
 	@Autowired
+	RepositoryEmpleado RepositoryEmpleado;
+
+	@Autowired
 	RepositorySolicitudTramite solicitudTramiteRepository;
 
 	@Autowired
@@ -71,7 +74,7 @@ public class ProyectoApplication {
 
 	@Autowired
 	RepositoryEmpleado repositoryEmpleado;
-	
+
 	@Autowired
 	RepositoryMensaje repositoryMensaje;
 
@@ -123,6 +126,8 @@ public class ProyectoApplication {
 		agremiado1.setClave("SD18SADS345");
 		agremiado1.setNombre("JOSE");
 		agremiado1.setApellidos("CAMPOS GALINDO");
+		agremiado1.setContrasenia("11");
+		agremiado1.setCorreo("jaja");
 		var message = new Mensaje();
 		message.setDestinatario(agremiado1);
 		message.setContenido("Documentos recibidos ");
@@ -140,6 +145,14 @@ public class ProyectoApplication {
 		agremiado3.setNombre("GABRIEL");
 		agremiado3.setApellidos("GONZALES CRUZ");
 		RepositoryAgremiado.save(agremiado3);
+
+
+		Empleado empleado1 = new Empleado();
+		empleado1.setNombre("GABRIEL");
+		empleado1.setApellidos("CRUZ");
+		empleado1.setContrasenia("12");
+		empleado1.setCorreo("ja");
+		RepositoryEmpleado.save(empleado1);
 
 
 		/***** Datos para TipoTramite *****/
@@ -233,6 +246,8 @@ public class ProyectoApplication {
 		empleado.setNombre("Yanely");
 		empleado.setApellidos("Bermejo Hernandez");
 		empleado.setTipoEmpleado("encargada");
+		empleado.setCorreo("encargada@example.com");
+		empleado.setContrasenia("1234");
 		repositoryEmpleado.save(empleado);
 
 		var aviso1 = new Aviso();
@@ -246,7 +261,7 @@ public class ProyectoApplication {
 		aviso2.setContenido("Prueba 2");
 		aviso2.setFecha("2222-09-22");
 		repositoryAviso.save(aviso2);
-		
+
 
 
 

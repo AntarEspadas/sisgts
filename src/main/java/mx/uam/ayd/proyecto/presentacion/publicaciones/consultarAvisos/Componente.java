@@ -1,4 +1,8 @@
-package mx.uam.ayd.proyecto.presentacion.consultarAvisos;
+package mx.uam.ayd.proyecto.presentacion.publicaciones.consultarAvisos;
+
+import lombok.Getter;
+import lombok.Setter;
+import mx.uam.ayd.proyecto.negocio.modelo.Aviso;
 
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
@@ -20,6 +24,9 @@ public class Componente extends JPanel {
 	private JTextArea texto;
 	private JLabel fecha1;
 	private JLabel imagen;
+
+	@Getter
+	private Aviso aviso;
 	
 	public Componente() {
 		setLayout(null);
@@ -50,17 +57,19 @@ public class Componente extends JPanel {
 		
 		
 	}
-	public void setParams(String contenido,String date) {
-		texto.setText(contenido);
-		fecha1.setText(date);
-	}
-	public void setParams(String contenido,String date,ImageIcon icoimagen) {
-		texto.setText(contenido);
-		fecha1.setText(date);
-		Image imagen_escalada = icoimagen.getImage();
-		imagen_escalada = imagen_escalada.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
-		ImageIcon img = new ImageIcon(imagen_escalada);
-		imagen.setIcon(img);
-		imagen.setText("");
+
+	public void setAviso(Aviso aviso){
+		this.aviso = aviso;
+		texto.setText(aviso.getContenido());
+		fecha1.setText(aviso.getFecha());
+		var rutaImg = aviso.getImagen();
+		if (rutaImg != null){
+			var imageIcon = new ImageIcon(aviso.getImagen());
+			var imagen_escalada = imageIcon.getImage();
+			imagen_escalada = imagen_escalada.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
+			var img = new ImageIcon(imagen_escalada);
+			imagen.setIcon(img);
+			imagen.setText("");
+		}
 	}
 }

@@ -1,6 +1,8 @@
 package mx.uam.ayd.proyecto.presentacion.principal;
 
 import mx.uam.ayd.proyecto.presentacion.compartido.Pantalla;
+import mx.uam.ayd.proyecto.presentacion.login.ControlIniciaSesion;
+
 import org.springframework.stereotype.Component;
 
 import java.awt.GridBagLayout;
@@ -15,6 +17,7 @@ import java.awt.event.MouseEvent;
 public class VentanaInicio extends Pantalla {
 	
 	private ControlPrincipal controlPrincipal;
+	private ControlIniciaSesion controllogin;
 	private final JLabel lblSesion;
 
 	public VentanaInicio() {
@@ -45,6 +48,7 @@ public class VentanaInicio extends Pantalla {
 		btnLoginagremiado.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
 				controlPrincipal.loginAgremiado();
 				lblSesion.setText("Sesión iniciado como agremiado");
 			}
@@ -59,6 +63,7 @@ public class VentanaInicio extends Pantalla {
 		btnLoginempleado.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
 				controlPrincipal.loginEmpleado();
 				lblSesion.setText("Sesión iniciado como empleado");
 			}

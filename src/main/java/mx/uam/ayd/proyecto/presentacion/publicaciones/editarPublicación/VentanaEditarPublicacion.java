@@ -1,4 +1,4 @@
-package mx.uam.ayd.proyecto.presentacion.crearPublicacion;
+package mx.uam.ayd.proyecto.presentacion.publicaciones.editarPublicación;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -22,14 +22,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import mx.uam.ayd.proyecto.negocio.modelo.Aviso;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.presentacion.compartido.Pantalla;
 
 @Component
-public class VentanaCrearPublicacion extends Pantalla {
+public class VentanaEditarPublicacion extends Pantalla {
 
-	private ControlCrearPublicacion controlador;
+	private ControlEditarPublicacion controlador;
 
 	private JScrollPane scrollPane;
 	private JTextArea textArea;
@@ -38,8 +40,9 @@ public class VentanaCrearPublicacion extends Pantalla {
 	private JButton btnimagen;
 	private JLabel imagen_p;
 	private String ruta_imagen;
+	private final JButton botonPublicar;
 
-	public VentanaCrearPublicacion() {
+	public VentanaEditarPublicacion() {
 		setBounds(new Rectangle(100, 100, 500, 500));
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{40, 300, 40, 0};
@@ -117,19 +120,19 @@ public class VentanaCrearPublicacion extends Pantalla {
 		textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
 
-		JButton botonTelegram = new JButton("Telegram");
-		botonTelegram.setEnabled(false);
-		botonTelegram.addActionListener(new ActionListener() {
+		JButton botonCancelar = new JButton("Cancelar");
+		botonCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				controlador.cancelar();
 			}
 		});
 
-		JButton btnNewButton = new JButton("Publicar");
-		publicar = btnNewButton;
-		btnNewButton.addMouseListener(new MouseAdapter() {
+		botonPublicar = new JButton("Publicar");
+		publicar = botonPublicar;
+		botonPublicar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (btnNewButton.isEnabled()) {
+				if (botonPublicar.isEnabled()) {
 				String texto = null;
 						texto = textArea.getText();
 						if (texto.length()!=0) {
@@ -138,12 +141,11 @@ public class VentanaCrearPublicacion extends Pantalla {
 					        if (input == 0) {
 					        	if(imagen_placeholder.getIcon()!= null) {
 					
-					        	controlador.crearPublicacion(ruta_imagen,texto);
+					        	controlador.guardadPublicacion(ruta_imagen,texto);
 					        	}else {
-					        		controlador.crearPublicacion(null,texto);
+					        		controlador.guardadPublicacion(null,texto);
 					        	}
 					        }
-							botonTelegram.setEnabled(true);
 						}
 				}
 			}
@@ -162,19 +164,34 @@ public class VentanaCrearPublicacion extends Pantalla {
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton.gridx = 1;
 		gbc_btnNewButton.gridy = 4;
-		add(btnNewButton, gbc_btnNewButton);
+		add(botonPublicar, gbc_btnNewButton);
 
 
 		GridBagConstraints gbc_botonTelegram = new GridBagConstraints();
 		gbc_botonTelegram.insets = new Insets(0, 0, 0, 5);
 		gbc_botonTelegram.gridx = 1;
 		gbc_botonTelegram.gridy = 5;
-		add(botonTelegram, gbc_botonTelegram);
+		add(botonCancelar, gbc_botonTelegram);
 
 	}
 
-	public void muestra(ControlCrearPublicacion controlador) {
-		// TODO Auto-generated method stub
+	public void muestra(ControlEditarPublicacion controlador, @Nullable Aviso aviso) {
+		if (aviso == null){
+			botonPublicar.setText("Publicar");
+			textArea.setText("");
+		}
+		else {
+			botonPublicar.setText("Guardar");
+			textArea.setText(aviso.getContenido());
+			var rutaImagen = aviso.getImagen();
+			if (rutaImagen != null){
+				ImageIcon imagen1 = new ImageIcon(aviso.getImagen());
+				Image imagen_escalada = imagen1.getImage();
+				imagen_escalada = imagen_escalada.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
+				ImageIcon img = new ImageIcon(imagen_escalada);
+				imagen_p.setIcon(img);
+			}
+		}
 		validado.setSelected(false);
 		publicar.setEnabled(true);
 		btnimagen.setEnabled(true);

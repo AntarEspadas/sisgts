@@ -223,6 +223,7 @@ public class VentanaProcesarTramites extends Pantalla {
         this.solicitudes = solicitudes_;
         this.solicitudesFinalizadas = solicitudesFinalizadas_;
 
+
         String[] datosListaSolicitudes = new String[solicitudes.size()];
 
         int i = 0;
@@ -231,7 +232,13 @@ public class VentanaProcesarTramites extends Pantalla {
             i++;
         }
 
-        listaSolicitudes.setListData(datosListaSolicitudes);
+        try {
+
+            listaSolicitudes.setListData(datosListaSolicitudes);
+        }
+        catch (IndexOutOfBoundsException ignored) {
+
+        }
         setVisible(true);
 
         if (solicitudes.size() == 0) {
