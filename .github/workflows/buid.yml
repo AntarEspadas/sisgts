@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - master # or the name of your main branch
-      - pago-deuda-tecnica
 
 jobs:
   build:
