@@ -15,6 +15,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class ServicioAgremiadoTest {
 
 	@Mock
+	private ServicioEmpleado servicioEmpleado;
+	@Mock
 	private RepositoryAgremiado repositoryagremiado;
 
 	@InjectMocks
