@@ -127,7 +127,7 @@ public class ControlPrincipal {
 		if (servicioagremiado.getAgremiadoActual() != null)
 			controlNotificaciones.inicia(servicioagremiado.getAgremiadoActual());
 
-		else if (empleado != null)
+		else if (servicioempleado.getEmpleadoActual() != null)
 			controlNotificaciones.inicia(servicioempleado.getEmpleadoActual());
 
 	}
