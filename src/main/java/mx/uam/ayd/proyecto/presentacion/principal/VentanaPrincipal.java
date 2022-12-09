@@ -10,6 +10,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 @SuppressWarnings("serial")
@@ -49,9 +51,9 @@ public class VentanaPrincipal extends JFrame {
 		contentPane.add(panel, gbcPanel);
 		GridBagLayout gblPanel = new GridBagLayout();
 		gblPanel.columnWidths = new int[]{0, 0};
-		gblPanel.rowHeights = new int[]{0, 0, 0, 0, 0};
+		gblPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
 		gblPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gblPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gblPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gblPanel);
 		
 		JButton btnInicio = new JButton("Inicio");
@@ -104,11 +106,12 @@ public class VentanaPrincipal extends JFrame {
 			}
 		});
 		GridBagConstraints gbcBtnPublicaciones = new GridBagConstraints();
+		gbcBtnPublicaciones.insets = new Insets(0, 0, 5, 0);
 		gbcBtnPublicaciones.fill = GridBagConstraints.HORIZONTAL;
 		gbcBtnPublicaciones.gridx = 0;
 		gbcBtnPublicaciones.gridy = 3;
 		panel.add(btnPublicaciones, gbcBtnPublicaciones);
-
+		
 		JButton btnNotificaciones = new JButton("Avisos");
 		btnNotificaciones.addMouseListener(new MouseAdapter() {
 			@Override
@@ -116,12 +119,17 @@ public class VentanaPrincipal extends JFrame {
 				control.avisos();
 			}
 		});
-		GridBagConstraints gbc_btnNotificaciones = new GridBagConstraints();
-		gbc_btnNotificaciones.insets = new Insets(0, 0, 5, 0);
-		gbc_btnNotificaciones.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnNotificaciones.gridx = 0;
-		gbc_btnNotificaciones.gridy = 4;
-		panel.add(btnNotificaciones, gbc_btnNotificaciones);
+		GridBagConstraints gbcBtnNotificaciones = new GridBagConstraints();
+		gbcBtnNotificaciones.insets = new Insets(0, 0, 5, 0);
+		gbcBtnNotificaciones.fill = GridBagConstraints.HORIZONTAL;
+		gbcBtnNotificaciones.gridx = 0;
+		gbcBtnNotificaciones.gridy = 4;
+		panel.add(btnNotificaciones, gbcBtnNotificaciones);
+		
+		gbcContenido = new GridBagConstraints();
+		gbcContenido.fill = GridBagConstraints.BOTH;
+		gbcContenido.gridx = 2;
+		gbcContenido.gridy = 0;
 	}
 	
 	public void muestra(ControlPrincipal control) {

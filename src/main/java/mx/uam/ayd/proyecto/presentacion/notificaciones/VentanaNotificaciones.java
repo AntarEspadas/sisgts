@@ -1,4 +1,4 @@
-package mx.uam.ayd.proyecto.presentacion.Notificaciones;
+package mx.uam.ayd.proyecto.presentacion.notificaciones;
 
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
@@ -17,11 +17,11 @@ import javax.swing.JButton;
 @Component
 public class VentanaNotificaciones extends Pantalla {
 	
-	private ControlNotificaciones controlador;
+	private transient ControlNotificaciones controlador;
 	private VentanaInfoNotificaciones ventanaInfoNotificaciones;
-	
-	private Mensaje acuse;
-	
+
+	private transient Mensaje acuse;
+
 	public VentanaNotificaciones() {
 		
 		setBounds(new Rectangle(100, 100, 500, 500));
@@ -30,19 +30,16 @@ public class VentanaNotificaciones extends Pantalla {
 		JLabel lblNewLabel = new JLabel("Casa de gestion");
 		lblNewLabel.setBounds(57, 76, 138, 27);
 		add(lblNewLabel);
-		//add(lblNewLabel);
-		
+
 		JTextPane txtpnPorEsteMedio = new JTextPane();
 		txtpnPorEsteMedio.setBounds(57, 114, 381, 174);
 		txtpnPorEsteMedio.setText("Por este medio se envia acuse de trámite, el cual confirma que su trámite se encuentra en proceso.");
 		add(txtpnPorEsteMedio);
-		//add(txtpnPorEsteMedio);
-		
+
 		JLabel lblAcuse = new JLabel("Acuse.PDF");
 		lblAcuse.setBounds(87, 299, 74, 34);
 		add(lblAcuse);
-		//add(lblAcuse);
-		
+
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.setBounds(342, 405, 87, 27);
 		add(btnGuardar);
@@ -60,19 +57,17 @@ public class VentanaNotificaciones extends Pantalla {
 	}
 	
 	public void muestra(ControlNotificaciones controlador, Mensaje mensaje) {
-		// TODO Auto-generated method stub
+		this.controlador = controlador;
 		this.acuse = mensaje;
 		setVisible(true);
 	}
 	
 	public void muestra(ControlNotificaciones controlador) {
-		// TODO Auto-generated method stub
-		
+		this.controlador = controlador;
 		setVisible(true);
 	}
 
 	public void cierra() {
-		// TODO Auto-generated method stub
 		setVisible(false);
 	}
 
