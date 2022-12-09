@@ -1,4 +1,4 @@
-package mx.uam.ayd.proyecto.presentacion.solicitarTramite;
+package mx.uam.ayd.proyecto.presentacion.solicitar_tramite;
 
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -38,18 +38,18 @@ public class ComponenteSubirArchivo extends JPanel {
 		setLayout(gridBagLayout);
 		
 		JLabel lblNombredocumento = new JLabel(nombreDocumento);
-		GridBagConstraints gbc_lblNombredocumento = new GridBagConstraints();
-		gbc_lblNombredocumento.insets = new Insets(0, 0, 0, 5);
-		gbc_lblNombredocumento.gridx = 1;
-		gbc_lblNombredocumento.gridy = 0;
-		add(lblNombredocumento, gbc_lblNombredocumento);
+		GridBagConstraints gbcLblNombredocumento = new GridBagConstraints();
+		gbcLblNombredocumento.insets = new Insets(0, 0, 0, 5);
+		gbcLblNombredocumento.gridx = 1;
+		gbcLblNombredocumento.gridy = 0;
+		add(lblNombredocumento, gbcLblNombredocumento);
 		
 		JLabel lblFormato = new JLabel(".PDF");
-		GridBagConstraints gbc_lblFormato = new GridBagConstraints();
-		gbc_lblFormato.insets = new Insets(0, 0, 0, 5);
-		gbc_lblFormato.gridx = 2;
-		gbc_lblFormato.gridy = 0;
-		add(lblFormato, gbc_lblFormato);
+		GridBagConstraints gbcLblFormato = new GridBagConstraints();
+		gbcLblFormato.insets = new Insets(0, 0, 0, 5);
+		gbcLblFormato.gridx = 2;
+		gbcLblFormato.gridy = 0;
+		add(lblFormato, gbcLblFormato);
 		
 		var padre = this;
 		JButton btnAdjuntar = new JButton("Adjuntar");
@@ -67,19 +67,19 @@ public class ComponenteSubirArchivo extends JPanel {
 				}
 			}
 		});
-		GridBagConstraints gbc_btnAdjuntar = new GridBagConstraints();
-		gbc_btnAdjuntar.insets = new Insets(0, 0, 0, 5);
-		gbc_btnAdjuntar.gridx = 3;
-		gbc_btnAdjuntar.gridy = 0;
-		add(btnAdjuntar, gbc_btnAdjuntar);
+		GridBagConstraints gbcBtnAdjuntar = new GridBagConstraints();
+		gbcBtnAdjuntar.insets = new Insets(0, 0, 0, 5);
+		gbcBtnAdjuntar.gridx = 3;
+		gbcBtnAdjuntar.gridy = 0;
+		add(btnAdjuntar, gbcBtnAdjuntar);
 		
 		chckbxSeleccionado = new JCheckBox("");
 		chckbxSeleccionado.setEnabled(false);
-		GridBagConstraints gbc_chckbxSeleccionado = new GridBagConstraints();
-		gbc_chckbxSeleccionado.insets = new Insets(0, 0, 0, 5);
-		gbc_chckbxSeleccionado.gridx = 4;
-		gbc_chckbxSeleccionado.gridy = 0;
-		add(chckbxSeleccionado, gbc_chckbxSeleccionado);
+		GridBagConstraints gbcChckbxSeleccionado = new GridBagConstraints();
+		gbcChckbxSeleccionado.insets = new Insets(0, 0, 0, 5);
+		gbcChckbxSeleccionado.gridx = 4;
+		gbcChckbxSeleccionado.gridy = 0;
+		add(chckbxSeleccionado, gbcChckbxSeleccionado);
 	}
 	
 	public void addArchivoSeleccionadoListener(ArchivoSeleccionadoListener listener) {

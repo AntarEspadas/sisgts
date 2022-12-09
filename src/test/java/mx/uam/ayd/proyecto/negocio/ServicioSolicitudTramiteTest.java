@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
-import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
+import mx.uam.ayd.proyecto.negocio.modelo.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,9 +19,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import mx.uam.ayd.proyecto.datos.RepositorySolicitudTramite;
-import mx.uam.ayd.proyecto.negocio.modelo.Documento;
-import mx.uam.ayd.proyecto.negocio.modelo.SolicitudTramite;
-import mx.uam.ayd.proyecto.negocio.modelo.TipoTramite;
 
 @ExtendWith(MockitoExtension.class)
 class ServicioSolicitudTramiteTest {
@@ -46,7 +43,7 @@ class ServicioSolicitudTramiteTest {
 		 */
 		List<SolicitudTramite> listaNoFinalizados = new ArrayList<SolicitudTramite>();
 
-		when(repositorySolicitudTramite.findByEstadoNot("Finalizado")).thenReturn(listaNoFinalizados);
+		when(repositorySolicitudTramite.findByEstadoNot(Estado.FINALIZADO)).thenReturn(listaNoFinalizados);
 
 		assertEquals(0, servicio.findByEstadoNotFinalizado().size(), "Debio regresar lista con tamaño 0");
 
@@ -55,16 +52,16 @@ class ServicioSolicitudTramiteTest {
 		 * diferente de “Finalizado”
 		 */
 		SolicitudTramite sol1 = new SolicitudTramite();
-		sol1.setEstado("Pendiente");
+		sol1.setEstado(Estado.PENDIENTE);
 		SolicitudTramite sol2 = new SolicitudTramite();
-		sol2.setEstado("Rechazada");
+		sol2.setEstado(Estado.RECHAZADO);
 		SolicitudTramite sol3 = new SolicitudTramite();
-		sol3.setEstado("En progreso");
+		sol3.setEstado(Estado.EN_PROGRESO);
 		listaNoFinalizados.add(sol1);
 		listaNoFinalizados.add(sol2);
 		listaNoFinalizados.add(sol3);
 
-		when(repositorySolicitudTramite.findByEstadoNot("Finalizado")).thenReturn(listaNoFinalizados);
+		when(repositorySolicitudTramite.findByEstadoNot(Estado.FINALIZADO)).thenReturn(listaNoFinalizados);
 
 		assertEquals(3, servicio.findByEstadoNotFinalizado().size(), "Debio regresar lista con tamaño 3");
 
@@ -78,7 +75,7 @@ class ServicioSolicitudTramiteTest {
 		 */
 		List<SolicitudTramite> listaFinalizados = new ArrayList<SolicitudTramite>();
 
-		when(repositorySolicitudTramite.findByEstado("Finalizado")).thenReturn(listaFinalizados);
+		when(repositorySolicitudTramite.findByEstado(Estado.FINALIZADO)).thenReturn(listaFinalizados);
 
 		assertEquals(0, servicio.findByEstadoFinalizado().size(), "Debio regresar lista con tamaño 0");
 
@@ -87,13 +84,13 @@ class ServicioSolicitudTramiteTest {
 		 * “Finalizado”
 		 */
 		SolicitudTramite sol4 = new SolicitudTramite();
-		sol4.setEstado("Finalizado");
+		sol4.setEstado(Estado.FINALIZADO);
 		SolicitudTramite sol5 = new SolicitudTramite();
-		sol5.setEstado("Finalizado");
+		sol5.setEstado(Estado.FINALIZADO);
 		listaFinalizados.add(sol4);
 		listaFinalizados.add(sol5);
 
-		when(repositorySolicitudTramite.findByEstado("Finalizado")).thenReturn(listaFinalizados);
+		when(repositorySolicitudTramite.findByEstado(Estado.FINALIZADO)).thenReturn(listaFinalizados);
 
 		assertEquals(2, servicio.findByEstadoFinalizado().size(), "Debio regresar lista con tamaño 2");
 
@@ -106,7 +103,7 @@ class ServicioSolicitudTramiteTest {
 		 */
 		SolicitudTramite solicitud = null;
 
-		assertThrows(IllegalArgumentException.class, () -> servicio.save(solicitud),
+		assertThrows(NullPointerException.class, () -> servicio.save(solicitud),
 				"Debio lanzar una excepcion");
 
 		/**
@@ -125,7 +122,7 @@ class ServicioSolicitudTramiteTest {
 		 */
 		SolicitudTramite solicitud = null;
 
-		assertThrows(IllegalArgumentException.class, () -> servicio.aceptarDocumentos(solicitud),
+		assertThrows(NullPointerException.class, () -> servicio.aceptarDocumentos(solicitud),
 				"Debió lanzar una excepcion");
 
 		/**
@@ -136,7 +133,7 @@ class ServicioSolicitudTramiteTest {
 		try {
 			assertInstanceOf(SolicitudTramite.class, servicio.aceptarDocumentos(solicitud2),
 				"No devolvió una SolicitudTramite");
-			assertEquals("En progreso", servicio.aceptarDocumentos(solicitud2).getEstado(), "Debería ser \"En progreso\"");
+			assertEquals(Estado.EN_PROGRESO, servicio.aceptarDocumentos(solicitud2).getEstado(), "Debería ser \"En progreso\"");
 		} catch (Exception e) {
 			fail (e.getMessage());
 		}
@@ -192,8 +189,8 @@ class ServicioSolicitudTramiteTest {
 				"Las cadenas deberían ser iguales");
 			assertEquals(0, servicio.rechazarDocumentos(solicitudCompleta, strNoNula).getRequisitos().size(), 
 				"Debería ser tamaño cero");
-			assertEquals("Rechazada", servicio.rechazarDocumentos(solicitudCompleta, strNoNula).getEstado(), 
-				"Debería decir \"Rechazada\"");
+			assertEquals(Estado.RECHAZADO, servicio.rechazarDocumentos(solicitudCompleta, strNoNula).getEstado(),
+				"Debería decir \"Rechazado\"");
 		} catch (Exception e) {
 			fail(e.getMessage());
 		}
@@ -243,7 +240,7 @@ class ServicioSolicitudTramiteTest {
 				"No devolvió un obj SolicitudTramite");
 			assertInstanceOf(Documento.class, servicio.finalizarTramite(solicitud, pathValido).getDocumentoTramite(),
 				"No adjunto un tipo Documento en el atrib documentoTramite");
-			assertEquals("Finalizado", servicio.finalizarTramite(solicitud, pathValido).getEstado(),
+			assertEquals(Estado.FINALIZADO, servicio.finalizarTramite(solicitud, pathValido).getEstado(),
 				"Debería decir \"Finalizado\"");
 		} catch (Exception e) {
 			fail(e.getMessage());
@@ -264,11 +261,11 @@ class ServicioSolicitudTramiteTest {
 
 		assertDoesNotThrow(() -> servicio.solicitarTramite(agremiado, tipoTramite, archivos));
 
-		// Caso 2 - El método arroja un IllegalArgumentException cuando alguno de los parámetros es nulo
+		// Caso 2 - El método arroja un NullPointerException cuando alguno de los parámetros es nulo
 
-		assertThrows(IllegalArgumentException.class, () -> servicio.solicitarTramite(null, tipoTramite, archivos));
-		assertThrows(IllegalArgumentException.class, () -> servicio.solicitarTramite(agremiado, null, archivos));
-		assertThrows(IllegalArgumentException.class, () -> servicio.solicitarTramite(agremiado, tipoTramite, null));
+		assertThrows(NullPointerException.class, () -> servicio.solicitarTramite(null, tipoTramite, archivos));
+		assertThrows(NullPointerException.class, () -> servicio.solicitarTramite(agremiado, null, archivos));
+		assertThrows(NullPointerException.class, () -> servicio.solicitarTramite(agremiado, tipoTramite, null));
 
 		// Caso 3 - El método arroja un IllegalArgumentException cuando falta algún archivo requerido
 
@@ -279,9 +276,9 @@ class ServicioSolicitudTramiteTest {
 	@Test
 	void testPuedeSolicitarTramite(){
 
-		// Caso 1 - El método arroja un IllegalArgumentException cuando se le pasa un argumento nulo
+		// Caso 1 - El método arroja un NullPointerException cuando se le pasa un argumento nulo
 
-		assertThrows(IllegalArgumentException.class, () -> servicio.puedeSolicitarTramite(null));
+		assertThrows(NullPointerException.class, () -> servicio.puedeSolicitarTramite(null));
 
 		// Caso 2 - El método regresa 'true' cuando el agremiado no tiene ningún trámite pendiente
 
@@ -290,7 +287,7 @@ class ServicioSolicitudTramiteTest {
 		var solicitudes = agremiado.getSolicitudes();
 		for (int i = 0; i < 5; i++) {
 			var solicitud = new SolicitudTramite();
-			solicitud.setEstado("Finalizado");
+			solicitud.setEstado(Estado.FINALIZADO);
 			solicitudes.add(solicitud);
 		}
 
@@ -299,7 +296,7 @@ class ServicioSolicitudTramiteTest {
 		// Caso 3 - El método regresa 'false' cuando el agremiado tiene un trámite pendiente
 
 		var solicitud = new SolicitudTramite();
-		solicitud.setEstado("Pendiente");
+		solicitud.setEstado(Estado.PENDIENTE);
 		solicitudes.add(solicitud);
 
 		assertFalse(servicio.puedeSolicitarTramite(agremiado));
@@ -308,7 +305,7 @@ class ServicioSolicitudTramiteTest {
 
 		solicitudes.remove(solicitud);
 		solicitud = new SolicitudTramite();
-		solicitud.setEstado("En progreso");
+		solicitud.setEstado(Estado.EN_PROGRESO);
 		solicitudes.add(solicitud);
 
 		assertFalse(servicio.puedeSolicitarTramite(agremiado));

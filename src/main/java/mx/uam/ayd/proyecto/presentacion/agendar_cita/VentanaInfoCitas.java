@@ -1,5 +1,6 @@
-package mx.uam.ayd.proyecto.presentacion.agendarCita;
+package mx.uam.ayd.proyecto.presentacion.agendar_cita;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -33,8 +34,7 @@ import java.awt.Insets;
  */
 @Component
 public class VentanaInfoCitas extends Pantalla {
-	
-	private ControlAgendarCita controlador;
+	private transient ControlAgendarCita controlador;
 
 	private final JList<String> listaCitas;
 
@@ -48,46 +48,46 @@ public class VentanaInfoCitas extends Pantalla {
 		setLayout(gridBagLayout);
 
 		JLabel lblHorarios = new JLabel("Horarios");
-		GridBagConstraints gbc_lblHorarios = new GridBagConstraints();
-		gbc_lblHorarios.anchor = GridBagConstraints.NORTH;
-		gbc_lblHorarios.insets = new Insets(0, 0, 5, 5);
-		gbc_lblHorarios.gridx = 2;
-		gbc_lblHorarios.gridy = 1;
-		add(lblHorarios, gbc_lblHorarios);
+		GridBagConstraints gbcLblHorarios = new GridBagConstraints();
+		gbcLblHorarios.anchor = GridBagConstraints.NORTH;
+		gbcLblHorarios.insets = new Insets(0, 0, 5, 5);
+		gbcLblHorarios.gridx = 2;
+		gbcLblHorarios.gridy = 1;
+		add(lblHorarios, gbcLblHorarios);
 
 		JLabel lblHorarios2 = new JLabel("Lunes a Viernes de 10:00 a 18:00");
-		GridBagConstraints gbc_lblHorarios2 = new GridBagConstraints();
-		gbc_lblHorarios2.anchor = GridBagConstraints.NORTH;
-		gbc_lblHorarios2.insets = new Insets(0, 0, 5, 5);
-		gbc_lblHorarios2.gridx = 2;
-		gbc_lblHorarios2.gridy = 3;
-		add(lblHorarios2, gbc_lblHorarios2);
+		GridBagConstraints gbcLblHorarios2 = new GridBagConstraints();
+		gbcLblHorarios2.anchor = GridBagConstraints.NORTH;
+		gbcLblHorarios2.insets = new Insets(0, 0, 5, 5);
+		gbcLblHorarios2.gridx = 2;
+		gbcLblHorarios2.gridy = 3;
+		add(lblHorarios2, gbcLblHorarios2);
 		
 				JLabel lblSusCitas = new JLabel("Sus citas");
-				GridBagConstraints gbc_lblSusCitas = new GridBagConstraints();
-				gbc_lblSusCitas.anchor = GridBagConstraints.NORTH;
-				gbc_lblSusCitas.fill = GridBagConstraints.HORIZONTAL;
-				gbc_lblSusCitas.insets = new Insets(0, 0, 5, 5);
-				gbc_lblSusCitas.gridx = 1;
-				gbc_lblSusCitas.gridy = 4;
-				add(lblSusCitas, gbc_lblSusCitas);
+				GridBagConstraints gbcLblSusCitas = new GridBagConstraints();
+				gbcLblSusCitas.anchor = GridBagConstraints.NORTH;
+				gbcLblSusCitas.fill = GridBagConstraints.HORIZONTAL;
+				gbcLblSusCitas.insets = new Insets(0, 0, 5, 5);
+				gbcLblSusCitas.gridx = 1;
+				gbcLblSusCitas.gridy = 4;
+				add(lblSusCitas, gbcLblSusCitas);
 
 		listaCitas = new JList<>();
-		GridBagConstraints gbc_listaCitas = new GridBagConstraints();
-		gbc_listaCitas.gridwidth = 3;
-		gbc_listaCitas.fill = GridBagConstraints.BOTH;
-		gbc_listaCitas.insets = new Insets(0, 0, 5, 5);
-		gbc_listaCitas.gridx = 1;
-		gbc_listaCitas.gridy = 5;
-		add(listaCitas, gbc_listaCitas);
+		GridBagConstraints gbcListaCitas = new GridBagConstraints();
+		gbcListaCitas.gridwidth = 3;
+		gbcListaCitas.fill = GridBagConstraints.BOTH;
+		gbcListaCitas.insets = new Insets(0, 0, 5, 5);
+		gbcListaCitas.gridx = 1;
+		gbcListaCitas.gridy = 5;
+		add(listaCitas, gbcListaCitas);
 
 		JButton btnAgendarCita = new JButton("Agendar Cita");
-		GridBagConstraints gbc_btnAgendarCita = new GridBagConstraints();
-		gbc_btnAgendarCita.insets = new Insets(0, 0, 5, 5);
-		gbc_btnAgendarCita.anchor = GridBagConstraints.NORTH;
-		gbc_btnAgendarCita.gridx = 1;
-		gbc_btnAgendarCita.gridy = 6;
-		add(btnAgendarCita, gbc_btnAgendarCita);
+		GridBagConstraints gbcBtnAgendarCita = new GridBagConstraints();
+		gbcBtnAgendarCita.insets = new Insets(0, 0, 5, 5);
+		gbcBtnAgendarCita.anchor = GridBagConstraints.NORTH;
+		gbcBtnAgendarCita.gridx = 1;
+		gbcBtnAgendarCita.gridy = 6;
+		add(btnAgendarCita, gbcBtnAgendarCita);
 		
 		btnAgendarCita.addMouseListener(new MouseAdapter() {
 			@Override
@@ -97,12 +97,12 @@ public class VentanaInfoCitas extends Pantalla {
 		});
 
 		JButton btnEditarCita = new JButton("Editar Cita");
-		GridBagConstraints gbc_btnEditarCita = new GridBagConstraints();
-		gbc_btnEditarCita.insets = new Insets(0, 0, 5, 5);
-		gbc_btnEditarCita.anchor = GridBagConstraints.NORTH;
-		gbc_btnEditarCita.gridx = 2;
-		gbc_btnEditarCita.gridy = 6;
-		add(btnEditarCita, gbc_btnEditarCita);
+		GridBagConstraints gbcBtnEditarCita = new GridBagConstraints();
+		gbcBtnEditarCita.insets = new Insets(0, 0, 5, 5);
+		gbcBtnEditarCita.anchor = GridBagConstraints.NORTH;
+		gbcBtnEditarCita.gridx = 2;
+		gbcBtnEditarCita.gridy = 6;
+		add(btnEditarCita, gbcBtnEditarCita);
 		
 		btnEditarCita.addMouseListener(new MouseAdapter() {
 			@Override
@@ -110,10 +110,9 @@ public class VentanaInfoCitas extends Pantalla {
 				if(listaCitas.getSelectedIndex()==-1){
 					controlador.verificar();
 				}else {
-					int indice;
-					indice = listaCitas.getSelectedIndex();
-					DefaultListModel modelo = (DefaultListModel) listaCitas.getModel();
-					modelo.remove(listaCitas.getSelectedIndex());
+					int indice = listaCitas.getSelectedIndex();
+					var modelo = (DefaultListModel<String>) listaCitas.getModel();
+					modelo.remove(indice);
 					
 					controlador.agendarCita();
 					controlador.editarCita();
@@ -122,12 +121,12 @@ public class VentanaInfoCitas extends Pantalla {
 		});
 
 		JButton btnEliminar = new JButton("Eliminar");
-		GridBagConstraints gbc_btnEliminar = new GridBagConstraints();
-		gbc_btnEliminar.insets = new Insets(0, 0, 5, 5);
-		gbc_btnEliminar.anchor = GridBagConstraints.NORTH;
-		gbc_btnEliminar.gridx = 3;
-		gbc_btnEliminar.gridy = 6;
-		add(btnEliminar, gbc_btnEliminar);
+		GridBagConstraints gbcBtnEliminar = new GridBagConstraints();
+		gbcBtnEliminar.insets = new Insets(0, 0, 5, 5);
+		gbcBtnEliminar.anchor = GridBagConstraints.NORTH;
+		gbcBtnEliminar.gridx = 3;
+		gbcBtnEliminar.gridy = 6;
+		add(btnEliminar, gbcBtnEliminar);
 		
 		btnEliminar.addMouseListener(new MouseAdapter() {
 			@Override
@@ -136,23 +135,22 @@ public class VentanaInfoCitas extends Pantalla {
 					controlador.verificar();
 				}else {
 					
-					DefaultListModel modelo = (DefaultListModel) listaCitas.getModel();
+					var modelo = (DefaultListModel<String>) listaCitas.getModel();
 					modelo.remove(listaCitas.getSelectedIndex());
 					
 					controlador.eliminarCita();
 				}
 			}
 		});
-		
 	}
 	
 	public void muestra(ControlAgendarCita controlador, List<Cita> citas) {
 		this.controlador = controlador;
 		var listModel = new DefaultListModel<String>();
-		if (citas.size() != 0) {
+		if (!citas.isEmpty()) {
 			
 			// Informació para generar formato de las fechas
-			var locale = new Locale("es", "MX");
+			var locale = Locale.forLanguageTag("en-Latn");
 			var fechaFormatter = DateTimeFormatter.ofPattern("EEEE, d 'de' MMMM", locale);
 			var horaFormatter = DateTimeFormatter.ofPattern(", HH:mm", locale);
 
@@ -162,10 +160,10 @@ public class VentanaInfoCitas extends Pantalla {
 			listModel.addAll
 			(
 				citas.stream()
-					.filter(cita -> cita.getFecha().isAfter(ayer))
-					.sorted()
-					.map(cita -> cita.getFecha().format(fechaFormatter) + cita.getHora().format(horaFormatter))
-					.collect(Collectors.toList())
+						.filter(cita -> cita.getFecha().isAfter(ayer))
+						.sorted(Comparator.comparing(Cita::getFecha))
+						.map(cita -> cita.getFecha().format(fechaFormatter) + cita.getHora().format(horaFormatter))
+						.collect(Collectors.toList())
 			);
 		}
 		else

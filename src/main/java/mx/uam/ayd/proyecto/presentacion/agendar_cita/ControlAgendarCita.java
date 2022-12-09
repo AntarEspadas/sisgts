@@ -1,4 +1,4 @@
-package mx.uam.ayd.proyecto.presentacion.agendarCita;
+package mx.uam.ayd.proyecto.presentacion.agendar_cita;
 
 import mx.uam.ayd.proyecto.negocio.ServicioCita;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
@@ -104,7 +104,6 @@ public class ControlAgendarCita {
 	}
 
     public void verificar() {
-		// TODO Auto-generated method stub
 		JOptionPane.showMessageDialog(ventanaAgendarCita, "seleccione una cita");
 		
 	}

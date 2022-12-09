@@ -1,7 +1,7 @@
-package mx.uam.ayd.proyecto.presentacion.publicaciones.editarPublicación;
+package mx.uam.ayd.proyecto.presentacion.publicaciones.editar_publicacion;
 
 import mx.uam.ayd.proyecto.negocio.modelo.Aviso;
-import mx.uam.ayd.proyecto.presentacion.publicaciones.administrarPublicaciones.ControlAdministrarPublicaciones;
+import mx.uam.ayd.proyecto.presentacion.publicaciones.administrar_publicaciones.ControlAdministrarPublicaciones;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 

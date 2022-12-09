@@ -91,20 +91,24 @@ class ServicioDocumentoTest {
 		String tipoDocumento = "Licencia";
 		assertThrows(IllegalArgumentException.class, () -> servicio.creaDocumento(null, tipoDocumento));
 
+		var path = Paths.get("./src/main/resources/Solicitud1Documento1.pdf");
+
 		/**
 		 * Caso 2 - String nulo
 		 */
 		assertThrows(
 			IllegalArgumentException.class, () -> servicio
-						.creaDocumento(Paths.get("./src/main/resources/Solicitud1Documento1.pdf"), null),
+						.creaDocumento(path, null),
 				"Debió lanzar una excepción");
+
+		var pathInvalido = Paths.get("./src/main/resources/esteDocNoExiste.pdf");
 
 		/**
 		 * Caso 1 - Se proporciona una ruta a un archivo inexistente
 		 */
 		assertThrows(
 				IOException.class, () -> servicio
-						.creaDocumento(Paths.get("./src/main/resources/esteDocNoExiste.pdf"), tipoDocumento),
+						.creaDocumento(pathInvalido, tipoDocumento),
 				"Debió lanzar una excepción");
 
 		/**
@@ -112,7 +116,7 @@ class ServicioDocumentoTest {
 		 */
 		try {
 			assertInstanceOf(Documento.class, servicio.creaDocumento(
-					Paths.get("./src/main/resources/Solicitud1Documento1.pdf"),
+					path,
 					"No devolvió un objeto tipo documento"));
 		} catch (IOException e) {
 			fail("No debió lanzar una excepción");

@@ -1,4 +1,4 @@
-package mx.uam.ayd.proyecto.presentacion.solicitarTramite;
+package mx.uam.ayd.proyecto.presentacion.solicitar_tramite;
 
 import java.util.Map;
 

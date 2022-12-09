@@ -3,9 +3,9 @@ package mx.uam.ayd.proyecto.negocio;
 import java.util.Calendar;
 import java.util.List;
 
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import mx.uam.ayd.proyecto.datos.AvisoRepository;
@@ -18,8 +18,7 @@ public class ServicioAviso {
 	AvisoRepository avisoRepository;
 	
 	private Calendar obtenerFecha() {
-		Calendar fecha = Calendar.getInstance();
-		return fecha;
+		return Calendar.getInstance();
 	}
 
 	public boolean crearPublicacion(@Nullable String imagen, @NonNull String texto){
@@ -34,9 +33,7 @@ public class ServicioAviso {
 	 * @return true si la publicación se pudo guardad correctamente, false de lo contrario
 	 */
 	public boolean guardarPublicacion(@Nullable String imagen, @NonNull String texto, @Nullable Aviso aviso) {
-		if (texto == null) {
-			throw new IllegalArgumentException();
-		}
+
 		if (aviso == null){
 			aviso = new Aviso();
 			var fecha = obtenerFecha();
@@ -65,8 +62,6 @@ public class ServicioAviso {
 	 * @author Antar Espadas
 	 */
 	public void eliminarPublicacion(@NonNull Aviso aviso){
-		if (aviso == null) throw new IllegalArgumentException("aviso no puede ser null");
-
 		avisoRepository.delete(aviso);
 	}
 	

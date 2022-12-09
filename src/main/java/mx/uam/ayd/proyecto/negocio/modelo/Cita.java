@@ -17,7 +17,7 @@ import java.time.LocalTime;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Cita implements Comparable<Cita> {
+public class Cita {
 
 	@ToString.Exclude
     @ManyToOne(fetch = FetchType.EAGER)
@@ -43,11 +43,4 @@ public class Cita implements Comparable<Cita> {
         this.agremiado = agremiado;
     }
 
-	@Override
-	public int compareTo(Cita o) {
-		int resultado = fecha.compareTo(o.getFecha());
-		if (resultado == 0)
-			resultado = hora.compareTo(o.getHora());
-		return resultado;
-	}
 }

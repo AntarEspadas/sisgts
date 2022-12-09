@@ -1,4 +1,4 @@
-package mx.uam.ayd.proyecto.presentacion.agendarCita;
+package mx.uam.ayd.proyecto.presentacion.agendar_cita;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -37,7 +37,7 @@ import com.github.lgooddatepicker.zinternaltools.YearMonthChangeEvent;
 @Component
 public class VentanaAgendarCita extends Pantalla {
 
-	private ControlAgendarCita controlador;
+	private transient ControlAgendarCita controlador;
 	private Map<LocalDate, Set<LocalTime>> horariosNoDisponibles;
 	private List<LocalTime> horarios;
 	
@@ -56,23 +56,23 @@ public class VentanaAgendarCita extends Pantalla {
 		setLayout(gridBagLayout);
 				
 				JLabel lblFecha = new JLabel("Fecha");
-				GridBagConstraints gbc_lblFecha = new GridBagConstraints();
-				gbc_lblFecha.anchor = GridBagConstraints.NORTHWEST;
-				gbc_lblFecha.insets = new Insets(0, 0, 5, 5);
-				gbc_lblFecha.gridx = 1;
-				gbc_lblFecha.gridy = 1;
-				add(lblFecha, gbc_lblFecha);
+				GridBagConstraints gbcLblFecha = new GridBagConstraints();
+				gbcLblFecha.anchor = GridBagConstraints.NORTHWEST;
+				gbcLblFecha.insets = new Insets(0, 0, 5, 5);
+				gbcLblFecha.gridx = 1;
+				gbcLblFecha.gridy = 1;
+				add(lblFecha, gbcLblFecha);
 				
 				JLabel lblHorario = new JLabel("Horario");
-				GridBagConstraints gbc_lblHorario = new GridBagConstraints();
-				gbc_lblHorario.anchor = GridBagConstraints.NORTHWEST;
-				gbc_lblHorario.insets = new Insets(0, 0, 5, 5);
-				gbc_lblHorario.gridx = 3;
-				gbc_lblHorario.gridy = 1;
-				add(lblHorario, gbc_lblHorario);
+				GridBagConstraints gbcLblHorario = new GridBagConstraints();
+				gbcLblHorario.anchor = GridBagConstraints.NORTHWEST;
+				gbcLblHorario.insets = new Insets(0, 0, 5, 5);
+				gbcLblHorario.gridx = 3;
+				gbcLblHorario.gridy = 1;
+				add(lblHorario, gbcLblHorario);
 
 		var manana = LocalDate.now().plusDays(1);
-		var settings = new DatePickerSettings(new Locale("es", "MX"));
+		var settings = new DatePickerSettings(Locale.forLanguageTag("es-Latn"));
 		settings.setAllowEmptyDates(false);
 		calendarPanel = new CalendarPanel(settings);
 		settings.setDateRangeLimits(manana, null);
@@ -82,42 +82,43 @@ public class VentanaAgendarCita extends Pantalla {
 				actualizarHorarios();
 			}
 			public void yearMonthChanged(YearMonthChangeEvent event) {
+				// No es necesario hacer nada cuando cambia el año o el mes
 			}
 		});
-		GridBagConstraints gbc_datePanel = new GridBagConstraints();
-		gbc_datePanel.anchor = GridBagConstraints.WEST;
-		gbc_datePanel.gridwidth = 2;
-		gbc_datePanel.gridheight = 2;
-		gbc_datePanel.insets = new Insets(0, 0, 5, 5);
-		gbc_datePanel.gridx = 1;
-		gbc_datePanel.gridy = 2;
-		add(calendarPanel, gbc_datePanel);
+		GridBagConstraints gbcDatePanel = new GridBagConstraints();
+		gbcDatePanel.anchor = GridBagConstraints.WEST;
+		gbcDatePanel.gridwidth = 2;
+		gbcDatePanel.gridheight = 2;
+		gbcDatePanel.insets = new Insets(0, 0, 5, 5);
+		gbcDatePanel.gridx = 1;
+		gbcDatePanel.gridy = 2;
+		add(calendarPanel, gbcDatePanel);
 		
 		comboBox = new JComboBox<>();
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.anchor = GridBagConstraints.NORTH;
-		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox.gridx = 3;
-		gbc_comboBox.gridy = 2;
-		add(comboBox, gbc_comboBox);
+		GridBagConstraints gbcComboBox = new GridBagConstraints();
+		gbcComboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbcComboBox.anchor = GridBagConstraints.NORTH;
+		gbcComboBox.insets = new Insets(0, 0, 5, 5);
+		gbcComboBox.gridx = 3;
+		gbcComboBox.gridy = 2;
+		add(comboBox, gbcComboBox);
 		
 		JLabel lblMotivo = new JLabel("Motivo");
-		GridBagConstraints gbc_lblMotivo = new GridBagConstraints();
-		gbc_lblMotivo.anchor = GridBagConstraints.NORTHWEST;
-		gbc_lblMotivo.insets = new Insets(0, 0, 5, 5);
-		gbc_lblMotivo.gridx = 1;
-		gbc_lblMotivo.gridy = 4;
-		add(lblMotivo, gbc_lblMotivo);
+		GridBagConstraints gbcLblMotivo = new GridBagConstraints();
+		gbcLblMotivo.anchor = GridBagConstraints.NORTHWEST;
+		gbcLblMotivo.insets = new Insets(0, 0, 5, 5);
+		gbcLblMotivo.gridx = 1;
+		gbcLblMotivo.gridy = 4;
+		add(lblMotivo, gbcLblMotivo);
 		
 		txtrMotivo = new JTextArea();
-		GridBagConstraints gbc_txtrMotivo = new GridBagConstraints();
-		gbc_txtrMotivo.fill = GridBagConstraints.BOTH;
-		gbc_txtrMotivo.insets = new Insets(0, 0, 5, 5);
-		gbc_txtrMotivo.gridwidth = 3;
-		gbc_txtrMotivo.gridx = 1;
-		gbc_txtrMotivo.gridy = 5;
-		add(txtrMotivo, gbc_txtrMotivo);
+		GridBagConstraints gbcTxtrMotivo = new GridBagConstraints();
+		gbcTxtrMotivo.fill = GridBagConstraints.BOTH;
+		gbcTxtrMotivo.insets = new Insets(0, 0, 5, 5);
+		gbcTxtrMotivo.gridwidth = 3;
+		gbcTxtrMotivo.gridx = 1;
+		gbcTxtrMotivo.gridy = 5;
+		add(txtrMotivo, gbcTxtrMotivo);
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addMouseListener(new MouseAdapter() {
@@ -126,12 +127,12 @@ public class VentanaAgendarCita extends Pantalla {
 				controlador.infoCitas();
 			}
 		});
-		GridBagConstraints gbc_btnCancelar = new GridBagConstraints();
-		gbc_btnCancelar.anchor = GridBagConstraints.NORTH;
-		gbc_btnCancelar.insets = new Insets(0, 0, 0, 5);
-		gbc_btnCancelar.gridx = 1;
-		gbc_btnCancelar.gridy = 6;
-		add(btnCancelar, gbc_btnCancelar);
+		GridBagConstraints gbcBtnCancelar = new GridBagConstraints();
+		gbcBtnCancelar.anchor = GridBagConstraints.NORTH;
+		gbcBtnCancelar.insets = new Insets(0, 0, 0, 5);
+		gbcBtnCancelar.gridx = 1;
+		gbcBtnCancelar.gridy = 6;
+		add(btnCancelar, gbcBtnCancelar);
 		
 		JButton btnAgendar = new JButton("Agendar");
 		var ventana = this;
@@ -149,12 +150,12 @@ public class VentanaAgendarCita extends Pantalla {
 				controlador.agendarCita(fechaSeleccionada, hora, txtrMotivo.getText());
 			}
 		});
-		GridBagConstraints gbc_btnAgendar = new GridBagConstraints();
-		gbc_btnAgendar.insets = new Insets(0, 0, 0, 5);
-		gbc_btnAgendar.anchor = GridBagConstraints.NORTH;
-		gbc_btnAgendar.gridx = 3;
-		gbc_btnAgendar.gridy = 6;
-		add(btnAgendar, gbc_btnAgendar);
+		GridBagConstraints gbcBtnAgendar = new GridBagConstraints();
+		gbcBtnAgendar.insets = new Insets(0, 0, 0, 5);
+		gbcBtnAgendar.anchor = GridBagConstraints.NORTH;
+		gbcBtnAgendar.gridx = 3;
+		gbcBtnAgendar.gridy = 6;
+		add(btnAgendar, gbcBtnAgendar);
 		
 	}
 	
@@ -179,18 +180,18 @@ public class VentanaAgendarCita extends Pantalla {
 		fechaSeleccionada = fecha;
 		
 		List<LocalTime> horariosDisponibles;
-		var horariosNoDisponibles = this.horariosNoDisponibles.getOrDefault(fecha, null);
+		var horariosNoDisponiblesParaFecha = this.horariosNoDisponibles.getOrDefault(fecha, null);
 		log.info("Fecha seleccionada: {}", fechaSeleccionada);
-		log.info("Horarios no disponibles: {}", horariosNoDisponibles);
+		log.info("Horarios no disponibles: {}", horariosNoDisponiblesParaFecha);
 
 		if (fecha.isBefore(LocalDate.now().plusDays(1)))
 			horariosDisponibles = new ArrayList<>();
-		else if (horariosNoDisponibles == null || horariosNoDisponibles.size() == 0)
+		else if (horariosNoDisponiblesParaFecha == null || horariosNoDisponiblesParaFecha.isEmpty())
 			horariosDisponibles = horarios;
 		else
 			horariosDisponibles = horarios
 									.stream()
-									.filter(hora -> !horariosNoDisponibles.contains(hora))
+									.filter(hora -> !horariosNoDisponiblesParaFecha.contains(hora))
 									.collect(Collectors.toList());
 		
 		var comboBoxModel = new DefaultComboBoxModel<LocalTime>();

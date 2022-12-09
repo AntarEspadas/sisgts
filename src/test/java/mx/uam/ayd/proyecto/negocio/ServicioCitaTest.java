@@ -43,9 +43,9 @@ class ServicioCitaTest {
         assertEquals(0, resultado.size());
 
 
-        // Caso: al pasar null, se lanza un IllegalArgumentException
+        // Caso: al pasar null, se lanza un NullPointerException
 
-        assertThrows(IllegalArgumentException.class, () -> servicioCita.getHorariosNoDisponibles(null));
+        assertThrows(NullPointerException.class, () -> servicioCita.getHorariosNoDisponibles(null));
 
         // Caso: si hay n citas para un agremiado distinto al especificado en el parámetro, en días distintos,
         // el método regresa un Map de tamaño n
@@ -84,7 +84,7 @@ class ServicioCitaTest {
     @Test
     void agendarCita() {
 
-        // Caso: pasar null para cualquiera de los parámetros lanza un IllegalArgumentException
+        // Caso: pasar null para cualquiera de los parámetros lanza un NullPointerException
 
         var manana = LocalDate.now().plusDays(1);
         var horaInicio = ServicioCita.horaInicio;
@@ -92,10 +92,10 @@ class ServicioCitaTest {
         var agremiado = new Agremiado();
         agremiado.setClave("1234");
 
-        assertThrows(IllegalArgumentException.class, () -> servicioCita.agendarCita(null, horaInicio, motivo, agremiado));
-        assertThrows(IllegalArgumentException.class, () -> servicioCita.agendarCita(manana, null, motivo, agremiado));
-        assertThrows(IllegalArgumentException.class, () -> servicioCita.agendarCita(manana, horaInicio, null, agremiado));
-        assertThrows(IllegalArgumentException.class, () -> servicioCita.agendarCita(manana, horaInicio, motivo, null));
+        assertThrows(NullPointerException.class, () -> servicioCita.agendarCita(null, horaInicio, motivo, agremiado));
+        assertThrows(NullPointerException.class, () -> servicioCita.agendarCita(manana, null, motivo, agremiado));
+        assertThrows(NullPointerException.class, () -> servicioCita.agendarCita(manana, horaInicio, null, agremiado));
+        assertThrows(NullPointerException.class, () -> servicioCita.agendarCita(manana, horaInicio, motivo, null));
 
         // Caso: el método regresa 5 al intentar agendar una cita con menos de un día de anticipación (RN-05)
 
@@ -138,9 +138,9 @@ class ServicioCitaTest {
     @Test
     void getCitas() {
 
-        // Caso: el método lanza un IllegalArgumentException cuando se le pasa un parámetro nulo
+        // Caso: el método lanza un NullPointerException cuando se le pasa un parámetro nulo
 
-        assertThrows(IllegalArgumentException.class, () -> servicioCita.getCitas(null));
+        assertThrows(NullPointerException.class, () -> servicioCita.getCitas(null));
 
         // Caso: el método regresa una lista vacía cuando recibe una lista de filtros vacía
 

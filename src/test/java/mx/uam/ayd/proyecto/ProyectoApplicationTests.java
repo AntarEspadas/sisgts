@@ -14,6 +14,7 @@ class ProyectoApplicationTests {
 		System.setProperty("java.awt.headless", "false");
 	}
 
+	@SuppressWarnings("all")
 	@Test
 	void contextLoads() {
 	}

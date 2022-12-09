@@ -2,9 +2,6 @@ package mx.uam.ayd.proyecto.presentacion.login;
 
 import javax.swing.JTextField;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,9 +15,9 @@ import org.springframework.stereotype.Component;
 @SuppressWarnings("serial")
 @Component
 public class VentanaIniciaSesion extends JFrame{
-	private ControlIniciaSesion control;
-	private JTextField Correo;
-	private JPasswordField Contrasenia;
+	private transient ControlIniciaSesion control;
+	private JTextField correo;
+	private JPasswordField contrasenia;
 	private JPanel contentPane1;
 	
 	public VentanaIniciaSesion() {
@@ -42,19 +39,19 @@ public class VentanaIniciaSesion extends JFrame{
 		//CREACION DEL TITULO
 		JLabel lblTite = new JLabel("Sistema de Gestión de Trámites ");
 		lblTite.setBounds(180, 28, 180, 16);
-		getContentPane().add(lblTite);//contentPane.add(lblTite);
+		getContentPane().add(lblTite);
 		
 		JLabel lblMeseg = new JLabel("TLÁHUAC");
 		lblMeseg.setBounds(31, 55, 80, 16);
-		getContentPane().add(lblMeseg);//contentPane.add(lblMese);
+		getContentPane().add(lblMeseg);
 		
 		JLabel lblMese = new JLabel("SECCIÓN 11");
 		lblMese.setBounds(20, 42, 103, 16);
-		getContentPane().add(lblMese);//contentPane.add(lblMese);
+		getContentPane().add(lblMese);
 		
 		JLabel lblSub = new JLabel("SNTE");
 		lblSub.setBounds(31, 11, 67, 23);
-		getContentPane().add(lblSub);//contentPane.add(lblSub);
+		getContentPane().add(lblSub);
 		
 		//ETIQUETAS 
 		JLabel lblCorreo = new JLabel("Correo:");
@@ -68,35 +65,34 @@ public class VentanaIniciaSesion extends JFrame{
 		
 		
 		//CUADRO DE TEXTO 
-		Correo = new JTextField();
-		Correo.setBounds(210, 109, 130, 26);
-		contentPane1.add(Correo);
-		Correo.setColumns(10);
+		correo = new JTextField();
+		correo.setBounds(210, 109, 130, 26);
+		contentPane1.add(correo);
+		correo.setColumns(10);
 		
-		Contrasenia = new JPasswordField();
-		Contrasenia.setBounds(210, 190, 130, 26);
-		contentPane1.add(Contrasenia);
-		Contrasenia.setColumns(10);
+		contrasenia = new JPasswordField();
+		contrasenia.setBounds(210, 190, 130, 26);
+		contentPane1.add(contrasenia);
+		contrasenia.setColumns(10);
 		
 		//BOTON INGRESAR
 		JButton btnIngresar = new JButton("Ingresar");
 		btnIngresar.setBounds(330, 340, 117, 29);
 		contentPane1.add(btnIngresar);
-		btnIngresar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(e.getSource()==btnIngresar) {
-					//VERIFICA QUE LOS CAMPOS NO ESTEN VACIOS Y SI ES ASI NO DEJA AVANZAR
-					if(Correo.getText().equals("") || Contrasenia.getText().equals("")) {
-					muestraDialogoConMensaje("Ningun campo debe estar vacio");
-					}else {
-						control.VerificaCorreoYContrasenia(Correo.getText(),Contrasenia.getText());
-						//lblSesion.setText("Sesión iniciado como agremiado");
-					    contentPane1.setVisible(true);
-					    limpia();
-						
-					}//FIN DEL ESE DE NINGUN CAMPO VACIO
-				}//FIN DEL IF BOTON SIGUIENTE
-			}//FIN DEL METODO ACTION PERFORMED
+		//FIN DEL METODO ACTION PERFORMED
+		var password = String.valueOf(contrasenia.getPassword());
+		btnIngresar.addActionListener(e -> {
+			if(e.getSource()==btnIngresar) {
+				//VERIFICA QUE LOS CAMPOS NO ESTEN VACIOS Y SI ES ASI NO DEJA AVANZAR
+				if(correo.getText().equals("") || password.equals("")) {
+				muestraDialogoConMensaje("Ningun campo debe estar vacio");
+				}else {
+					control.verificaCorreoYContrasenia(correo.getText(), password);
+					contentPane1.setVisible(true);
+					limpia();
+
+				}//FIN DEL ESE DE NINGUN CAMPO VACIO
+			}//FIN DEL IF BOTON SIGUIENTE
 		});//FIN DEL ACTION LISTENER
 		
 		
@@ -107,11 +103,7 @@ public class VentanaIniciaSesion extends JFrame{
 		
 		//BOTON CANCELAR
 		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			control.termina();
-			}
-		});
+		btnCancelar.addActionListener(e -> control.termina());
 		btnCancelar.setBounds(28, 400, 143, 29);
 	    contentPane1.add(btnCancelar);
 	    
@@ -123,17 +115,17 @@ public class VentanaIniciaSesion extends JFrame{
 	
 	//METODO QUE LIMPIA LAS CASILLAS
 	public void limpia() {		
-		Correo.setText("");
-	    Contrasenia.setText("");
+		correo.setText("");
+	    contrasenia.setText("");
 	}//FIN DEL METODO QUE LIMPIA LAS CASILLAS
 	
-	 public void muestra(ControlIniciaSesion control){//, List <Grupo> grupos) {
+	 public void muestra(ControlIniciaSesion control){
 		
 		this.control = control;
 		
-		Correo.setText("");
+		correo.setText("");
 
-		Contrasenia.setText("");
+		contrasenia.setText("");
 		
 		setVisible(true);
 

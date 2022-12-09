@@ -1,7 +1,5 @@
 package mx.uam.ayd.proyecto.negocio.modelo;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -10,17 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 /**
@@ -37,7 +25,7 @@ public class SolicitudTramite {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idSolicitud;
-    private String estado;
+    private Estado estado;
 
     private Date fechaSolicitud;
 
@@ -64,13 +52,12 @@ public class SolicitudTramite {
     @Override
     public String toString() {
         
-        return "Solicitud " + String.valueOf(idSolicitud) + ". Solicitud " + estado.toLowerCase();
+        return "Solicitud " + idSolicitud + ". Solicitud " + estado.toString();
 
     }
 
     public void addDocumentoRequerido(Documento documento){
         this.requisitos.add(documento);
-        //documento.setSolicitudTramite(this);
     }
     
 }

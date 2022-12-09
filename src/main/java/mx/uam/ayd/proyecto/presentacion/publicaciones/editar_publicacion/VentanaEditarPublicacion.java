@@ -1,12 +1,10 @@
-package mx.uam.ayd.proyecto.presentacion.publicaciones.editarPublicación;
+package mx.uam.ayd.proyecto.presentacion.publicaciones.editar_publicacion;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Rectangle;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -31,15 +29,14 @@ import mx.uam.ayd.proyecto.presentacion.compartido.Pantalla;
 @Component
 public class VentanaEditarPublicacion extends Pantalla {
 
-	private ControlEditarPublicacion controlador;
+	private transient ControlEditarPublicacion controlador;
 
-	private JScrollPane scrollPane;
-	private JTextArea textArea;
-	private JCheckBox validado;
-	private JButton publicar;
-	private JButton btnimagen;
-	private JLabel imagen_p;
-	private String ruta_imagen;
+	private final JTextArea textArea;
+	private final JCheckBox validado;
+	private final JButton publicar;
+	private final JButton btnimagen;
+	private final JLabel imagenP;
+	private String rutaImagen;
 	private final JButton botonPublicar;
 
 	public VentanaEditarPublicacion() {
@@ -55,77 +52,66 @@ public class VentanaEditarPublicacion extends Pantalla {
 		model.addElement("1");
 		model.addElement("2");
 		
-		JLabel imagen_placeholder = new JLabel();
-		imagen_p = imagen_placeholder;
-		GridBagConstraints gbc_imagen_placeholder = new GridBagConstraints();
-		gbc_imagen_placeholder.fill = GridBagConstraints.VERTICAL;
-		gbc_imagen_placeholder.insets = new Insets(0, 0, 5, 5);
-		gbc_imagen_placeholder.gridx = 1;
-		gbc_imagen_placeholder.gridy = 1;
-		add(imagen_placeholder, gbc_imagen_placeholder);
+		JLabel imagenPlaceholder = new JLabel();
+		imagenP = imagenPlaceholder;
+		GridBagConstraints gbcImagenPlaceholder = new GridBagConstraints();
+		gbcImagenPlaceholder.fill = GridBagConstraints.VERTICAL;
+		gbcImagenPlaceholder.insets = new Insets(0, 0, 5, 5);
+		gbcImagenPlaceholder.gridx = 1;
+		gbcImagenPlaceholder.gridy = 1;
+		add(imagenPlaceholder, gbcImagenPlaceholder);
 		
 		
 		
-		JButton btnNewButton_1 = new JButton("Imagen");
+		JButton btnNewButton1 = new JButton("Imagen");
 		
-		btnimagen = btnNewButton_1;
-		btnNewButton_1.addMouseListener(new MouseAdapter() {
+		btnimagen = btnNewButton1;
+		btnNewButton1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (btnNewButton_1.isEnabled()) {
-				Image imagen = null;
-				JFileChooser fc = new JFileChooser();
+				if (btnNewButton1.isEnabled()) {
 
-				
-				java.awt.Component frame = null;
-				
-				
-				
-				FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images","jpg","png");
+					JFileChooser fc = new JFileChooser();
+
+					FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images","jpg","png");
 		        fc.addChoosableFileFilter(filter);
 		        int option = fc.showSaveDialog(null);
 				
 				if(option == JFileChooser.APPROVE_OPTION){
 						File file = fc.getSelectedFile();
 						String path = file.getAbsolutePath();
-						ruta_imagen = path;
+						rutaImagen = path;
 						ImageIcon imagen1 = new ImageIcon(path);
-						Image imagen_escalada = imagen1.getImage();
-						imagen_escalada = imagen_escalada.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
-						ImageIcon img = new ImageIcon(imagen_escalada);
-				        imagen_placeholder.setIcon(img);
+						Image imagen1Image = imagen1.getImage();
+						imagen1Image = imagen1Image.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
+						ImageIcon img = new ImageIcon(imagen1Image);
+				        imagenPlaceholder.setIcon(img);
 					
-
-				}else{
 
 				}
 				}
 			}
 		});
-		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.anchor = GridBagConstraints.EAST;
-		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_1.gridx = 1;
-		gbc_btnNewButton_1.gridy = 2;
-		add(btnNewButton_1, gbc_btnNewButton_1);
+		GridBagConstraints gbcBtnNewButton1 = new GridBagConstraints();
+		gbcBtnNewButton1.anchor = GridBagConstraints.EAST;
+		gbcBtnNewButton1.insets = new Insets(0, 0, 5, 5);
+		gbcBtnNewButton1.gridx = 1;
+		gbcBtnNewButton1.gridy = 2;
+		add(btnNewButton1, gbcBtnNewButton1);
 
-		scrollPane = new JScrollPane();
-		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridx = 1;
-		gbc_scrollPane.gridy = 3;
-		add(scrollPane, gbc_scrollPane);
+		JScrollPane scrollPane = new JScrollPane();
+		GridBagConstraints gbcScrollPane = new GridBagConstraints();
+		gbcScrollPane.insets = new Insets(0, 0, 5, 5);
+		gbcScrollPane.fill = GridBagConstraints.BOTH;
+		gbcScrollPane.gridx = 1;
+		gbcScrollPane.gridy = 3;
+		add(scrollPane, gbcScrollPane);
 
 		textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
 
 		JButton botonCancelar = new JButton("Cancelar");
-		botonCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controlador.cancelar();
-			}
-		});
+		botonCancelar.addActionListener(e -> controlador.cancelar());
 
 		botonPublicar = new JButton("Publicar");
 		publicar = botonPublicar;
@@ -139,9 +125,9 @@ public class VentanaEditarPublicacion extends Pantalla {
 							int input = JOptionPane.showConfirmDialog(null, "Deseas Publicar");
 					        // 0=yes, 1=no, 2=cancel
 					        if (input == 0) {
-					        	if(imagen_placeholder.getIcon()!= null) {
+					        	if(imagenPlaceholder.getIcon()!= null) {
 					
-					        	controlador.guardadPublicacion(ruta_imagen,texto);
+					        	controlador.guardadPublicacion(rutaImagen,texto);
 					        	}else {
 					        		controlador.guardadPublicacion(null,texto);
 					        	}
@@ -155,23 +141,23 @@ public class VentanaEditarPublicacion extends Pantalla {
 		validado = chckbxNewCheckBox;
 		chckbxNewCheckBox.setEnabled(false);
 		chckbxNewCheckBox.setSelected(false);
-		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
-		gbc_chckbxNewCheckBox.insets = new Insets(0, 0, 5, 0);
-		gbc_chckbxNewCheckBox.gridx = 2;
-		gbc_chckbxNewCheckBox.gridy = 1;
-		add(chckbxNewCheckBox, gbc_chckbxNewCheckBox);
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton.gridx = 1;
-		gbc_btnNewButton.gridy = 4;
-		add(botonPublicar, gbc_btnNewButton);
+		GridBagConstraints gbcChckbxNewCheckBox = new GridBagConstraints();
+		gbcChckbxNewCheckBox.insets = new Insets(0, 0, 5, 0);
+		gbcChckbxNewCheckBox.gridx = 2;
+		gbcChckbxNewCheckBox.gridy = 1;
+		add(chckbxNewCheckBox, gbcChckbxNewCheckBox);
+		GridBagConstraints gbcBtnNewButton = new GridBagConstraints();
+		gbcBtnNewButton.insets = new Insets(0, 0, 5, 5);
+		gbcBtnNewButton.gridx = 1;
+		gbcBtnNewButton.gridy = 4;
+		add(botonPublicar, gbcBtnNewButton);
 
 
-		GridBagConstraints gbc_botonTelegram = new GridBagConstraints();
-		gbc_botonTelegram.insets = new Insets(0, 0, 0, 5);
-		gbc_botonTelegram.gridx = 1;
-		gbc_botonTelegram.gridy = 5;
-		add(botonCancelar, gbc_botonTelegram);
+		GridBagConstraints gbcBotonTelegram = new GridBagConstraints();
+		gbcBotonTelegram.insets = new Insets(0, 0, 0, 5);
+		gbcBotonTelegram.gridx = 1;
+		gbcBotonTelegram.gridy = 5;
+		add(botonCancelar, gbcBotonTelegram);
 
 	}
 
@@ -186,10 +172,10 @@ public class VentanaEditarPublicacion extends Pantalla {
 			var rutaImagen = aviso.getImagen();
 			if (rutaImagen != null){
 				ImageIcon imagen1 = new ImageIcon(aviso.getImagen());
-				Image imagen_escalada = imagen1.getImage();
-				imagen_escalada = imagen_escalada.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
-				ImageIcon img = new ImageIcon(imagen_escalada);
-				imagen_p.setIcon(img);
+				Image imagenEscalada = imagen1.getImage();
+				imagenEscalada = imagenEscalada.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
+				ImageIcon img = new ImageIcon(imagenEscalada);
+				imagenP.setIcon(img);
 			}
 		}
 		validado.setSelected(false);
@@ -200,11 +186,10 @@ public class VentanaEditarPublicacion extends Pantalla {
 	}
 
 	public void activaLogoConfirmacionOcultaCrear() {
-		// TODO Auto-generated method stub
 		validado.setSelected(true);
 		publicar.setEnabled(false);
 		btnimagen.setEnabled(false);
-		imagen_p.setIcon(null);
+		imagenP.setIcon(null);
 	}
 
 }
