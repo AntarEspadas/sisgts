@@ -1,9 +1,8 @@
-package mx.uam.ayd.proyecto.presentacion.solicitarTramite;
+package mx.uam.ayd.proyecto.presentacion.solicitar_tramite;
 
 import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.negocio.modelo.TipoTramite;
-import mx.uam.ayd.proyecto.presentacion.Notificaciones.ControlNotificaciones;
 import mx.uam.ayd.proyecto.presentacion.compartido.Pantalla;
 import java.awt.GridBagLayout;
 import javax.swing.*;
@@ -28,8 +27,7 @@ public class VentanaSubirArchivos extends Pantalla {
 	
 	private final HashMap<String, File> archivos = new HashMap<>();
 	
-	private TipoTramite tipoTramite;
-	private ControlNotificaciones control;
+	private transient TipoTramite tipoTramite;
 
 	public VentanaSubirArchivos() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
@@ -40,12 +38,12 @@ public class VentanaSubirArchivos extends Pantalla {
 		setLayout(gridBagLayout);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
-		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridx = 1;
-		gbc_scrollPane.gridy = 1;
-		add(scrollPane, gbc_scrollPane);
+		GridBagConstraints gbcScrollPane = new GridBagConstraints();
+		gbcScrollPane.insets = new Insets(0, 0, 5, 5);
+		gbcScrollPane.fill = GridBagConstraints.BOTH;
+		gbcScrollPane.gridx = 1;
+		gbcScrollPane.gridy = 1;
+		add(scrollPane, gbcScrollPane);
 		
 		panel = new JPanel();
 		scrollPane.setViewportView(panel);
@@ -61,26 +59,26 @@ public class VentanaSubirArchivos extends Pantalla {
 			}
 		});
 		chckbxConfirmarSolicitudDe.setEnabled(false);
-		GridBagConstraints gbc_chckbxConfirmarSolicitudDe = new GridBagConstraints();
-		gbc_chckbxConfirmarSolicitudDe.anchor = GridBagConstraints.WEST;
-		gbc_chckbxConfirmarSolicitudDe.insets = new Insets(0, 0, 5, 5);
-		gbc_chckbxConfirmarSolicitudDe.gridx = 1;
-		gbc_chckbxConfirmarSolicitudDe.gridy = 3;
-		add(chckbxConfirmarSolicitudDe, gbc_chckbxConfirmarSolicitudDe);
+		GridBagConstraints gbcChckbxConfirmarSolicitudDe = new GridBagConstraints();
+		gbcChckbxConfirmarSolicitudDe.anchor = GridBagConstraints.WEST;
+		gbcChckbxConfirmarSolicitudDe.insets = new Insets(0, 0, 5, 5);
+		gbcChckbxConfirmarSolicitudDe.gridx = 1;
+		gbcChckbxConfirmarSolicitudDe.gridy = 3;
+		add(chckbxConfirmarSolicitudDe, gbcChckbxConfirmarSolicitudDe);
 		
-		JPanel panel_1 = new JPanel();
-		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.insets = new Insets(0, 0, 5, 5);
-		gbc_panel_1.fill = GridBagConstraints.BOTH;
-		gbc_panel_1.gridx = 1;
-		gbc_panel_1.gridy = 4;
-		add(panel_1, gbc_panel_1);
-		GridBagLayout gbl_panel_1 = new GridBagLayout();
-		gbl_panel_1.columnWidths = new int[]{0, 0, 18, 0, 0};
-		gbl_panel_1.rowHeights = new int[]{0, 0};
-		gbl_panel_1.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
-		panel_1.setLayout(gbl_panel_1);
+		JPanel panel1 = new JPanel();
+		GridBagConstraints gbcPanel1 = new GridBagConstraints();
+		gbcPanel1.insets = new Insets(0, 0, 5, 5);
+		gbcPanel1.fill = GridBagConstraints.BOTH;
+		gbcPanel1.gridx = 1;
+		gbcPanel1.gridy = 4;
+		add(panel1, gbcPanel1);
+		GridBagLayout gblPanel1 = new GridBagLayout();
+		gblPanel1.columnWidths = new int[]{0, 0, 18, 0, 0};
+		gblPanel1.rowHeights = new int[]{0, 0};
+		gblPanel1.columnWeights = new double[]{1.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gblPanel1.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		panel1.setLayout(gblPanel1);
 		
 		JButton btnAnterior = new JButton("Anterior");
 		btnAnterior.addMouseListener(new MouseAdapter() {
@@ -89,11 +87,11 @@ public class VentanaSubirArchivos extends Pantalla {
 				controlador.elegirTramite();
 			}
 		});
-		GridBagConstraints gbc_btnAnterior = new GridBagConstraints();
-		gbc_btnAnterior.insets = new Insets(0, 0, 0, 5);
-		gbc_btnAnterior.gridx = 1;
-		gbc_btnAnterior.gridy = 0;
-		panel_1.add(btnAnterior, gbc_btnAnterior);
+		GridBagConstraints gbcBtnAnterior = new GridBagConstraints();
+		gbcBtnAnterior.insets = new Insets(0, 0, 0, 5);
+		gbcBtnAnterior.gridx = 1;
+		gbcBtnAnterior.gridy = 0;
+		panel1.add(btnAnterior, gbcBtnAnterior);
 		
 		btnEnviar = new JButton("Enviar");
 		btnEnviar.addMouseListener(new MouseAdapter() {
@@ -101,20 +99,19 @@ public class VentanaSubirArchivos extends Pantalla {
 			public void mouseClicked(MouseEvent e) {
 				try {
 					leerArchivosYSolicitar();
-					
 				}
 				catch (IOException ex) {
 					ex.printStackTrace();
 				}
 			}
 		});
-		GridBagConstraints gbc_btnEnviar = new GridBagConstraints();
-		gbc_btnEnviar.gridx = 3;
-		gbc_btnEnviar.gridy = 0;
-		panel_1.add(btnEnviar, gbc_btnEnviar);
+		GridBagConstraints gbcBtnEnviar = new GridBagConstraints();
+		gbcBtnEnviar.gridx = 3;
+		gbcBtnEnviar.gridy = 0;
+		panel1.add(btnEnviar, gbcBtnEnviar);
 	}
 	
-	private ControlSolicitarTramite controlador;
+	private transient ControlSolicitarTramite controlador;
 	private final JPanel panel;
 	private final JCheckBox chckbxConfirmarSolicitudDe;
 	private final JButton btnEnviar;

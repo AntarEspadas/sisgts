@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class CitaSpecification implements Specification<Cita> {
 
-    private Filtro filtro;
+    private transient Filtro filtro;
 
 
     @Override

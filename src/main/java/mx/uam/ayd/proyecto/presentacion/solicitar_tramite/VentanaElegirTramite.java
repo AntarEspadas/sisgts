@@ -1,4 +1,4 @@
-package mx.uam.ayd.proyecto.presentacion.solicitarTramite;
+package mx.uam.ayd.proyecto.presentacion.solicitar_tramite;
 
 import org.springframework.stereotype.Component;
 
@@ -10,7 +10,6 @@ import java.awt.GridBagLayout;
 import javax.swing.*;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,7 +28,7 @@ import java.awt.event.MouseEvent;
 @Component
 public class VentanaElegirTramite extends Pantalla {
 	
-	private ControlSolicitarTramite controlador;
+	private transient ControlSolicitarTramite controlador;
 
 	private JComboBox<VistaTipoTramite> comboBox;
 	private JList<String> list;
@@ -43,48 +42,46 @@ public class VentanaElegirTramite extends Pantalla {
 		setLayout(gridBagLayout);
 		
 		JLabel lblTrmites = new JLabel("Trámites");
-		GridBagConstraints gbc_lblTrmites = new GridBagConstraints();
-		gbc_lblTrmites.anchor = GridBagConstraints.WEST;
-		gbc_lblTrmites.insets = new Insets(0, 0, 5, 5);
-		gbc_lblTrmites.gridx = 1;
-		gbc_lblTrmites.gridy = 1;
-		add(lblTrmites, gbc_lblTrmites);
+		GridBagConstraints gbcLblTrmites = new GridBagConstraints();
+		gbcLblTrmites.anchor = GridBagConstraints.WEST;
+		gbcLblTrmites.insets = new Insets(0, 0, 5, 5);
+		gbcLblTrmites.gridx = 1;
+		gbcLblTrmites.gridy = 1;
+		add(lblTrmites, gbcLblTrmites);
 		
 		
 		comboBox = new JComboBox<>();
-		comboBox.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent e) {
-				var item = (VistaTipoTramite)e.getItem();
-				var requerimientos = item.getTipoTramite().getRequerimientos();
-				var model = new DefaultListModel<String>();
-				model.addAll(Arrays.asList(requerimientos));
-				list.setModel(model);
-				btnSiguiente.setEnabled(true);
-			}
+		comboBox.addItemListener(e -> {
+			var item = (VistaTipoTramite)e.getItem();
+			var requerimientos = item.getTipoTramite().getRequerimientos();
+			var model = new DefaultListModel<String>();
+			model.addAll(Arrays.asList(requerimientos));
+			list.setModel(model);
+			btnSiguiente.setEnabled(true);
 		});
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
-		gbc_comboBox.gridx = 1;
-		gbc_comboBox.gridy = 2;
-		add(comboBox, gbc_comboBox);
+		GridBagConstraints gbcComboBox = new GridBagConstraints();
+		gbcComboBox.insets = new Insets(0, 0, 5, 5);
+		gbcComboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbcComboBox.gridx = 1;
+		gbcComboBox.gridy = 2;
+		add(comboBox, gbcComboBox);
 		
 		JLabel lblRequisitos = new JLabel("Documentos requeridos");
-		GridBagConstraints gbc_lblRequisitos = new GridBagConstraints();
-		gbc_lblRequisitos.anchor = GridBagConstraints.WEST;
-		gbc_lblRequisitos.insets = new Insets(0, 0, 5, 5);
-		gbc_lblRequisitos.gridx = 1;
-		gbc_lblRequisitos.gridy = 3;
-		add(lblRequisitos, gbc_lblRequisitos);
+		GridBagConstraints gbcLblRequisitos = new GridBagConstraints();
+		gbcLblRequisitos.anchor = GridBagConstraints.WEST;
+		gbcLblRequisitos.insets = new Insets(0, 0, 5, 5);
+		gbcLblRequisitos.gridx = 1;
+		gbcLblRequisitos.gridy = 3;
+		add(lblRequisitos, gbcLblRequisitos);
 		
 		list = new JList<>();
-		GridBagConstraints gbc_list = new GridBagConstraints();
-		gbc_list.gridwidth = 2;
-		gbc_list.insets = new Insets(0, 0, 5, 5);
-		gbc_list.fill = GridBagConstraints.BOTH;
-		gbc_list.gridx = 1;
-		gbc_list.gridy = 4;
-		add(list, gbc_list);
+		GridBagConstraints gbcList = new GridBagConstraints();
+		gbcList.gridwidth = 2;
+		gbcList.insets = new Insets(0, 0, 5, 5);
+		gbcList.fill = GridBagConstraints.BOTH;
+		gbcList.gridx = 1;
+		gbcList.gridy = 4;
+		add(list, gbcList);
 		
 		btnSiguiente = new JButton("Siguiente");
 		btnSiguiente.setEnabled(false);
@@ -96,12 +93,12 @@ public class VentanaElegirTramite extends Pantalla {
 				controlador.subirArchivos(seleccion.getTipoTramite());
 			}
 		});
-		GridBagConstraints gbc_btnSiguiente = new GridBagConstraints();
-		gbc_btnSiguiente.gridwidth = 2;
-		gbc_btnSiguiente.insets = new Insets(0, 0, 5, 5);
-		gbc_btnSiguiente.gridx = 1;
-		gbc_btnSiguiente.gridy = 6;
-		add(btnSiguiente, gbc_btnSiguiente);
+		GridBagConstraints gbcBtnSiguiente = new GridBagConstraints();
+		gbcBtnSiguiente.gridwidth = 2;
+		gbcBtnSiguiente.insets = new Insets(0, 0, 5, 5);
+		gbcBtnSiguiente.gridx = 1;
+		gbcBtnSiguiente.gridy = 6;
+		add(btnSiguiente, gbcBtnSiguiente);
 	}
 	
 	/**

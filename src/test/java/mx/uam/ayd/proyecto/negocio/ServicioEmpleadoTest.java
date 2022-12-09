@@ -14,6 +14,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class ServicioEmpleadoTest {
 
 	@Mock
+	private ServicioAgremiado servicioAgremiado;
+	@Mock
 	private RepositoryEmpleado repositoryempleado;
 
 	@InjectMocks
@@ -30,7 +32,7 @@ class ServicioEmpleadoTest {
 		empleado1.setContrasenia("1234");
 		when(repositoryempleado.findByCorreo("Raul")).thenReturn(empleado1);
 				
-		boolean resultado=servicio.VerificaCorreoYContrasenia("Raul", "1234")==true;
+		boolean resultado=servicio.verificaCorreoYContrasenia("Raul", "1234")==true;
 		assertTrue(resultado);
 				
 		// Caso 2: Si el correo no existe regresa false
@@ -40,7 +42,7 @@ class ServicioEmpleadoTest {
 		empleado2.setCorreo("Marcos");
 		empleado2.setContrasenia("4321");
 				
-	    boolean resultado1=servicio.VerificaCorreoYContrasenia("Marcos", "4321")==false;
+	    boolean resultado1=servicio.verificaCorreoYContrasenia("Marcos", "4321")==false;
 		assertTrue(resultado1);
 				
 
@@ -52,7 +54,7 @@ class ServicioEmpleadoTest {
 		empleado3.setContrasenia("6789");
 		when(repositoryempleado.findByCorreo("Antar")).thenReturn(empleado3);
 				
-	    boolean resultado2=servicio.VerificaCorreoYContrasenia("Antar", "4321")==false;
+	    boolean resultado2=servicio.verificaCorreoYContrasenia("Antar", "4321")==false;
 				
 	    assertTrue(resultado2);
 	}

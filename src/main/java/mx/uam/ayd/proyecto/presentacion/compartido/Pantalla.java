@@ -11,6 +11,7 @@ public class Pantalla extends JPanel {
 	@Autowired
 	private VentanaPrincipal ventana;
 
+	@Override
 	public void setVisible(boolean visible) {
 		if (visible)
 			ventana.muestraComponente(this);

@@ -1,6 +1,6 @@
 package mx.uam.ayd.proyecto.negocio;
 
-import com.sun.istack.NotNull;
+import lombok.NonNull;
 import mx.uam.ayd.proyecto.datos.CitaSpecification;
 import mx.uam.ayd.proyecto.datos.RepositoryCita;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
@@ -45,8 +45,7 @@ public class ServicioCita {
      *
      * @throws IllegalArgumentException cuando se le pasa un agremiado nulo
      */
-    public Map<LocalDate, Set<LocalTime>> getHorariosNoDisponibles(@NotNull Agremiado agremiado) throws IllegalArgumentException{
-        if (agremiado == null) throw new IllegalArgumentException("agremiado no puede ser null");
+    public Map<LocalDate, Set<LocalTime>> getHorariosNoDisponibles(@NonNull Agremiado agremiado) throws IllegalArgumentException{
 
         var resultado = new HashMap<LocalDate, Set<LocalTime>>();
 
@@ -59,7 +58,7 @@ public class ServicioCita {
                 continue;
             }
 
-            var set = resultado.computeIfAbsent(cita.getFecha(), (k) -> new HashSet<>());
+            var set = resultado.computeIfAbsent(cita.getFecha(), k -> new HashSet<>());
             set.add(cita.getHora());
         }
 
@@ -79,12 +78,7 @@ public class ServicioCita {
      *
      * @throws IllegalArgumentException en caso de que alguno de los parámetros se nulo
      */
-    public int agendarCita(@NotNull LocalDate fecha, @NotNull LocalTime hora, @NotNull String motivo, @NotNull Agremiado agremiado) {
-
-        if (fecha == null) throw new IllegalArgumentException("fecha no puede ser nulo");
-        if (hora == null) throw new IllegalArgumentException("hora no puede ser nulo");
-        if (motivo == null) throw new IllegalArgumentException("motivo no puede ser nulo");
-        if (agremiado == null) throw new IllegalArgumentException("agremiado no puede ser nulo");
+    public int agendarCita(@NonNull LocalDate fecha, @NonNull LocalTime hora, @NonNull String motivo, @NonNull Agremiado agremiado) {
 
         // RN-08
         if (motivo.length() == 0) return 8;
@@ -117,11 +111,9 @@ public class ServicioCita {
      *
      * @throws IllegalArgumentException en caso de que se le pase null como parámetro
      */
-    public @NotNull List<Cita> getCitas(@NotNull List<Filtro> filtros){
+    public @NonNull List<Cita> getCitas(@NonNull List<Filtro> filtros){
 
-        if (filtros == null) throw new IllegalArgumentException("filtros no puede ser null");
-
-        if (filtros.size() == 0) return new ArrayList<>();
+        if (filtros.isEmpty()) return new ArrayList<>();
 
         // Crea una lista de especificaciones a partir de la lista de filtros recibida
         var especificaciones = filtros

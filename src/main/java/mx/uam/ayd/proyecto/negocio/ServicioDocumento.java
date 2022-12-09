@@ -47,25 +47,19 @@ public class ServicioDocumento {
      * @throws IllegalArgumentException
      * @return la solicitud actualizada
      */
-    public SolicitudTramite eliminarDocumentos(SolicitudTramite solicitudSeleccionada_)
+    public SolicitudTramite eliminarDocumentos(SolicitudTramite solicitudSeleccionada)
             throws IllegalArgumentException {
-        SolicitudTramite solicitudSeleccionada = solicitudSeleccionada_;
 
         if ((solicitudSeleccionada == null) || (solicitudSeleccionada.getRequisitos() == null))
             throw new IllegalArgumentException("Solicitud nula o sin documentos");
 
-        try {
-
-            List<Documento> documentosParaRechazar = solicitudSeleccionada.getRequisitos();
-            for (Documento documento : documentosParaRechazar) {
-                delete(documento);
-            }
-            solicitudSeleccionada.setRequisitos(new ArrayList<Documento>());
-            return solicitudSeleccionada;
-
-        } catch (IllegalArgumentException e) {
-            throw e;
+        List<Documento> documentosParaRechazar = solicitudSeleccionada.getRequisitos();
+        for (Documento documento : documentosParaRechazar) {
+            delete(documento);
         }
+        solicitudSeleccionada.setRequisitos(new ArrayList<>());
+        return solicitudSeleccionada;
+
     }
 
     /**
@@ -78,10 +72,7 @@ public class ServicioDocumento {
      * @throws IllegalArgumentException
      * @return el objeto de tipo Documento creado
      */
-    public Documento creaDocumento(Path pathDocTramiteFinalizado_, String tipoDocumento_) throws IOException {
-
-        Path pathDocTramiteFinalizado = pathDocTramiteFinalizado_;
-        String tipoDocumento = tipoDocumento_;
+    public Documento creaDocumento(Path pathDocTramiteFinalizado, String tipoDocumento) throws IOException {
 
         if ((pathDocTramiteFinalizado == null) || (tipoDocumento == null))
             throw new IllegalArgumentException("Argumento nulo no válido");
@@ -89,16 +80,9 @@ public class ServicioDocumento {
         Documento documentoTramiteFinalizado = new Documento();
         documentoTramiteFinalizado.setTipoDocumento(tipoDocumento);
 
-        try {
-
-            byte[] bytesDocTramiteFinalizado = Files.readAllBytes(pathDocTramiteFinalizado);
-            documentoTramiteFinalizado.setArchivo(bytesDocTramiteFinalizado);
-            return documentoTramiteFinalizado;
-
-        } catch (IOException e) {
-            throw e;
-        }
-
+        byte[] bytesDocTramiteFinalizado = Files.readAllBytes(pathDocTramiteFinalizado);
+        documentoTramiteFinalizado.setArchivo(bytesDocTramiteFinalizado);
+        return documentoTramiteFinalizado;
     }
 
 }

@@ -2,21 +2,17 @@ package mx.uam.ayd.proyecto.negocio;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import com.sun.istack.NotNull;
+import lombok.NonNull;
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
-import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
-import mx.uam.ayd.proyecto.negocio.modelo.TipoTramite;
+import mx.uam.ayd.proyecto.negocio.modelo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.uam.ayd.proyecto.datos.RepositorySolicitudTramite;
-import mx.uam.ayd.proyecto.negocio.modelo.Documento;
-import mx.uam.ayd.proyecto.negocio.modelo.SolicitudTramite;
 
 /**
  * Servicio principal para el ControlProcesarTramites
@@ -43,7 +39,7 @@ public class ServicioSolicitudTramite {
      * @return una lista de solicitudes de trámite no finalizadas
      */
     public List<SolicitudTramite> findByEstadoNotFinalizado() {
-        return solicitudTramiteRepository.findByEstadoNot("Finalizado");
+        return solicitudTramiteRepository.findByEstadoNot(Estado.FINALIZADO);
     }
 
     /**
@@ -53,8 +49,8 @@ public class ServicioSolicitudTramite {
      * @return una lista de solicitudes de trámite finalizadas
      */
     public List<SolicitudTramite> findByEstadoFinalizado() {
-        return solicitudTramiteRepository.findByEstado("Finalizado");
-    };
+        return solicitudTramiteRepository.findByEstado(Estado.FINALIZADO);
+    }
 
     /**
      * Indica al repositorio que debe actualizar o guardar la información de una
@@ -63,10 +59,7 @@ public class ServicioSolicitudTramite {
      * @param solicitudSeleccionada la solicitud que se desea persistir
      * @throws IllegalArgumentException
      */
-    public void save(SolicitudTramite solicitudSeleccionada) throws IllegalArgumentException {
-        if (solicitudSeleccionada == null)
-            throw new IllegalArgumentException("Argumento nulo no válido");
-
+    public void save(@NonNull SolicitudTramite solicitudSeleccionada) throws IllegalArgumentException {
         solicitudTramiteRepository.save(solicitudSeleccionada);
     }
 
@@ -78,19 +71,11 @@ public class ServicioSolicitudTramite {
      * @throws IllegalArgumentException
      * @return la solicitud actualizada
      */
-    public SolicitudTramite aceptarDocumentos(SolicitudTramite solicitudSeleccionada) throws IllegalArgumentException {
-        if (solicitudSeleccionada == null)
-            throw new IllegalArgumentException("Argumento nulo no válido");
-
-        try {
-            solicitudSeleccionada.setEstado("En progreso");
-            solicitudSeleccionada.setFechaAceptacion(new Date(System.currentTimeMillis()));
-            save(solicitudSeleccionada);
-            return solicitudSeleccionada;
-
-        } catch (IllegalArgumentException e) {
-            throw e;
-        }
+    public SolicitudTramite aceptarDocumentos(@NonNull SolicitudTramite solicitudSeleccionada) throws IllegalArgumentException {
+        solicitudSeleccionada.setEstado(Estado.EN_PROGRESO);
+        solicitudSeleccionada.setFechaAceptacion(new Date(System.currentTimeMillis()));
+        save(solicitudSeleccionada);
+        return solicitudSeleccionada;
     }
 
     /**
@@ -104,26 +89,19 @@ public class ServicioSolicitudTramite {
      * @throws IllegalArgumentException
      * @return la solicitud actualizada
      */
-    public SolicitudTramite rechazarDocumentos(SolicitudTramite solicitudSeleccionada_, String motivoRechazo_)
+    public SolicitudTramite rechazarDocumentos(SolicitudTramite solicitudSeleccionada, String motivoRechazo)
             throws IllegalArgumentException {
-
-        SolicitudTramite solicitudSeleccionada = solicitudSeleccionada_;
-        String motivoRechazo = motivoRechazo_;
 
         if ((solicitudSeleccionada == null) || (motivoRechazo == null)
                 || (solicitudSeleccionada.getRequisitos() == null))
             throw new IllegalArgumentException("Argumento nulo inválido");
 
-        try {
-            SolicitudTramite solicitudActualizada = servicioDocumento.eliminarDocumentos(solicitudSeleccionada);
-            solicitudActualizada.setEstado("Rechazada");
-            solicitudActualizada.setMotivoRechazo(motivoRechazo);
-            solicitudTramiteRepository.save(solicitudActualizada);
-            return solicitudActualizada;
+        SolicitudTramite solicitudActualizada = servicioDocumento.eliminarDocumentos(solicitudSeleccionada);
+        solicitudActualizada.setEstado(Estado.RECHAZADO);
+        solicitudActualizada.setMotivoRechazo(motivoRechazo);
+        solicitudTramiteRepository.save(solicitudActualizada);
+        return solicitudActualizada;
 
-        } catch (IllegalArgumentException e) {
-            throw e;
-        }
 
     }
 
@@ -138,31 +116,22 @@ public class ServicioSolicitudTramite {
      * @throws IOException
      * @return la solicitud actualizada
      */
-    public SolicitudTramite finalizarTramite(SolicitudTramite solicitudSeleccionada_, Path pathDocTramiteFinalizado_)
+    public SolicitudTramite finalizarTramite(SolicitudTramite solicitudSeleccionada, Path pathDocTramiteFinalizado)
             throws IOException, IllegalArgumentException {
 
-        SolicitudTramite solicitudSeleccionada = solicitudSeleccionada_;
-        Path pathDocTramiteFinalizado = pathDocTramiteFinalizado_;
         if ((solicitudSeleccionada == null) || (pathDocTramiteFinalizado == null))
             throw new IllegalArgumentException("Argumento nulo no válido");
 
-        try {
+        String tipoDocumento = solicitudSeleccionada.getTipoTramite().getNombreTramite();
+        Documento documentoTramiteFinalizado = servicioDocumento.creaDocumento(pathDocTramiteFinalizado,
+                tipoDocumento);
+        solicitudSeleccionada.setEstado(Estado.FINALIZADO);
+        solicitudSeleccionada.setDocumentoTramite(documentoTramiteFinalizado);
+        solicitudSeleccionada.setFechaFinalizacion(new Date(System.currentTimeMillis()));
+        solicitudTramiteRepository.save(solicitudSeleccionada);
 
-            String tipoDocumento = solicitudSeleccionada.getTipoTramite().getNombreTramite();
-            Documento documentoTramiteFinalizado = servicioDocumento.creaDocumento(pathDocTramiteFinalizado,
-                    tipoDocumento);
-            solicitudSeleccionada.setEstado("Finalizado");
-            solicitudSeleccionada.setDocumentoTramite(documentoTramiteFinalizado);
-            solicitudSeleccionada.setFechaFinalizacion(new Date(System.currentTimeMillis()));
-            solicitudTramiteRepository.save(solicitudSeleccionada);
+        return solicitudSeleccionada;
 
-            return solicitudSeleccionada;
-
-        } catch (IOException e) {
-            throw e;
-        } catch (IllegalArgumentException e) {
-            throw e;
-        }
     }
 
     /**
@@ -178,19 +147,16 @@ public class ServicioSolicitudTramite {
      * @throws IllegalArgumentException Cuando alguno de los argumentos es nulo o cuando falta algún archivo requerido
      */
 
-    public void solicitarTramite(@NotNull Agremiado agremiado, @NotNull TipoTramite tipoTramite, @NotNull Map<String, byte[]> archivos){
-        if (agremiado == null) throw new IllegalArgumentException("agremiado no debe ser null");
-        if (tipoTramite == null) throw new IllegalArgumentException("tipoTramite no debe ser null");
-        if (archivos == null) throw new IllegalArgumentException("archivos no debe ser null");
+    public void solicitarTramite(@NonNull Agremiado agremiado, @NonNull TipoTramite tipoTramite, @NonNull Map<String, byte[]> archivos){
 
         var solicitudTramite = new SolicitudTramite();
         solicitudTramite.setFechaSolicitud(new Date(System.currentTimeMillis()));
         solicitudTramite.setTipoTramite(tipoTramite);
-        solicitudTramite.setEstado("Pendiente");
+        solicitudTramite.setEstado(Estado.PENDIENTE);
 
         for (var requerimiento : tipoTramite.getRequerimientos()) {
             var archivo = archivos.computeIfAbsent(requerimiento,
-                    (k) -> {
+                    k -> {
                         throw new IllegalArgumentException("No se especificó un archivo para el campo " + requerimiento);
                     });
             var documento = new Documento(requerimiento, archivo);
@@ -211,14 +177,12 @@ public class ServicioSolicitudTramite {
      * @param agremiado El agremiado en cuestión
      * @return true en caso de que el agremiado tenga permitido solicitar un trámite, false de lo contrario
      */
-    public boolean puedeSolicitarTramite(@NotNull Agremiado agremiado){
-
-        if (agremiado == null) throw new IllegalArgumentException("agremiado no puede ser null");
+    public boolean puedeSolicitarTramite(@NonNull Agremiado agremiado){
 
         boolean tieneTramitesPendientes = agremiado.getSolicitudes()
                 .stream()
                 .map(SolicitudTramite::getEstado)
-                .anyMatch(estado -> estado.equalsIgnoreCase("pendiente") || estado.equalsIgnoreCase("en progreso"));
+                .anyMatch(estado -> estado == Estado.PENDIENTE || estado == Estado.EN_PROGRESO);
         return !tieneTramitesPendientes;
     }
 

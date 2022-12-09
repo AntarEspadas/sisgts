@@ -1,6 +1,6 @@
 package mx.uam.ayd.proyecto.negocio;
 
-import com.sun.istack.NotNull;
+import lombok.NonNull;
 import mx.uam.ayd.proyecto.datos.RepositoryTipoTramite;
 import mx.uam.ayd.proyecto.negocio.modelo.TipoTramite;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class ServicioTipoTramite {
      *
      * @return Los tipos de trámite
      */
-    public @NotNull List<TipoTramite> getTipos(){
+    public @NonNull List<TipoTramite> getTipos(){
         var result = new ArrayList<TipoTramite>();
         repositoryTipoTramite.findAll().forEach(result::add);
         return result;

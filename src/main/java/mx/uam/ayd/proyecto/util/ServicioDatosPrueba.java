@@ -24,7 +24,8 @@ import java.util.*;
 @Slf4j
 public class ServicioDatosPrueba {
 
-    private final Faker faker = new Faker(new Locale("es-MX"), new Random(0));
+    private final Random random = new Random(0);
+    private final Faker faker = new Faker(Locale.forLanguageTag("es-Latn"), random);
 
     private final Map<LocalDate, List<LocalTime>> fechasYHoras = new HashMap<>();
 
@@ -49,7 +50,7 @@ public class ServicioDatosPrueba {
         agremiado.setFiliacion(faker.bothify("????#########", true));
         agremiado.setPuesto(faker.job().position());
         agremiado.setTelefono(faker.phoneNumber().phoneNumber());
-        agremiado.setTurno(faker.random().nextBoolean() ? "MATUTINO" : "VESPERTINO");
+        agremiado.setTurno(random.nextBoolean() ? "MATUTINO" : "VESPERTINO");
         return agremiado;
     }
 
@@ -65,7 +66,7 @@ public class ServicioDatosPrueba {
         var date = faker.date().between(haceUnMes, enUnMes);
         var fecha = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         var horarios = fechasYHoras.computeIfAbsent(fecha, v -> (servicioCita.getHorarios()));
-        if (horarios.size() == 0){
+        if (horarios.isEmpty()){
             return new Cita();
         }
         var indice = faker.random().nextInt(0, horarios.size() - 1);

@@ -6,8 +6,6 @@ import org.springframework.stereotype.Component;
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import mx.uam.ayd.proyecto.negocio.ServicioAgremiado;
 import mx.uam.ayd.proyecto.negocio.ServicioEmpleado;
-import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
-
 
 
 @Component
@@ -22,35 +20,27 @@ public class ControlIniciaSesion {
 	@Autowired
 	private VentanaIniciaSesion ventana;
 
-	private Agremiado agremiado;
-
 	@Autowired
 	private RepositoryAgremiado repositoryAgremiado;
 	
 	boolean opcion;
 	//METODO INICIO
-	public void inicia(String Usuario) {
-		
-		//List <Grupo> grupos = servicioGrupo.recuperaGrupos();
-		
-		ventana.muestra(this);//, grupos);
-		
-		if(Usuario.equals("Agremiado")) {
-			opcion=true;
-		}else {
-			opcion=false;
-		}
+	public void inicia(String usuario) {
+
+		ventana.muestra(this);
+
+		opcion = usuario.equals("Agremiado");
 		
 	}
 	
 	//METODO QUE RECUPERA CORREO
-	public void VerificaCorreoYContrasenia(String correo, String contrasenia) {
+	public void verificaCorreoYContrasenia(String correo, String contrasenia) {
 		boolean exito = servicioAgremiado.verificaCorreoYContrasenia(correo, contrasenia);
-		boolean exito1= servicioEmpleado.VerificaCorreoYContrasenia(correo, contrasenia);
+		boolean exito1= servicioEmpleado.verificaCorreoYContrasenia(correo, contrasenia);
 
-		if(opcion==true) {
+		if(opcion) {
 			
-			if(exito==true){
+			if(exito){
 				ventana.muestraDialogoConMensaje("¡Ha iniciado correctamente, bienvenido!");
 			
 			}else{
@@ -59,7 +49,7 @@ public class ControlIniciaSesion {
 			
 		}else {
 			
-			if(exito1==true){
+			if(exito1){
 				ventana.muestraDialogoConMensaje("¡Ha iniciado correctamente, bienvenido!");
 			
 			}else{

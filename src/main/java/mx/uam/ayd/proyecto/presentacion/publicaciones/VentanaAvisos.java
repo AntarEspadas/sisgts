@@ -8,7 +8,8 @@ import java.util.List;
 
 import javax.swing.*;
 
-import mx.uam.ayd.proyecto.presentacion.publicaciones.consultarAvisos.Componente;
+import lombok.extern.slf4j.Slf4j;
+import mx.uam.ayd.proyecto.presentacion.publicaciones.consultar_avisos.Componente;
 import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.negocio.modelo.Aviso;
@@ -21,9 +22,10 @@ import java.awt.event.MouseEvent;
  * @author Brandon Villada
  *
  */
+@Slf4j
 @Component
 public class VentanaAvisos extends Pantalla{
-	private ControlAvisos controlador;
+	private transient ControlAvisos controlador;
 	private JTabbedPane paneles;
 	private JPanel panelAdmin;
 
@@ -37,19 +39,19 @@ public class VentanaAvisos extends Pantalla{
 	setLayout(gridBagLayout);
 	
 	panelAdmin = new JPanel();
-	GridBagConstraints gbc_panelAdmin = new GridBagConstraints();
-	gbc_panelAdmin.gridwidth = 3;
-	gbc_panelAdmin.insets = new Insets(0, 0, 5, 5);
-	gbc_panelAdmin.fill = GridBagConstraints.BOTH;
-	gbc_panelAdmin.gridx = 0;
-	gbc_panelAdmin.gridy = 0;
-	add(panelAdmin, gbc_panelAdmin);
-	GridBagLayout gbl_panelAdmin = new GridBagLayout();
-	gbl_panelAdmin.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
-	gbl_panelAdmin.rowHeights = new int[]{0, 0, 17, 0};
-	gbl_panelAdmin.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-	gbl_panelAdmin.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-	panelAdmin.setLayout(gbl_panelAdmin);
+	GridBagConstraints gbcPanelAdmin = new GridBagConstraints();
+	gbcPanelAdmin.gridwidth = 3;
+	gbcPanelAdmin.insets = new Insets(0, 0, 5, 5);
+	gbcPanelAdmin.fill = GridBagConstraints.BOTH;
+	gbcPanelAdmin.gridx = 0;
+	gbcPanelAdmin.gridy = 0;
+	add(panelAdmin, gbcPanelAdmin);
+	GridBagLayout gblPanelAdmin = new GridBagLayout();
+	gblPanelAdmin.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+	gblPanelAdmin.rowHeights = new int[]{0, 0, 17, 0};
+	gblPanelAdmin.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+	gblPanelAdmin.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+	panelAdmin.setLayout(gblPanelAdmin);
 	
 	JButton btnNuevo = new JButton("Nueva publicación");
 	btnNuevo.addMouseListener(new MouseAdapter() {
@@ -58,11 +60,11 @@ public class VentanaAvisos extends Pantalla{
 			controlador.crear();
 		}
 	});
-	GridBagConstraints gbc_btnNuevo = new GridBagConstraints();
-	gbc_btnNuevo.insets = new Insets(0, 0, 5, 5);
-	gbc_btnNuevo.gridx = 1;
-	gbc_btnNuevo.gridy = 1;
-	panelAdmin.add(btnNuevo, gbc_btnNuevo);
+	GridBagConstraints gbcBtnNuevo = new GridBagConstraints();
+	gbcBtnNuevo.insets = new Insets(0, 0, 5, 5);
+	gbcBtnNuevo.gridx = 1;
+	gbcBtnNuevo.gridy = 1;
+	panelAdmin.add(btnNuevo, gbcBtnNuevo);
 	
 	JButton btnEditar = new JButton("Editar");
 	btnEditar.addMouseListener(new MouseAdapter() {
@@ -73,11 +75,11 @@ public class VentanaAvisos extends Pantalla{
 			controlador.editar(aviso);
 		}
 	});
-	GridBagConstraints gbc_btnEditar = new GridBagConstraints();
-	gbc_btnEditar.insets = new Insets(0, 0, 5, 5);
-	gbc_btnEditar.gridx = 3;
-	gbc_btnEditar.gridy = 1;
-	panelAdmin.add(btnEditar, gbc_btnEditar);
+	GridBagConstraints gbcBtnEditar = new GridBagConstraints();
+	gbcBtnEditar.insets = new Insets(0, 0, 5, 5);
+	gbcBtnEditar.gridx = 3;
+	gbcBtnEditar.gridy = 1;
+	panelAdmin.add(btnEditar, gbcBtnEditar);
 	
 	JButton btnEliminar = new JButton("Eliminar");
 	btnEliminar.addMouseListener(new MouseAdapter() {
@@ -88,22 +90,22 @@ public class VentanaAvisos extends Pantalla{
 			controlador.eliminar(aviso);
 		}
 	});
-	GridBagConstraints gbc_btnEliminar = new GridBagConstraints();
-	gbc_btnEliminar.insets = new Insets(0, 0, 5, 5);
-	gbc_btnEliminar.gridx = 5;
-	gbc_btnEliminar.gridy = 1;
-	panelAdmin.add(btnEliminar, gbc_btnEliminar);
+	GridBagConstraints gbcBtnEliminar = new GridBagConstraints();
+	gbcBtnEliminar.insets = new Insets(0, 0, 5, 5);
+	gbcBtnEliminar.gridx = 5;
+	gbcBtnEliminar.gridy = 1;
+	panelAdmin.add(btnEliminar, gbcBtnEliminar);
 	
 	
-	JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.RIGHT);
+	JTabbedPane tabbedPane = new JTabbedPane(SwingConstants.RIGHT);
 	paneles = tabbedPane;
 	tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
-	GridBagConstraints gbc_tabbedPane = new GridBagConstraints();
-	gbc_tabbedPane.insets = new Insets(0, 0, 5, 5);
-	gbc_tabbedPane.fill = GridBagConstraints.BOTH;
-	gbc_tabbedPane.gridx = 1;
-	gbc_tabbedPane.gridy = 1;
-	add(tabbedPane, gbc_tabbedPane);
+	GridBagConstraints gbcTabbedPane = new GridBagConstraints();
+	gbcTabbedPane.insets = new Insets(0, 0, 5, 5);
+	gbcTabbedPane.fill = GridBagConstraints.BOTH;
+	gbcTabbedPane.gridx = 1;
+	gbcTabbedPane.gridy = 1;
+	add(tabbedPane, gbcTabbedPane);
 	
 	
 	
@@ -130,7 +132,7 @@ public class VentanaAvisos extends Pantalla{
 
 	public void setAvisos(List<Aviso> avisos){
 		paneles.removeAll();
-		System.out.println(avisos);
+		log.info("avisos = {}", avisos);
 		for (Aviso aviso : avisos) {
 			Componente aux = new Componente();
 			aux.setAviso(aviso);

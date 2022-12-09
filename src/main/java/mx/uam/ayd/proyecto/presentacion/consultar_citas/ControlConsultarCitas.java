@@ -1,4 +1,4 @@
-package mx.uam.ayd.proyecto.presentacion.consultarCitas;
+package mx.uam.ayd.proyecto.presentacion.consultar_citas;
 
 import mx.uam.ayd.proyecto.negocio.ServicioCita;
 import mx.uam.ayd.proyecto.negocio.modelo.Cita;

@@ -1,12 +1,11 @@
-package mx.uam.ayd.proyecto.presentacion.publicaciones.administrarPublicaciones;
+package mx.uam.ayd.proyecto.presentacion.publicaciones.administrar_publicaciones;
 
 import mx.uam.ayd.proyecto.negocio.ServicioAviso;
 import mx.uam.ayd.proyecto.negocio.modelo.Aviso;
 import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import mx.uam.ayd.proyecto.presentacion.publicaciones.ControlAvisos;
 import mx.uam.ayd.proyecto.presentacion.publicaciones.VentanaAvisos;
-import mx.uam.ayd.proyecto.presentacion.publicaciones.editarPublicación.ControlEditarPublicacion;
-import org.apache.commons.lang3.NotImplementedException;
+import mx.uam.ayd.proyecto.presentacion.publicaciones.editar_publicacion.ControlEditarPublicacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,6 @@
 package mx.uam.ayd.proyecto.presentacion.principal;
 
 import mx.uam.ayd.proyecto.presentacion.compartido.Pantalla;
-import mx.uam.ayd.proyecto.presentacion.login.ControlIniciaSesion;
 
 import org.springframework.stereotype.Component;
 
@@ -16,8 +15,7 @@ import java.awt.event.MouseEvent;
 @Component
 public class VentanaInicio extends Pantalla {
 	
-	private ControlPrincipal controlPrincipal;
-	private ControlIniciaSesion controllogin;
+	private transient ControlPrincipal controlPrincipal;
 	private final JLabel lblSesion;
 
 	public VentanaInicio() {
@@ -29,20 +27,20 @@ public class VentanaInicio extends Pantalla {
 		setLayout(gridBagLayout);
 		
 		JLabel lblBienvenida = new JLabel("Bienvenido al sistema de administración SISGTS");
-		GridBagConstraints gbc_lblBienvenida = new GridBagConstraints();
-		gbc_lblBienvenida.gridwidth = 3;
-		gbc_lblBienvenida.insets = new Insets(0, 0, 5, 5);
-		gbc_lblBienvenida.gridx = 1;
-		gbc_lblBienvenida.gridy = 1;
-		add(lblBienvenida, gbc_lblBienvenida);
+		GridBagConstraints gbcLblBienvenida = new GridBagConstraints();
+		gbcLblBienvenida.gridwidth = 3;
+		gbcLblBienvenida.insets = new Insets(0, 0, 5, 5);
+		gbcLblBienvenida.gridx = 1;
+		gbcLblBienvenida.gridy = 1;
+		add(lblBienvenida, gbcLblBienvenida);
 		
 		lblSesion = new JLabel("Usted no ha inicado sesión");
-		GridBagConstraints gbc_lblSesion = new GridBagConstraints();
-		gbc_lblSesion.gridwidth = 3;
-		gbc_lblSesion.insets = new Insets(0, 0, 5, 5);
-		gbc_lblSesion.gridx = 1;
-		gbc_lblSesion.gridy = 3;
-		add(lblSesion, gbc_lblSesion);
+		GridBagConstraints gbcLblSesion = new GridBagConstraints();
+		gbcLblSesion.gridwidth = 3;
+		gbcLblSesion.insets = new Insets(0, 0, 5, 5);
+		gbcLblSesion.gridx = 1;
+		gbcLblSesion.gridy = 3;
+		add(lblSesion, gbcLblSesion);
 		
 		JButton btnLoginagremiado = new JButton("login agremiado");
 		btnLoginagremiado.addMouseListener(new MouseAdapter() {
@@ -53,11 +51,11 @@ public class VentanaInicio extends Pantalla {
 				lblSesion.setText("Sesión iniciado como agremiado");
 			}
 		});
-		GridBagConstraints gbc_btnLoginagremiado = new GridBagConstraints();
-		gbc_btnLoginagremiado.insets = new Insets(0, 0, 5, 5);
-		gbc_btnLoginagremiado.gridx = 1;
-		gbc_btnLoginagremiado.gridy = 5;
-		add(btnLoginagremiado, gbc_btnLoginagremiado);
+		GridBagConstraints gbcBtnLoginagremiado = new GridBagConstraints();
+		gbcBtnLoginagremiado.insets = new Insets(0, 0, 5, 5);
+		gbcBtnLoginagremiado.gridx = 1;
+		gbcBtnLoginagremiado.gridy = 5;
+		add(btnLoginagremiado, gbcBtnLoginagremiado);
 		
 		JButton btnLoginempleado = new JButton("login empleado");
 		btnLoginempleado.addMouseListener(new MouseAdapter() {
@@ -68,11 +66,11 @@ public class VentanaInicio extends Pantalla {
 				lblSesion.setText("Sesión iniciado como empleado");
 			}
 		});
-		GridBagConstraints gbc_btnLoginempleado = new GridBagConstraints();
-		gbc_btnLoginempleado.insets = new Insets(0, 0, 5, 5);
-		gbc_btnLoginempleado.gridx = 3;
-		gbc_btnLoginempleado.gridy = 5;
-		add(btnLoginempleado, gbc_btnLoginempleado);
+		GridBagConstraints gbcBtnLoginempleado = new GridBagConstraints();
+		gbcBtnLoginempleado.insets = new Insets(0, 0, 5, 5);
+		gbcBtnLoginempleado.gridx = 3;
+		gbcBtnLoginempleado.gridy = 5;
+		add(btnLoginempleado, gbcBtnLoginempleado);
 	}
 	
 	public void muestra(ControlPrincipal controlPrincipal) {

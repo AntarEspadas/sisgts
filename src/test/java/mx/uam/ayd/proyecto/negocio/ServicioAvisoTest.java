@@ -62,7 +62,7 @@ class ServicioAvisoTest {
 		
 		
 		//Prueba 3 No se puede crear una publicacion con null como Texto
-		assertThrows(IllegalArgumentException.class, () -> servicioAviso.crearPublicacion(null, null));
+		assertThrows(NullPointerException.class, () -> servicioAviso.crearPublicacion(null, null));
 		
 		// Prueba 4 Se puede crear una publicacion sin una Imagen (RN-10)
 
@@ -71,7 +71,7 @@ class ServicioAvisoTest {
 		assertEquals(true,salida2);
 		// Prueba 5 No puede crear una publicacion con una Imagen y sin texto (RN-10)
 		
-		assertThrows(IllegalArgumentException.class, () -> servicioAviso.crearPublicacion("hola", null));
+		assertThrows(NullPointerException.class, () -> servicioAviso.crearPublicacion("hola", null));
 	}
 	
 	

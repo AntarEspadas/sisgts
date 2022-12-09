@@ -1,4 +1,4 @@
-package mx.uam.ayd.proyecto.presentacion.publicaciones.consultarAvisos;
+package mx.uam.ayd.proyecto.presentacion.publicaciones.consultar_avisos;
 
 import java.util.List;
 
@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.negocio.ServicioAviso;
-import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.Aviso;
 
 
@@ -26,7 +25,7 @@ public class ControlConsultarAvisos implements ControlAvisos {
 	public List<Aviso> damePublicaciones() {
 		return servicioAviso.recuperaTodos();
 	}
-public void inicia(Agremiado agremiado) {
+public void inicia() {
 		
 			List<Aviso> avisos = damePublicaciones();
 			ventanaAvisos.muestra(this, avisos);
@@ -35,15 +34,16 @@ public void inicia(Agremiado agremiado) {
 
 	@Override
 	public void editar(Aviso aviso) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void eliminar(Aviso aviso) {
-
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void crear() {
-
+		throw new UnsupportedOperationException();
 	}
 }

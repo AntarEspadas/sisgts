@@ -31,14 +31,14 @@ public class ServicioEmpleado {
 		
 		List <Empleado> empleados = new ArrayList<>();
 		
-		for(Empleado empleado:empleadoRepository.findAll()) {
-			empleados.add(empleado);
+		for(Empleado _empleado:empleadoRepository.findAll()) {
+			empleados.add(_empleado);
 		}
 				
 		return empleados;
 	}
 	
-	public boolean VerificaCorreoYContrasenia(String correo, String contrasenia) {
+	public boolean verificaCorreoYContrasenia(String correo, String contrasenia) {
 		
 		empleado=empleadoRepository.findByCorreo(correo);
 

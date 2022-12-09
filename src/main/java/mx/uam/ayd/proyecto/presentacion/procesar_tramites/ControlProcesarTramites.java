@@ -1,4 +1,4 @@
-package mx.uam.ayd.proyecto.presentacion.procesarTramites;
+package mx.uam.ayd.proyecto.presentacion.procesar_tramites;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -97,14 +97,8 @@ public class ControlProcesarTramites {
      */
     SolicitudTramite aceptarDocumentos(SolicitudTramite solicitudSeleccionada) {
         SolicitudTramite solicitudActualizada;
-        try {
-            solicitudActualizada = servicioSolicitudTramite.aceptarDocumentos(solicitudSeleccionada);
-        } catch (IllegalArgumentException e) {
-            throw e;
-        }
-
+        solicitudActualizada = servicioSolicitudTramite.aceptarDocumentos(solicitudSeleccionada);
         return solicitudActualizada;
-
     }
 
     /**
@@ -132,12 +126,7 @@ public class ControlProcesarTramites {
     SolicitudTramite rechazarDocumentos(SolicitudTramite solicitudSeleccionada, String motivoRechazo)
             throws IllegalArgumentException {
 
-        try {
-            SolicitudTramite solicitudActualizada = servicioSolicitudTramite.rechazarDocumentos(solicitudSeleccionada, motivoRechazo);
-            return solicitudActualizada;
-        } catch (IllegalArgumentException e) {
-            throw e;
-        }
+            return servicioSolicitudTramite.rechazarDocumentos(solicitudSeleccionada, motivoRechazo);
 
     }
 
@@ -157,14 +146,9 @@ public class ControlProcesarTramites {
             throws IOException, IllegalArgumentException {
 
         SolicitudTramite solicitudActualizada;
-        try {
-            solicitudActualizada = servicioSolicitudTramite.finalizarTramite(solicitudSeleccionada,
+        solicitudActualizada = servicioSolicitudTramite.finalizarTramite(solicitudSeleccionada,
                     pathDocTramiteFinalizado);
-        } catch (IOException e) {
-            throw e;
-        } catch (IllegalArgumentException e) {
-            throw e;
-        }
+
         return solicitudActualizada;
 
     }

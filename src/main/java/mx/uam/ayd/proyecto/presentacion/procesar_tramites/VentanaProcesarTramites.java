@@ -1,12 +1,10 @@
-package mx.uam.ayd.proyecto.presentacion.procesarTramites;
+package mx.uam.ayd.proyecto.presentacion.procesar_tramites;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 
@@ -14,7 +12,7 @@ import java.awt.*;
 
 import java.io.*;
 import java.nio.file.Path;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 import org.springframework.stereotype.Component;
 
@@ -25,30 +23,43 @@ import mx.uam.ayd.proyecto.presentacion.compartido.Pantalla;
 @Component
 public class VentanaProcesarTramites extends Pantalla {
 
-    private ControlProcesarTramites control;
+    private transient ControlProcesarTramites control;
 
-    private JLabel lblNorth, lblNo, lblFecha, lblEstado, lblTipo, lblSolicitante, lblDocumentos, lblMotivoRechazo,
-            lblArchivoAdjunto;
-    private List<SolicitudTramite> solicitudes, solicitudesFinalizadas;
-    private JList<String> listaSolicitudes;
-    private JPanel panelProcesamientoSolicitudes, panelDatosSolicitud;
-    private JScrollPane barraDespl;
-    private JButton btnDescargarDocumentos, btnSiguiente, btnAlternarVista, btnConfirmarRechazo, btnAdjuntarDocTramite,
-            btnFinalizarTramite;
-    private JRadioButton radioBtnAceptar, radioBtnRechazar;
-    private List<Documento> documentosAdjuntos;
-    private Path pathDocTramiteFinalizado;
-    private SolicitudTramite solicitudSeleccionada;
-    private JComboBox<String> comboBoxMotivosRechazo;
-    private JFileChooser chooser;
-    private FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos PDF", "pdf");
+    private final JLabel lblNo;
+    private final JLabel lblFecha;
+    private final JLabel lblEstado;
+    private final JLabel lblTipo;
+    private final JLabel lblSolicitante;
+    private final JLabel lblDocumentos;
+    private final JLabel lblMotivoRechazo;
+    private final JLabel lblArchivoAdjunto;
+    private transient List<SolicitudTramite> solicitudes;
+    private transient List<SolicitudTramite> solicitudesFinalizadas;
+    private final JList<String> listaSolicitudes;
+    private final JPanel panelDatosSolicitud;
+    private final JButton btnDescargarDocumentos;
+    private final JButton btnSiguiente;
+    private final JButton btnAlternarVista;
+    private final JButton btnConfirmarRechazo;
+    private final JButton btnAdjuntarDocTramite;
+    private final JButton btnFinalizarTramite;
+    private final JRadioButton radioBtnAceptar;
+    private final JRadioButton radioBtnRechazar;
+    private transient List<Documento> documentosAdjuntos;
+    private transient Path pathDocTramiteFinalizado;
+    private transient SolicitudTramite solicitudSeleccionada;
+    private final transient JComboBox<String> comboBoxMotivosRechazo;
+    private transient JFileChooser chooser;
+    private final transient FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos PDF", "pdf");
 
     public VentanaProcesarTramites() {
         setBounds(new Rectangle(100, 100, 500, 500));
         setLayout(new BorderLayout());
 
-        lblNorth = new JLabel("Solicitudes de trámites activas");
-        lblNorth.setFont(new Font("Arial", Font.PLAIN, 15));
+        var font = new Font("Arial", Font.PLAIN, 15);
+
+        JLabel lblNorth = new JLabel("Solicitudes de trámites activas");
+        lblNorth.setFont(font);
         lblNorth.setBorder(new EmptyBorder(10, 0, 10, 0));
         lblNorth.setHorizontalAlignment(SwingConstants.CENTER);
         add(lblNorth, BorderLayout.NORTH);
@@ -56,7 +67,7 @@ public class VentanaProcesarTramites extends Pantalla {
         btnAlternarVista = new JButton("Ver trámites finalizados");
         add(btnAlternarVista, BorderLayout.SOUTH);
 
-        panelProcesamientoSolicitudes = new JPanel();
+        JPanel panelProcesamientoSolicitudes = new JPanel();
         panelProcesamientoSolicitudes.setLayout(new FlowLayout());
         panelProcesamientoSolicitudes.setBorder(new EmptyBorder(10, 10, 10, 10));
         add(panelProcesamientoSolicitudes, BorderLayout.CENTER);
@@ -67,48 +78,48 @@ public class VentanaProcesarTramites extends Pantalla {
         panelProcesamientoSolicitudes.add(panelDatosSolicitud);
 
         lblNo = new JLabel();
-        lblNo.setFont(new Font("Arial", Font.PLAIN, 15));
+        lblNo.setFont(font);
         lblFecha = new JLabel();
-        lblFecha.setFont(new Font("Arial", Font.PLAIN, 15));
+        lblFecha.setFont(font);
 
         lblEstado = new JLabel();
-        lblEstado.setFont(new Font("Arial", Font.PLAIN, 15));
+        lblEstado.setFont(font);
         lblTipo = new JLabel();
-        lblTipo.setFont(new Font("Arial", Font.PLAIN, 15));
+        lblTipo.setFont(font);
 
         lblSolicitante = new JLabel();
-        lblSolicitante.setFont(new Font("Arial", Font.PLAIN, 15));
+        lblSolicitante.setFont(font);
 
         lblDocumentos = new JLabel();
-        lblDocumentos.setFont(new Font("Arial", Font.BOLD, 15));
+        lblDocumentos.setFont(font);
 
         btnDescargarDocumentos = new JButton("Descargar documentos");
-        btnDescargarDocumentos.setFont(new Font("Arial", Font.PLAIN, 15));
+        btnDescargarDocumentos.setFont(font);
 
         radioBtnAceptar = new JRadioButton("Aceptar documentos");
-        radioBtnAceptar.setFont(new Font("Arial", Font.PLAIN, 15));
+        radioBtnAceptar.setFont(font);
         radioBtnRechazar = new JRadioButton("Rechazar documentos");
-        radioBtnRechazar.setFont(new Font("Arial", Font.PLAIN, 15));
+        radioBtnRechazar.setFont(font);
 
         btnSiguiente = new JButton("Siguiente");
-        btnSiguiente.setFont(new Font("Arial", Font.PLAIN, 15));
+        btnSiguiente.setFont(font);
 
         lblMotivoRechazo = new JLabel("Motivo de rechazo: ");
-        lblMotivoRechazo.setFont(new Font("Arial", Font.BOLD, 15));
+        lblMotivoRechazo.setFont(font);
         String[] opcionesComboBox = { "Archivos corruptos", "Archivos ilegibles",
                 "Documentos no coincidentes con los requerimientos del trámite" };
-        comboBoxMotivosRechazo = new JComboBox<String>(opcionesComboBox);
+        comboBoxMotivosRechazo = new JComboBox<>(opcionesComboBox);
 
         btnConfirmarRechazo = new JButton("Confirmar rechazo de solicitud");
-        btnConfirmarRechazo.setFont(new Font("Arial", Font.PLAIN, 15));
+        btnConfirmarRechazo.setFont(font);
 
         btnAdjuntarDocTramite = new JButton("Adjuntar documento de trámite");
-        btnAdjuntarDocTramite.setFont(new Font("Arial", Font.PLAIN, 15));
+        btnAdjuntarDocTramite.setFont(font);
         lblArchivoAdjunto = new JLabel();
-        lblArchivoAdjunto.setFont(new Font("Arial", Font.ITALIC, 15));
+        lblArchivoAdjunto.setFont(font);
 
         btnFinalizarTramite = new JButton("Finalizar trámite");
-        btnFinalizarTramite.setFont(new Font("Arial", Font.PLAIN, 15));
+        btnFinalizarTramite.setFont(font);
 
         panelDatosSolicitud.add(lblNo);
         panelDatosSolicitud.add(lblFecha);
@@ -141,52 +152,44 @@ public class VentanaProcesarTramites extends Pantalla {
 
         panelDatosSolicitud.setVisible(false);
 
-        listaSolicitudes = new JList<String>();
-        barraDespl = new JScrollPane(listaSolicitudes);
+        listaSolicitudes = new JList<>();
+        JScrollPane barraDespl = new JScrollPane(listaSolicitudes);
         add(barraDespl, BorderLayout.WEST);
 
-        listaSolicitudes.addListSelectionListener(new ListSelectionListener() {
+        listaSolicitudes.addListSelectionListener(e -> {
 
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
+            int index = listaSolicitudes.getSelectedIndex();
+            SolicitudTramite solicitudSeleccionada;
+            String vista = btnAlternarVista.getText();
 
-                int index = listaSolicitudes.getSelectedIndex();
-                SolicitudTramite solicitudSeleccionada;
-                String vista = btnAlternarVista.getText();
+            if ("Ver trámites finalizados".equals(vista)) {
+                solicitudSeleccionada = solicitudes.get(index);
+            } else {
+                solicitudSeleccionada = solicitudesFinalizadas.get(index);
+            }
 
-                switch (vista) {
-                    case "Ver trámites finalizados":
-                        solicitudSeleccionada = solicitudes.get(index);
-                        break;
-                    default:
-                        solicitudSeleccionada = solicitudesFinalizadas.get(index);
-                        break;
-                }
+            var estadoSol = solicitudSeleccionada.getEstado();
 
-                String estadoSol = solicitudSeleccionada.getEstado();
+            switch (estadoSol) {
+                case PENDIENTE:
+                    control.tramitePendiente(solicitudSeleccionada);
+                    break;
 
-                switch (estadoSol) {
-                    case "Pendiente":
-                        control.tramitePendiente(solicitudSeleccionada);
-                        break;
+                case EN_PROGRESO:
+                    control.tramiteEnProgreso(solicitudSeleccionada);
+                    break;
 
-                    case "En progreso":
-                        control.tramiteEnProgreso(solicitudSeleccionada);
-                        break;
+                case RECHAZADO:
+                    control.tramiteRechazado(solicitudSeleccionada);
+                    break;
 
-                    case "Rechazada":
-                        control.tramiteRechazado(solicitudSeleccionada);
-                        break;
+                case FINALIZADO:
+                    control.tramiteFinalizado(solicitudSeleccionada);
+                    break;
 
-                    case "Finalizado":
-                        control.tramiteFinalizado(solicitudSeleccionada);
-                        break;
-
-                    default:
-                        panelDatosSolicitud.setVisible(false);
-                        break;
-                }
-
+                default:
+                    panelDatosSolicitud.setVisible(false);
+                    break;
             }
 
         });
@@ -212,22 +215,22 @@ public class VentanaProcesarTramites extends Pantalla {
     /**
      * Muestra la vista correspondiente al procesamiento de tramites
      * 
-     * @param solicitudes_            lista de solicitudes de trámites pendientes
-     * @param solicitudesFinalizadas_ lista de trámites finalizados
+     * @param solicitudes            lista de solicitudes de trámites pendientes
+     * @param solicitudesFinalizadas lista de trámites finalizados
      * @param control                 apuntador a ControlProcesarTramites
      */
-    void muestra(List<SolicitudTramite> solicitudes_, List<SolicitudTramite> solicitudesFinalizadas_,
+    void muestra(List<SolicitudTramite> solicitudes, List<SolicitudTramite> solicitudesFinalizadas,
             ControlProcesarTramites control) {
 
         this.control = control;
-        this.solicitudes = solicitudes_;
-        this.solicitudesFinalizadas = solicitudesFinalizadas_;
+        this.solicitudes = solicitudes;
+        this.solicitudesFinalizadas = solicitudesFinalizadas;
 
 
-        String[] datosListaSolicitudes = new String[solicitudes.size()];
+        String[] datosListaSolicitudes = new String[this.solicitudes.size()];
 
         int i = 0;
-        for (SolicitudTramite solicitud : solicitudes) {
+        for (SolicitudTramite solicitud : this.solicitudes) {
             datosListaSolicitudes[i] = solicitud.toString();
             i++;
         }
@@ -237,11 +240,11 @@ public class VentanaProcesarTramites extends Pantalla {
             listaSolicitudes.setListData(datosListaSolicitudes);
         }
         catch (IndexOutOfBoundsException ignored) {
-
+            // No tengo ni la más remota idea de por qué lanza esta excepción
         }
         setVisible(true);
 
-        if (solicitudes.size() == 0) {
+        if (this.solicitudes.isEmpty()) {
             JOptionPane.showMessageDialog(this, "No hay solicitudes de trámites activas", "",
                     JOptionPane.INFORMATION_MESSAGE);
         }
@@ -273,7 +276,7 @@ public class VentanaProcesarTramites extends Pantalla {
         lblArchivoAdjunto.setVisible(false);
         btnFinalizarTramite.setVisible(false);
 
-        lblNo.setText("Número de solicitud: " + String.valueOf(solicitudSeleccionada.getIdSolicitud()));
+        lblNo.setText("Número de solicitud: " + solicitudSeleccionada.getIdSolicitud());
         lblFecha.setText(
                 "Fecha de registro: " + String.valueOf(solicitudSeleccionada.getFechaSolicitud()).substring(0, 10));
 
@@ -286,9 +289,9 @@ public class VentanaProcesarTramites extends Pantalla {
 
         documentosAdjuntos = new ArrayList<>(solicitudSeleccionada.getRequisitos());
 
-        String strDocumentos = "";
+        StringBuilder strDocumentos = new StringBuilder();
         for (Documento documento : documentosAdjuntos) {
-            strDocumentos += " " + documento.getTipoDocumento();
+            strDocumentos.append(" ").append(documento.getTipoDocumento());
         }
         lblDocumentos.setText("Documentos: " + strDocumentos);
 
@@ -322,7 +325,7 @@ public class VentanaProcesarTramites extends Pantalla {
         btnFinalizarTramite.setVisible(true);
         btnFinalizarTramite.setEnabled(false);
 
-        lblNo.setText("Número de solicitud: " + String.valueOf(solicitudSeleccionada.getIdSolicitud()));
+        lblNo.setText("Número de solicitud: " + solicitudSeleccionada.getIdSolicitud());
         lblFecha.setText(
                 "Fecha de registro: " + String.valueOf(solicitudSeleccionada.getFechaSolicitud()).substring(0, 10));
 
@@ -335,9 +338,9 @@ public class VentanaProcesarTramites extends Pantalla {
 
         documentosAdjuntos = new ArrayList<>(solicitudSeleccionada.getRequisitos());
 
-        String strDocumentos = "";
+        StringBuilder strDocumentos = new StringBuilder();
         for (Documento documento : documentosAdjuntos) {
-            strDocumentos += " " + documento.getTipoDocumento();
+            strDocumentos.append(" ").append(documento.getTipoDocumento());
         }
         lblDocumentos.setText("Documentos: " + strDocumentos);
 
@@ -370,7 +373,7 @@ public class VentanaProcesarTramites extends Pantalla {
         lblArchivoAdjunto.setVisible(false);
         btnFinalizarTramite.setVisible(false);
 
-        lblNo.setText("Número de solicitud: " + String.valueOf(solicitudSeleccionada.getIdSolicitud()));
+        lblNo.setText("Número de solicitud: " + solicitudSeleccionada.getIdSolicitud());
         lblFecha.setText(
                 "Fecha de registro: " + String.valueOf(solicitudSeleccionada.getFechaSolicitud()).substring(0, 10));
 
@@ -381,13 +384,13 @@ public class VentanaProcesarTramites extends Pantalla {
                 + solicitudSeleccionada.getSolicitante().getApellidos() + " ("
                 + solicitudSeleccionada.getSolicitante().getClave() + ")");
 
-        documentosAdjuntos = new ArrayList<Documento> ();
+        documentosAdjuntos = new ArrayList<> ();
 
-        String strDocumentos = "";
+        StringBuilder strDocumentos = new StringBuilder();
         for (Documento documento : documentosAdjuntos) {
-            strDocumentos += " " + documento.getTipoDocumento();
+            strDocumentos.append(" ").append(documento.getTipoDocumento());
         }
-        strDocumentos += ".";
+        strDocumentos.append(".");
         lblDocumentos.setText("Documentos: " + strDocumentos);
 
         panelDatosSolicitud.setVisible(true);
@@ -417,7 +420,7 @@ public class VentanaProcesarTramites extends Pantalla {
         lblArchivoAdjunto.setVisible(false);
         btnFinalizarTramite.setVisible(false);
 
-        lblNo.setText("Número de solicitud: " + String.valueOf(solicitudSeleccionada.getIdSolicitud()));
+        lblNo.setText("Número de solicitud: " + solicitudSeleccionada.getIdSolicitud());
         lblFecha.setText("Fecha de finalización: "
                 + String.valueOf(solicitudSeleccionada.getFechaFinalizacion()).substring(0, 16));
 
@@ -450,14 +453,12 @@ public class VentanaProcesarTramites extends Pantalla {
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             for (Documento documento : documentosAdjuntos) {
                 File path = new File(chooser.getSelectedFile() + "/Solicitud"
-                        + String.valueOf(solicitudSeleccionada.getIdSolicitud()) + documento.getTipoDocumento()
+                        + solicitudSeleccionada.getIdSolicitud() + documento.getTipoDocumento()
                         + ".pdf");
 
                 try (FileOutputStream out = new FileOutputStream(path)) {
                     out.write(documento.getArchivo());
-                    out.close();
-
-                } catch (Exception e_) {
+                } catch (Exception e) {
                     JOptionPane.showMessageDialog(this, "Ha ocurrido un error, selecciona una nueva ruta",
                             "Ha ocurrido un error", JOptionPane.ERROR_MESSAGE);
                     break;
@@ -491,8 +492,8 @@ public class VentanaProcesarTramites extends Pantalla {
                 SolicitudTramite solicitudActualizada = new SolicitudTramite();
                 try {
                     solicitudActualizada = control.aceptarDocumentos(solicitudSeleccionada);
-                } catch (Exception e_) {
-                    JOptionPane.showMessageDialog(this, e_.getMessage(), "Ha ocurrido un error",
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, e.getMessage(), "Ha ocurrido un error",
                             JOptionPane.ERROR_MESSAGE);
                 }
                 actualizarLista(index, solicitudActualizada);
@@ -652,7 +653,7 @@ public class VentanaProcesarTramites extends Pantalla {
      */
     void alternarVista() {
 
-        if (btnAlternarVista.getText() == "Ver trámites finalizados") {
+        if (Objects.equals(btnAlternarVista.getText(), "Ver trámites finalizados")) {
 
             panelDatosSolicitud.setVisible(false);
             btnAlternarVista.setText("Ver solicitudes de trámites activas");
@@ -664,12 +665,12 @@ public class VentanaProcesarTramites extends Pantalla {
 
             try {
                 listaSolicitudes.setListData(datosListaSolicitudesFinalizadas);
-                if (solicitudesFinalizadas.size() == 0) {
+                if (solicitudesFinalizadas.isEmpty()) {
                     JOptionPane.showMessageDialog(this, "No hay registro de trámites finalizados", "",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (IndexOutOfBoundsException e) {
-                if (solicitudesFinalizadas.size() == 0) {
+                if (solicitudesFinalizadas.isEmpty()) {
                     JOptionPane.showMessageDialog(this, "No hay registro de trámites finalizados", "",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -688,12 +689,12 @@ public class VentanaProcesarTramites extends Pantalla {
 
             try {
                 listaSolicitudes.setListData(datosListaSolicitudes);
-                if (solicitudes.size() == 0) {
+                if (solicitudes.isEmpty()) {
                     JOptionPane.showMessageDialog(this, "No hay solicitudes de trámites activas", "",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (IndexOutOfBoundsException e) {
-                if (solicitudes.size() == 0) {
+                if (solicitudes.isEmpty()) {
                     JOptionPane.showMessageDialog(this, "No hay solicitudes de trámites activas", "",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
