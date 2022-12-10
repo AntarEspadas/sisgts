@@ -169,8 +169,7 @@ public class VentanaEditarPublicacion extends Pantalla {
 		else {
 			botonPublicar.setText("Guardar");
 			textArea.setText(aviso.getContenido());
-			var rutaImagen = aviso.getImagen();
-			if (rutaImagen != null){
+			if (aviso.getImagen() != null){
 				ImageIcon imagen1 = new ImageIcon(aviso.getImagen());
 				Image imagenEscalada = imagen1.getImage();
 				imagenEscalada = imagenEscalada.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
