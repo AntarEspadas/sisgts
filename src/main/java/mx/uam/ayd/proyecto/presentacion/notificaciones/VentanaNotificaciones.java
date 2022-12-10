@@ -18,14 +18,10 @@ import javax.swing.JButton;
 public class VentanaNotificaciones extends Pantalla {
 	
 	private transient ControlNotificaciones controlador;
-	private VentanaInfoNotificaciones ventanaInfoNotificaciones;
-
-	private transient Mensaje acuse;
 
 	public VentanaNotificaciones() {
 		
-		setBounds(new Rectangle(100, 100, 500, 500));
-		setLayout(null);
+		setBounds(new Rectangle(100, 100, 500, 500)); setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Casa de gestion");
 		lblNewLabel.setBounds(57, 76, 138, 27);
@@ -47,7 +43,6 @@ public class VentanaNotificaciones extends Pantalla {
 		btnGuardar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ventanaInfoNotificaciones.muestra(controlador);
 				controlador.infoNotificaciones();
 			}
 		});	
@@ -55,13 +50,7 @@ public class VentanaNotificaciones extends Pantalla {
 			
 		
 	}
-	
-	public void muestra(ControlNotificaciones controlador, Mensaje mensaje) {
-		this.controlador = controlador;
-		this.acuse = mensaje;
-		setVisible(true);
-	}
-	
+
 	public void muestra(ControlNotificaciones controlador) {
 		this.controlador = controlador;
 		setVisible(true);

@@ -72,7 +72,6 @@ public class VentanaInfoNotificaciones extends Pantalla {
 				}else {
 					int indice;
 					indice = listaNotifi.getSelectedIndex();
-					ventanaNotificaciones.muestra(controlador);
 					controlador.descargar();
 					log.info("Valor mensaje = {}", indice);
 					JOptionPane.showMessageDialog(null, "Descargar Mensaje "+indice);

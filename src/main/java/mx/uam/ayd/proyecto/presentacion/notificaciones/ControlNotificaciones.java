@@ -18,9 +18,6 @@ import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
 @Component
 public class ControlNotificaciones {
 	
-	 @Autowired
-	    ServicioCita servicioAviso;
-
 	    @Autowired
 	    private VentanaInfoNotificaciones ventanaInfoNotificaciones;
 	    @Autowired
@@ -43,7 +40,7 @@ public class ControlNotificaciones {
 	    public void descargar(){
 	        ventanaInfoNotificaciones.cierra();
 	        
-	    	ventanaNotificaciones.muestra(this, agremiado.getMensaje().get(0));
+	    	ventanaNotificaciones.muestra(this);
 	    }
 	    	    
 	    /**
@@ -64,16 +61,9 @@ public class ControlNotificaciones {
 
 		}
 
-		public void descargar(int position) {
-			ventanaInfoNotificaciones.cierra();
-			
-	    	ventanaNotificaciones.muestra(this, agremiado.getMensaje().get(position));
-		}
-		
 	    public void verificar() {
 			JOptionPane.showMessageDialog(ventanaNotificaciones, "seleccione una cita");
 			
 		}
-
 
 }
