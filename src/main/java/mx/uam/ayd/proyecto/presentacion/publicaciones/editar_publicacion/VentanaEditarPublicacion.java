@@ -63,33 +63,13 @@ public class VentanaEditarPublicacion extends Pantalla {
 		
 		
 		
-		JButton btnNewButton1 = new JButton("Imagen");
+		JButton btnImagen = new JButton("Imagen");
 		
-		btnimagen = btnNewButton1;
-		btnNewButton1.addMouseListener(new MouseAdapter() {
+		btnimagen = btnImagen;
+		btnImagen.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (btnNewButton1.isEnabled()) {
-
-					JFileChooser fc = new JFileChooser();
-
-					FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images","jpg","png");
-		        fc.addChoosableFileFilter(filter);
-		        int option = fc.showSaveDialog(null);
-				
-				if(option == JFileChooser.APPROVE_OPTION){
-						File file = fc.getSelectedFile();
-						String path = file.getAbsolutePath();
-						rutaImagen = path;
-						ImageIcon imagen1 = new ImageIcon(path);
-						Image imagen1Image = imagen1.getImage();
-						imagen1Image = imagen1Image.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
-						ImageIcon img = new ImageIcon(imagen1Image);
-				        imagenPlaceholder.setIcon(img);
-					
-
-				}
-				}
+				botonImagenClick(btnImagen, imagenPlaceholder);
 			}
 		});
 		GridBagConstraints gbcBtnNewButton1 = new GridBagConstraints();
@@ -97,7 +77,7 @@ public class VentanaEditarPublicacion extends Pantalla {
 		gbcBtnNewButton1.insets = new Insets(0, 0, 5, 5);
 		gbcBtnNewButton1.gridx = 1;
 		gbcBtnNewButton1.gridy = 2;
-		add(btnNewButton1, gbcBtnNewButton1);
+		add(btnImagen, gbcBtnNewButton1);
 
 		JScrollPane scrollPane = new JScrollPane();
 		GridBagConstraints gbcScrollPane = new GridBagConstraints();
@@ -118,22 +98,7 @@ public class VentanaEditarPublicacion extends Pantalla {
 		botonPublicar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (botonPublicar.isEnabled()) {
-				String texto = null;
-						texto = textArea.getText();
-						if (texto.length()!=0) {
-							int input = JOptionPane.showConfirmDialog(null, "Deseas Publicar");
-					        // 0=yes, 1=no, 2=cancel
-					        if (input == 0) {
-					        	if(imagenPlaceholder.getIcon()!= null) {
-					
-					        	controlador.guardadPublicacion(rutaImagen,texto);
-					        	}else {
-					        		controlador.guardadPublicacion(null,texto);
-					        	}
-					        }
-						}
-				}
+				botonPublicarClick(imagenPlaceholder);
 			}
 		});
 
@@ -169,8 +134,7 @@ public class VentanaEditarPublicacion extends Pantalla {
 		else {
 			botonPublicar.setText("Guardar");
 			textArea.setText(aviso.getContenido());
-			var rutaImagen = aviso.getImagen();
-			if (rutaImagen != null){
+			if (aviso.getImagen() != null){
 				ImageIcon imagen1 = new ImageIcon(aviso.getImagen());
 				Image imagenEscalada = imagen1.getImage();
 				imagenEscalada = imagenEscalada.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
@@ -190,6 +154,50 @@ public class VentanaEditarPublicacion extends Pantalla {
 		publicar.setEnabled(false);
 		btnimagen.setEnabled(false);
 		imagenP.setIcon(null);
+	}
+
+	private void botonImagenClick(JButton btnImagen, JLabel imagenPlaceholder){
+		if (btnImagen.isEnabled()) {
+
+			JFileChooser fc = new JFileChooser();
+
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images","jpg","png");
+			fc.addChoosableFileFilter(filter);
+			int option = fc.showSaveDialog(null);
+
+			if(option == JFileChooser.APPROVE_OPTION){
+				File file = fc.getSelectedFile();
+				String path = file.getAbsolutePath();
+				rutaImagen = path;
+				ImageIcon imagen1 = new ImageIcon(path);
+				Image imagen1Image = imagen1.getImage();
+				imagen1Image = imagen1Image.getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH);
+				ImageIcon img = new ImageIcon(imagen1Image);
+				imagenPlaceholder.setIcon(img);
+
+
+			}
+		}
+	}
+
+	private void botonPublicarClick(JLabel imagenPlaceholder){
+		if (!botonPublicar.isEnabled())
+			return;
+
+		String texto = textArea.getText();
+		if (texto.length() == 0)
+			return;
+
+		int input = JOptionPane.showConfirmDialog(null, "¿Deseas Publicar?");
+		if (input != 0)
+			return;
+
+		String ruta = null;
+
+		if(imagenPlaceholder.getIcon() !=  null)
+			ruta = rutaImagen;
+
+		controlador.guardadPublicacion(ruta, texto);
 	}
 
 }

@@ -4,5 +4,9 @@ public enum Estado {
     PENDIENTE,
     EN_PROGRESO,
     RECHAZADO,
-    FINALIZADO
+    FINALIZADO;
+
+    public String dislay(){
+        return this.toString().toLowerCase().replace('_', ' ');
+    }
 }

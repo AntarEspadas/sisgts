@@ -18,7 +18,6 @@ import lombok.ToString;
 @Data
 public class Mensaje {
 	
-	//private Empleado remitente;
 	@ToString.Exclude
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="agremiado_clave")

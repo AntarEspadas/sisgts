@@ -1,5 +1,6 @@
 package mx.uam.ayd.proyecto.presentacion.solicitar_tramite;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.negocio.modelo.TipoTramite;
@@ -22,6 +23,7 @@ import java.awt.event.MouseEvent;
  * @author Antar Espadas
  *
  */
+@Slf4j
 @Component
 public class VentanaSubirArchivos extends Pantalla {
 	
@@ -101,7 +103,7 @@ public class VentanaSubirArchivos extends Pantalla {
 					leerArchivosYSolicitar();
 				}
 				catch (IOException ex) {
-					ex.printStackTrace();
+					log.error("", ex);
 				}
 			}
 		});

@@ -80,8 +80,8 @@ public class VentanaIniciaSesion extends JFrame{
 		btnIngresar.setBounds(330, 340, 117, 29);
 		contentPane1.add(btnIngresar);
 		//FIN DEL METODO ACTION PERFORMED
-		var password = String.valueOf(contrasenia.getPassword());
 		btnIngresar.addActionListener(e -> {
+			var password = String.valueOf(contrasenia.getPassword());
 			if(e.getSource()==btnIngresar) {
 				//VERIFICA QUE LOS CAMPOS NO ESTEN VACIOS Y SI ES ASI NO DEJA AVANZAR
 				if(correo.getText().equals("") || password.equals("")) {
