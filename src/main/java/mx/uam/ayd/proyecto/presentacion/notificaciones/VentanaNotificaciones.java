@@ -7,7 +7,6 @@ import java.awt.event.MouseEvent;
 import org.springframework.stereotype.Component;
 
 import lombok.extern.slf4j.Slf4j;
-import mx.uam.ayd.proyecto.negocio.modelo.Mensaje;
 import mx.uam.ayd.proyecto.presentacion.compartido.Pantalla;
 import javax.swing.JLabel;
 import javax.swing.JTextPane;

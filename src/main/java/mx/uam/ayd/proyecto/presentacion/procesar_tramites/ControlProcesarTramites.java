@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
+import mx.uam.ayd.proyecto.negocio.modelo.Estado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +13,7 @@ import mx.uam.ayd.proyecto.negocio.modelo.SolicitudTramite;
 
 /**
  * Controlador para las historias de usuario HU-05, HU-06 y HU-08
- * 
+ *
  * @author Adolfo Mejía
  */
 @Component
@@ -34,123 +35,58 @@ public class ControlProcesarTramites {
 
     }
 
-    /**
-     * Despliega la vista para un tramite pendiete
-     * 
-     * @param solicitudSeleccionada la solicitud seleccionada de la lista por el
-     *                              usuario
-     */
-    void tramitePendiente(SolicitudTramite solicitudSeleccionada) {
-        ventana.ventanaTramitePendiente(solicitudSeleccionada);
-    }
-
-    /**
-     * Despliega la vista para un tramite en progreso
-     * 
-     * @param solicitudSeleccionada la solicitud seleccionada de la lista por el
-     *                              usuario
-     */
-    void tramiteEnProgreso(SolicitudTramite solicitudSeleccionada) {
-        ventana.ventanaTramiteEnProgreso(solicitudSeleccionada);
-    }
-
-    /**
-     * Despliega la vista para un tramite rechazado
-     * 
-     * @param solicitudSeleccionada la solicitud seleccionada de la lista por el
-     *                              usuario
-     */
-    void tramiteRechazado(SolicitudTramite solicitudSeleccionada) {
-        ventana.ventanaTramiteRechazado(solicitudSeleccionada);
-    }
-
-    /**
-     * Despliega la vista para un tramite finalizado
-     * 
-     * @param solicitudSeleccionada la solicitud seleccionada de la lista por el
-     *                              usuario
-     */
-    void tramiteFinalizado(SolicitudTramite solicitudSeleccionada) {
-        ventana.ventanaTramiteFinalizado(solicitudSeleccionada);
-    }
-
-    /**
-     * Indica a la vista analizar que opción fue marcada para realizar la llamada
-     * correspondiete a
-     * aceptarDocumentos o rechazarDocumento
-     * 
-     * @param solicitudSeleccionada la solicitud seleccionada de la lista por el
-     *                              usuario
-     */
-    void procesarSolicitud(SolicitudTramite solicitudSeleccionada) {
-        ventana.procesarSolicitud(solicitudSeleccionada);
-    }
 
     /**
      * Comunica al servicio correspondiente que la solicitud debe actualizar su
      * estado a "En progreso"
-     * 
+     *
      * @param solicitudSeleccionada la solicitud seleccionada de la lista por el
      *                              usuario
      * @return la solicitud actualizada
      * @throws IllegalArgumentException
      */
-    SolicitudTramite aceptarDocumentos(SolicitudTramite solicitudSeleccionada) {
-        SolicitudTramite solicitudActualizada;
-        solicitudActualizada = servicioSolicitudTramite.aceptarDocumentos(solicitudSeleccionada);
-        return solicitudActualizada;
-    }
-
-    /**
-     * Indica a la vista que se confirmó el rechazo en el cuadro de diálogo y que
-     * debe hacer visibles los
-     * elementos que permiten elegir el motivo del rechazo
-     * 
-     * @param solicitudSeleccionada la solicitud seleccionada de la lista por el
-     *                              usuario
-     */
-    void confirmarRechazo(SolicitudTramite solicitudSeleccionada) {
-        ventana.confirmarRechazo(solicitudSeleccionada);
+    public void aceptarDocumentos(SolicitudTramite solicitudSeleccionada) {
+        if (!ventana.confirmarCambioEstado(Estado.EN_PROGRESO))
+            return;
+        var solicitudActualizada = servicioSolicitudTramite.aceptarDocumentos(solicitudSeleccionada);
+        ventana.actualizarTramiteEnLista(solicitudSeleccionada, solicitudActualizada);
     }
 
     /**
      * Comunica al servicio correspondiente que una solicitud debe actualizar su
      * estado a "Rechazada"
-     * 
+     *
      * @param solicitudSeleccionada la solicitud seleccionada de la lista por el
      *                              usuario
      * @param motivoRechazo         el motivo de rechazo seleccionado
-     * @throws IllegalArgumentException
-     * @return la solicitud actualizada
      */
-    SolicitudTramite rechazarDocumentos(SolicitudTramite solicitudSeleccionada, String motivoRechazo)
-            throws IllegalArgumentException {
-
-            return servicioSolicitudTramite.rechazarDocumentos(solicitudSeleccionada, motivoRechazo);
-
+    public void rechazarDocumentos(SolicitudTramite solicitudSeleccionada, String motivoRechazo) {
+        if (!ventana.confirmarCambioEstado(Estado.RECHAZADO))
+            return;
+        var solicitudActualizada = servicioSolicitudTramite.rechazarDocumentos(solicitudSeleccionada, motivoRechazo);
+        ventana.actualizarTramiteEnLista(solicitudSeleccionada, solicitudActualizada);
     }
 
     /**
      * Comunica al servicio correspondiente que un trámite debe ser marcado como
      * "Finalizado"
-     * 
+     *
      * @param solicitudSeleccionada    la solicitud seleccionada de la lista por el
      *                                 usuario
      * @param pathDocTramiteFinalizado la dirección del archivo de trámite a
      *                                 adjuntar
-     * @throws IOException
-     * @throws IllegalArgumentException
-     * @return la solicitud actualizada
      */
-    SolicitudTramite finalizarTramite(SolicitudTramite solicitudSeleccionada, Path pathDocTramiteFinalizado)
-            throws IOException, IllegalArgumentException {
+    public void finalizarTramite(SolicitudTramite solicitudSeleccionada, Path pathDocTramiteFinalizado) {
 
-        SolicitudTramite solicitudActualizada;
-        solicitudActualizada = servicioSolicitudTramite.finalizarTramite(solicitudSeleccionada,
-                    pathDocTramiteFinalizado);
+        if (!ventana.confirmarCambioEstado(Estado.FINALIZADO))
+            return;
 
-        return solicitudActualizada;
-
+        try {
+            var solicitudActualizada = servicioSolicitudTramite.finalizarTramite(solicitudSeleccionada, pathDocTramiteFinalizado);
+            ventana.actualizarTramiteEnLista(solicitudSeleccionada, solicitudActualizada);
+        } catch (IOException e) {
+            ventana.muestraDialogoErrorDocumento();
+        }
     }
 
     /**
