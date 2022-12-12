@@ -1,5 +1,6 @@
 package mx.uam.ayd.proyecto.negocio;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Date;
@@ -9,10 +10,13 @@ import java.util.Map;
 import lombok.NonNull;
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.*;
+import net.logicsquad.nanocaptcha.image.ImageCaptcha;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.uam.ayd.proyecto.datos.RepositorySolicitudTramite;
+
+import javax.imageio.ImageIO;
 
 /**
  * Servicio principal para el ControlProcesarTramites
@@ -191,10 +195,14 @@ public class ServicioSolicitudTramite {
      * @return Objeto de tipo Captcha que puede ser usado para mostrar una imagen con el captcha
      */
     public Captcha generarCaptcha(){
-//        var texto = org.javalite.activeweb.Captcha.generateText();
-//        var imagen = org.javalite.activeweb.Captcha.generateImage(texto);
-
-        return new Captcha("", new byte[0]);
+        var imageCaptcha = new ImageCaptcha.Builder(200, 50)
+                .addContent()
+                .addBackground()
+                .addBorder()
+                .addFilter()
+                .addNoise()
+                .build();
+        return new Captcha(imageCaptcha.getContent(), imageCaptcha.getImage());
     }
 
     /**
