@@ -14,12 +14,11 @@ public class Aviso {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idAviso;
 	
-	
-	
 	private String fecha;
 	
 	private String contenido;
 	
 	private String imagen;
 
+	private boolean destacado;
 }

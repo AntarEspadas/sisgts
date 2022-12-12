@@ -39,11 +39,16 @@ public class ControlAdministrarPublicaciones implements ControlAvisos {
             return;
         servicioAviso.eliminarPublicacion(aviso);
         var avisos = servicioAviso.recuperaTodos();
-        ventanaAvisos.setAvisos(avisos);
+        ventanaAvisos.setAvisos(avisos, true);
     }
 
     @Override
     public void crear() {
         controlEditarPublicacion.inicia(this, empleado, null);
+    }
+
+    @Override
+    public void marcarDestacado(Aviso aviso, boolean destacado) {
+        servicioAviso.marcarDestacado(aviso, destacado);
     }
 }
