@@ -49,7 +49,7 @@ class ServicioAvisoTest {
 		lista.add(aviso1);
 		lista.add(aviso2);
 
-		when(avisosRepository.findAll()).thenReturn(lista);
+		when(avisosRepository.findAllByOrderByDestacadoDesc()).thenReturn(lista);
 
 		avisos = servicioAviso.recuperaTodos();
 
