@@ -186,4 +186,26 @@ public class ServicioSolicitudTramite {
         return !tieneTramitesPendientes;
     }
 
+    /**
+     * Genera un captcha
+     * @return Objeto de tipo Captcha que puede ser usado para mostrar una imagen con el captcha
+     */
+    public Captcha generarCaptcha(){
+//        var texto = org.javalite.activeweb.Captcha.generateText();
+//        var imagen = org.javalite.activeweb.Captcha.generateImage(texto);
+
+        return new Captcha("", new byte[0]);
+    }
+
+    /**
+     * Verifica que el texto proporcionado coincida con el captcha
+     * @param captcha El captcha contra el cual se va a validar el texto
+     * @param texto El texto a validar
+     * @throws NullPointerException En caso de que alguno de los argumentos sea null
+     * @return true si el texto coincide con el captcha, false de lo contrario
+     */
+    public boolean validarCaptcha(@NonNull Captcha captcha, @NonNull String texto){
+        return captcha.getTexto().equals(texto);
+    }
+
 }

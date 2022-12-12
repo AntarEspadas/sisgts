@@ -222,6 +222,8 @@ public class ProyectoApplication {
 		agremiado.setClave("123456789");
 		agremiado.setNombre("Alan");
 		agremiado.setApellidos("Turing");
+		agremiado.setCorreo("turing@example.com");
+		agremiado.setContrasenia("1111");
 		var message1 = new Mensaje();
 		message1.setDestinatario(agremiado);
 		message1.setContenido("Documentos recibidos ");
