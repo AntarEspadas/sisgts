@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
 import mx.uam.ayd.proyecto.negocio.ServicioAgremiado;
 import mx.uam.ayd.proyecto.negocio.ServicioEmpleado;
+import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
+import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
+import mx.uam.ayd.proyecto.presentacion.administrador.ControlAdministrador;
 import mx.uam.ayd.proyecto.presentacion.agendar_cita.ControlAgendarCita;
 import mx.uam.ayd.proyecto.presentacion.publicaciones.consultar_avisos.ControlConsultarAvisos;
 import mx.uam.ayd.proyecto.presentacion.consultar_citas.ControlConsultarCitas;
@@ -17,6 +20,7 @@ import mx.uam.ayd.proyecto.presentacion.notificaciones.ControlNotificaciones;
 import mx.uam.ayd.proyecto.presentacion.login.ControlIniciaSesion;
 import mx.uam.ayd.proyecto.presentacion.procesar_tramites.ControlProcesarTramites;
 import mx.uam.ayd.proyecto.presentacion.solicitar_tramite.ControlSolicitarTramite;
+
 
 /**
  * Esta clase lleva el flujo de control de la ventana principal
@@ -69,6 +73,13 @@ public class ControlPrincipal {
 
 	@Autowired
 	private ServicioEmpleado servicioempleado;
+	
+    private Agremiado agremiado;
+	
+	private Empleado empleado;
+	
+	@Autowired
+	private ControlAdministrador controlAdministrador;
 
 	/**
 	 * Inicia el flujo de control de la ventana principal
@@ -121,6 +132,15 @@ public class ControlPrincipal {
 		else if (servicioempleado.getEmpleadoActual() != null)
 			controlAdministrarPublicaciones.inicia(servicioempleado.getEmpleadoActual());
 
+	}
+	
+	public void administrador(){
+		if(servicioempleado.getEmpleadoActual()!=null){
+			//String tipEmpleado = servicioempleado.getEmpleadoActual();
+		    //if(tipEmpleado.equals("administrador")){
+				controlAdministrador.inicia();
+		    //}	
+		}	
 	}
 
 	public void avisos() {

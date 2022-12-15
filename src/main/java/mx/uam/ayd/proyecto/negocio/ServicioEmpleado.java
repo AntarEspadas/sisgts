@@ -15,7 +15,7 @@ public class ServicioEmpleado {
 	@Autowired 
 	RepositoryEmpleado empleadoRepository;
 	
-	private Empleado empleado;
+	private Empleado empleado, Id;
 	
 	@Autowired 
 	private ServicioAgremiado servicioagremiado;
@@ -55,6 +55,22 @@ public class ServicioEmpleado {
         }
 
     }
+	
+	public boolean verificaIdEmpleado(long IdEmpleado) {
+		
+		Id=empleadoRepository.findById(IdEmpleado);
+		
+        if(empleadoRepository.findById(IdEmpleado)!=null) {
+        	
+            return true;
+            
+        }else {
+        	
+            return false;
+            
+        }
+		
+	}
 	
 	//SI HAY UN EMPLEADO CON SESION INICIADA, RECUPERA ESE AGREMIADO, SI NO REGRESA NULL
 	public Empleado getEmpleadoActual() {

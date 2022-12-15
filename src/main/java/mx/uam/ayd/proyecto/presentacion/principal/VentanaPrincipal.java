@@ -5,13 +5,16 @@ import javax.swing.border.EmptyBorder;
 
 import org.springframework.stereotype.Component;
 
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-
+//@SuppressWarnings("serial")
 @Component
 public class VentanaPrincipal extends JFrame {
 
@@ -48,9 +51,9 @@ public class VentanaPrincipal extends JFrame {
 		contentPane.add(panel, gbcPanel);
 		GridBagLayout gblPanel = new GridBagLayout();
 		gblPanel.columnWidths = new int[]{0, 0};
-		gblPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
+		gblPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
 		gblPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gblPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gblPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gblPanel);
 		
 		JButton btnInicio = new JButton("Inicio");
@@ -122,6 +125,18 @@ public class VentanaPrincipal extends JFrame {
 		gbcBtnNotificaciones.gridx = 0;
 		gbcBtnNotificaciones.gridy = 4;
 		panel.add(btnNotificaciones, gbcBtnNotificaciones);
+		
+		JButton btnAdministrador = new JButton("Administrador");
+		btnAdministrador.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				control.administrador();
+			}
+		});
+		GridBagConstraints gbc_btnAdministrador = new GridBagConstraints();
+		gbc_btnAdministrador.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnAdministrador.gridx = 0;
+		gbc_btnAdministrador.gridy = 5;
+		panel.add(btnAdministrador, gbc_btnAdministrador);
 		
 		gbcContenido = new GridBagConstraints();
 		gbcContenido.fill = GridBagConstraints.BOTH;
