@@ -9,13 +9,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.GridBagLayout;
 import javax.swing.JButton;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
 
 
 @Component
 public class VentanaAdministrador extends Pantalla{
-	 private ControlAdministrador controlador;
+	 private transient ControlAdministrador controlador;
 	 private JLabel lblNewLabel;
 	 private JLabel lblRegistrarAgremiado;
 	 private JLabel lblEditarEmpleado;

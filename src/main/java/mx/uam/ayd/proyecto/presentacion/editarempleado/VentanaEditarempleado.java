@@ -7,11 +7,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import lombok.extern.slf4j.Slf4j;
+import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import org.springframework.stereotype.Component;
 
 
 
-@SuppressWarnings("serial")
+@Slf4j
 @Component
 public class VentanaEditarempleado extends JFrame {
 	
@@ -39,58 +41,11 @@ public class VentanaEditarempleado extends JFrame {
 	public VentanaEditarempleado() {
 		
 		//CREA LA VENTANA
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(500,600);
 		setTitle("Editar Empleado");
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
-			
-		//CREACION DEL PANEL 1
-		contentPane1 = new JPanel();
-		contentPane1.setBounds(5, 80, 450, 500);//setBounds(100, 100, 292, 266);
-		//contentSig.setBorder(new EmptyBorder(5, 5, 5, 5));//ORIGINALMENTE SOLO ERA 5
-		//setContentPane(contentSig);
-		contentPane1.setLayout(null);
-		getContentPane().add(contentPane1);
-		contentPane1.setVisible(true);
-				
-		JLabel lblClav= new JLabel("Escriba el Id del empleado");
-		lblClav.setBounds(167, 117, 186, 16);
-		contentPane1.add(lblClav);
-						
-		//CUADRO DE TEXTO 
-		textFiedClav = new JTextField();
-		textFiedClav.setBounds(169, 145, 130, 26);
-		contentPane1.add(textFiedClav);
-		textFiedClav.setColumns(10);
-				
-		JButton btnCancelar1 = new JButton("Cancelar");
-		btnCancelar1.setBounds(52, 260, 89, 23);
-		contentPane1.add(btnCancelar1);
-		btnCancelar1.addActionListener(e -> control.termina());
-				
-		JButton btnAceptar1 = new JButton("Aceptar");
-		btnAceptar1.setBounds(315, 260, 89, 23);
-		contentPane1.add(btnAceptar1);
-		
-		btnAceptar1.addActionListener(e -> {
-			
-			if(e.getSource()==btnAceptar1) {
-				//VERIFICA QUE LOS CAMPOS NO ESTEN VACIOS Y SI ES ASI NO DEJA AVANZAR
-				if(textFieldClave.getText().equals("")) {
-				muestraDialogoConMensaje("Ningun campo debe estar vacio");
-			    }else {
-				//control.verificaIdEmpleado(.getText());
-				contentPane1.setVisible(false);
-				contentSig.setVisible(true);
-				//limpia();
 
-			}//FIN DEL ESE DE NINGUN CAMPO VACIO
-		}//FIN DEL IF BOTON SIGUIENTE
-
-		});//FIN DEL ACTION LISTENER				
-		
-			
 		//CREACION DEL PANEL 2 
 		contentSig = new JPanel();
 		contentSig.setBounds(5, 80, 450, 500);//setBounds(100, 100, 292, 266);
@@ -98,7 +53,7 @@ public class VentanaEditarempleado extends JFrame {
 		//setContentPane(contentPane);
 		contentSig.setLayout(null);
 		getContentPane().add(contentSig);
-		contentSig.setVisible(false);
+		contentSig.setVisible(true);
 				
 				
 		//CREACION DEL TITULO
@@ -136,6 +91,7 @@ public class VentanaEditarempleado extends JFrame {
 		textFieldNombre.setBounds(292, 48, 130, 26);
 		contentSig.add(textFieldNombre);
 		textFieldNombre.setColumns(10);
+
 				
 		textFieldApellido = new JTextField();
 		textFieldApellido.setBounds(92, 140, 130, 26);
@@ -183,17 +139,19 @@ public class VentanaEditarempleado extends JFrame {
 		contentSig.add(btnAceptar2);
 		
 	}
-	
+
 	//METODO QUE LIMPIA LAS CASILLAS
 	public void limpia() {		
 		//correo.setText("");
 		//contrasenia.setText("");
 	}//FIN DEL METODO QUE LIMPIA LAS CASILLAS
 
-	 public void muestra(ControlEditarempleado control){
+	 public void muestra(ControlEditarempleado control, Empleado empleado){
 			
 		this.control = control;
-			
+
+		empleado.getNombre();
+
 		setVisible(true);
 
 	}
@@ -201,4 +159,7 @@ public class VentanaEditarempleado extends JFrame {
 	public void muestraDialogoConMensaje(String mensaje ) {
 		JOptionPane.showMessageDialog(this , mensaje);
 	}
+	public void cierra() {
+		setVisible(false);	//DEJA DE MOSTRAR LA VENTANA
+	}//FIN DEL METODO TERMINA
 }
