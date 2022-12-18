@@ -1,22 +1,28 @@
-package mx.uam.ayd.proyecto.presentacion.editarempleado;
+package mx.uam.ayd.proyecto.presentacion.editaragremiado;
 
-import lombok.extern.slf4j.Slf4j;
-import org.hibernate.sql.JoinFragment;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 import org.springframework.stereotype.Component;
 
-import javax.swing.*;
+import lombok.extern.slf4j.Slf4j;
+import mx.uam.ayd.proyecto.presentacion.editarempleado.VentanaVerificaId;
 
 @Slf4j
 @Component
-public class VentanaVerificaId extends JFrame {
+public class VentanaVerificaClave extends JFrame {
 
-    private JTextField textFiedClav;
-    private ControlEditarempleado control;
+	private JTextField textFiedClav;
+    private ControlEditaragremiado control;
     private JPanel contentPane1;
-    public VentanaVerificaId() {
+    public VentanaVerificaClave() {
         //CREA LA VENTANA
         setSize(500, 600);
-        setTitle("Editar Empleado");
+        setTitle("Editar Agremiado");
         getContentPane().setLayout(null);
         setLocationRelativeTo(null);
 
@@ -28,7 +34,7 @@ public class VentanaVerificaId extends JFrame {
         contentPane1.setLayout(null);
         getContentPane().add(contentPane1);
         contentPane1.setVisible(true);
-        JLabel lblClav = new JLabel("Escriba el Id del empleado");
+        JLabel lblClav = new JLabel("Escriba la clave del empleado");
         lblClav.setBounds(167, 117, 186, 16);
         contentPane1.add(lblClav);
 
@@ -54,10 +60,9 @@ public class VentanaVerificaId extends JFrame {
                 if (textFiedClav.getText().equals("")) {
                     muestraDialogoConMensaje("Ningun campo debe estar vacio");
                 } else {
-                    long id = Long.parseLong(textFiedClav.getText());
-                    control.verificaIdEmpleado(id);
+                    String clave= textFiedClav.getText();
+                    control.verificaClave(clave);
                     limpia();
-
 
                 }//FIN DEL ESE DE NINGUN CAMPO VACIO
             }//FIN DEL IF BOTON SIGUIENTE
@@ -83,7 +88,7 @@ public class VentanaVerificaId extends JFrame {
         getContentPane().add(lblSub);//contentPane.add(lblSub);
 
     }
-    public void muestra(ControlEditarempleado control){
+    public void muestra(ControlEditaragremiado control){
 
         this.control = control;
 

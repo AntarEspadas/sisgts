@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
 
+
 @Service
 public class ServicioAgremiado {
 	@Autowired
@@ -42,6 +43,19 @@ public class ServicioAgremiado {
         }
 
     }
+	
+	
+	public boolean verificaClave(String clave) {
+
+		return agremiadoRepository.findByClave(clave)!=null;
+		
+	}
+
+	public Agremiado recuperaAgremiado(String clave){
+		return agremiadoRepository.findByClave(clave);
+	}
+	
+	
 	
 	//SI HAY UN AGREMIADO CON SESION INICIADA, RECUPERA ESE AGREMIADO, SI NO REGRESA NULL
 	public Agremiado getAgremiadoActual() {

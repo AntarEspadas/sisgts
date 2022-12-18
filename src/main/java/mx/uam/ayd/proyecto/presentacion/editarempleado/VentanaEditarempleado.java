@@ -133,6 +133,7 @@ public class VentanaEditarempleado extends JFrame {
 		JButton btnCancelar2 = new JButton("Cancelar ");
 		btnCancelar2.setBounds(49, 315, 89, 23);
 		contentSig.add(btnCancelar2);
+		btnCancelar2.addActionListener(e -> cierra());
 				
 		JButton btnAceptar2 = new JButton("Aceptar");
 		btnAceptar2.setBounds(317, 315, 89, 23);
@@ -152,6 +153,30 @@ public class VentanaEditarempleado extends JFrame {
 
 		empleado.getNombre();
 
+		String id=new String();
+		id=String.valueOf(empleado.getId());
+		textFieldClave.setText(id);
+		
+		String nombree=new String();
+		nombree=String.valueOf(empleado.getNombre());
+		textFieldNombre.setText(nombree);
+		
+		String apellido=new String();
+		apellido=String.valueOf(empleado.getApellidos());
+		textFieldApellido.setText(apellido);
+		
+		String correo=new String();
+		correo=String.valueOf(empleado.getCorreo());
+		textFieldCor.setText(correo);
+		
+		String contrasenia=new String();
+		contrasenia=String.valueOf(empleado.getContrasenia());
+		textFieldCon.setText(contrasenia);
+		
+		String templeado=new String();
+		templeado=String.valueOf(empleado.getTipoEmpleado());
+		textFieldTrab.setText(templeado);
+		
 		setVisible(true);
 
 	}

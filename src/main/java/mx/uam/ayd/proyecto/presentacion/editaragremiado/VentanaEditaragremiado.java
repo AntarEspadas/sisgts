@@ -7,6 +7,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.springframework.stereotype.Component;
+
+import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
+
 import javax.swing.JButton;
 
 
@@ -15,7 +18,7 @@ import javax.swing.JButton;
 @Component
 public class VentanaEditaragremiado extends JFrame {
 	
-	private JPanel contentPane1, contentSig;
+	private JPanel contentSig;
 	private ControlEditaragremiado control;
 	private JTextField textFieldNombre;
 	private JTextField textFieldApellido;
@@ -52,36 +55,6 @@ public class VentanaEditaragremiado extends JFrame {
 		getContentPane().setLayout(null);
 		setLocationRelativeTo(null);
 		
-		//CREACION DEL PANEL 1
-		contentPane1 = new JPanel();
-		contentPane1.setBounds(5, 80, 450, 500);//setBounds(100, 100, 292, 266);
-		//contentSig.setBorder(new EmptyBorder(5, 5, 5, 5));//ORIGINALMENTE SOLO ERA 5
-		//setContentPane(contentSig);
-		contentPane1.setLayout(null);
-		getContentPane().add(contentPane1);
-		contentPane1.setVisible(true);
-		
-		JLabel lblClav= new JLabel("Escriba la clave del agremiado");
-		lblClav.setBounds(167, 117, 186, 16);
-		contentPane1.add(lblClav);
-				
-		//CUADRO DE TEXTO 
-		textFiedClav = new JTextField();
-		textFiedClav.setBounds(169, 145, 130, 26);
-		contentPane1.add(textFiedClav);
-		textFiedClav.setColumns(10);
-		
-		JButton btnCancelar1 = new JButton("Cancelar");
-		btnCancelar1.setBounds(52, 260, 89, 23);
-		contentPane1.add(btnCancelar1);
-		
-		JButton btnAceptar1 = new JButton("Aceptar");
-		btnAceptar1.setBounds(315, 260, 89, 23);
-		contentPane1.add(btnAceptar1);
-				
-		
-		
-		
 		//CREACION DEL PANEL 2 
 		contentSig = new JPanel();
 		contentSig.setBounds(5, 80, 450, 500);//setBounds(100, 100, 292, 266);
@@ -89,7 +62,7 @@ public class VentanaEditaragremiado extends JFrame {
 		//setContentPane(contentPane);
 		contentSig.setLayout(null);
 		getContentPane().add(contentSig);
-		contentSig.setVisible(false);
+		contentSig.setVisible(true);
 		
 		
 		//CREACION DEL TITULO
@@ -231,15 +204,75 @@ public class VentanaEditaragremiado extends JFrame {
 		JButton btnCancelar2 = new JButton("Cancelar ");
 		btnCancelar2.setBounds(28, 315, 89, 23);
 		contentSig.add(btnCancelar2);
+		btnCancelar2.addActionListener(e -> cierra());
 		
 		JButton btnAceptar2 = new JButton("Aceptar");
 		btnAceptar2.setBounds(293, 315, 89, 23);
 		contentSig.add(btnAceptar2);
 		
 	}
-	 public void muestra(ControlEditaragremiado control){
+	
+	//METODO QUE LIMPIA LAS CASILLAS
+	public void limpia() {		
+		//correo.setText("");
+		//contrasenia.setText("");
+	}//FIN DEL METODO QUE LIMPIA LAS CASILLAS
+		
+	 public void muestra(ControlEditaragremiado control, Agremiado agremiado){
 			
 		this.control = control;
+		
+		String clave=new String();
+		clave=String.valueOf(agremiado.getClave());
+		textFieldClave.setText(clave);
+		
+		String nombree=new String();
+		nombree=String.valueOf(agremiado.getNombre());
+		textFieldNombre.setText(nombree);
+		
+		String apellido=new String();
+		apellido=String.valueOf(agremiado.getApellidos());
+		textFieldApellido.setText(apellido);
+		
+		String correo=new String();
+		correo=String.valueOf(agremiado.getCorreo());
+		textFieldCor.setText(correo);
+		
+		String contrasenia=new String();
+		contrasenia=String.valueOf(agremiado.getContrasenia());
+		textFieldCon.setText(contrasenia);
+		
+		String filiacion =new String();
+		filiacion=String.valueOf(agremiado.getFiliacion());
+		textFieldFiliacion.setText(filiacion);
+		
+		String adscripcion =new String();
+		adscripcion=String.valueOf(agremiado.getAdscripcion());
+		textFieldAds.setText(adscripcion);
+		
+		String puesto =new String();
+		puesto=String.valueOf(agremiado.getPuesto());
+		textFieldpue.setText(puesto);
+		
+		String turno =new String();
+		turno=String.valueOf(agremiado.getTurno());
+		textFieldTur.setText(turno);
+		
+		String domicilio =new String();
+		domicilio=String.valueOf(agremiado.getDomicilio());
+		textFieldDom.setText(domicilio);
+		
+		String celular =new String();
+		celular=String.valueOf(agremiado.getCelular());
+		textFieldCel.setText(celular);
+		
+		String telefono =new String();
+		telefono=String.valueOf(agremiado.getTelefono());
+		textFieldTel.setText(telefono);
+		
+		String cTrabajo =new String();
+		cTrabajo=String.valueOf(agremiado.getCentrotrabajo());
+		textFieldTrab.setText(cTrabajo);
 			
 		setVisible(true);
 
@@ -248,4 +281,8 @@ public class VentanaEditaragremiado extends JFrame {
 	public void muestraDialogoConMensaje(String mensaje ) {
 		JOptionPane.showMessageDialog(this , mensaje);
 	}
+	
+	public void cierra() {
+		setVisible(false);	//DEJA DE MOSTRAR LA VENTANA
+	}//FIN DEL METODO TERMINA
 }

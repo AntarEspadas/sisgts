@@ -52,6 +52,8 @@ public class Agremiado {
     private String correo;
     
     private String contrasenia;
+    
+    private String centrotrabajo;
 
     public List<Cita> getCitas(){
         return new ArrayList<>(this.citas);
