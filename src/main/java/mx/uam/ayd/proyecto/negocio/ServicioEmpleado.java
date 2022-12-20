@@ -3,10 +3,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 
 import mx.uam.ayd.proyecto.datos.RepositoryEmpleado;
+import mx.uam.ayd.proyecto.negocio.modelo.Aviso;
 import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 
 @Service
@@ -76,6 +78,20 @@ public class ServicioEmpleado {
 	public void logOut() {
 		
 		empleado=null;
+	}
+	
+	public boolean editaempleado(long id, String nombre, String apelidos, String tipoempleado, String correo, String contrasenia, @Nullable Empleado empleado) {
+		empleado=empleadoRepository.findById(id);
+		empleado.setId(id);
+		empleado.setNombre(nombre);		
+		empleado.setApellidos(apelidos);
+		empleado.setTipoEmpleado(tipoempleado);
+		empleado.setCorreo(correo);
+		empleado.setContrasenia(contrasenia);
+		
+		empleado=empleadoRepository.save(empleado);
+		return true;
+		
 	}
 	
 }

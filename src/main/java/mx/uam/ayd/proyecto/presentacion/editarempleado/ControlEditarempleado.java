@@ -18,6 +18,8 @@ public class ControlEditarempleado {
 	@Autowired
 	private ServicioEmpleado servicioEmpleado;
 	
+	private Empleado empleado;
+	
 	//METODO INICIO
 	public void inicia() {
 
@@ -36,6 +38,14 @@ public class ControlEditarempleado {
 		}else{
 			ventana.muestraDialogoConMensaje("El Id del empleado no existe");
 		}
+	}
+	
+	public void editaempleado(long id, String nombre, String apellidos, String tipoempleado, String correo, String contrasenia) {
+		if(servicioEmpleado.editaempleado(id, nombre, apellidos, tipoempleado, correo, contrasenia, empleado)) {
+			ventana.muestraDialogoConMensaje("Se ha editado correctamente");
+			ventana.cierra();
+		}
+		
 	}
 
 

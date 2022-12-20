@@ -139,12 +139,33 @@ public class VentanaEditarempleado extends JFrame {
 		btnAceptar2.setBounds(317, 315, 89, 23);
 		contentSig.add(btnAceptar2);
 		
+		btnAceptar2.addActionListener(e -> {
+					
+			if(e.getSource()==btnAceptar2) {
+				//VERIFICA QUE LOS CAMPOS NO ESTEN VACIOS Y SI ES ASI NO DEJA AVANZAR
+				if(textFieldNombre.getText().equals("") || textFieldApellido.getText().equals("")|| textFieldClave.getText().equals("") || textFieldCor.getText().equals("") || textFieldCon.getText().equals("") || textFieldCon.getText().equals("")) {
+					muestraDialogoConMensaje("Ningun campo debe estar vacio");
+				}else {
+					long id = Long.parseLong(textFieldClave.getText());
+					control.editaempleado(id, textFieldNombre.getText(), textFieldApellido.getText(), textFieldCor.getText(), textFieldCon.getText(), textFieldTrab.getText());
+					contentSig.setVisible(true);
+					limpia();
+
+				}//FIN DEL ESE DE NINGUN CAMPO VACIO
+			}//FIN DEL IF BOTON SIGUIENTE
+		});//FIN DEL ACTION LISTENER
+		
+		
 	}
 
 	//METODO QUE LIMPIA LAS CASILLAS
-	public void limpia() {		
-		//correo.setText("");
-		//contrasenia.setText("");
+	public void limpia() {	
+		textFieldNombre.setText("");
+		textFieldApellido.setText("");
+		textFieldClave.setText("");
+		textFieldTrab.setText("");
+		textFieldCor.setText("");
+		textFieldCon.setText("");
 	}//FIN DEL METODO QUE LIMPIA LAS CASILLAS
 
 	 public void muestra(ControlEditarempleado control, Empleado empleado){

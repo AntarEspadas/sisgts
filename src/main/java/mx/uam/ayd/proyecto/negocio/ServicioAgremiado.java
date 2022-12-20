@@ -2,10 +2,12 @@ package mx.uam.ayd.proyecto.negocio;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
+import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 
 
 @Service
@@ -66,6 +68,28 @@ public class ServicioAgremiado {
 	 * NULL HASTA QUE UN AGREMIADO VUELVA A INICIAR SESION*/
 	public void logOut() {
 		agremiado=null;
+	}
+	
+	
+	public boolean editaagremiado(String nombre, String apellidos, String clave, String filiacion, String adscripcion, String puesto, String turno, String domicilio, String telefono, String celular, String correo, String contrasenia, String trabajo, @Nullable Agremiado agremiado) {
+		agremiado=agremiadoRepository.findByClave(clave);
+		agremiado.setNombre(nombre);
+		agremiado.setApellidos(apellidos);
+		agremiado.setClave(clave);
+		agremiado.setFiliacion(filiacion);
+		agremiado.setAdscripcion(adscripcion);
+		agremiado.setPuesto(puesto);
+		agremiado.setTurno(turno);
+		agremiado.setDomicilio(domicilio);
+		agremiado.setTelefono(telefono);
+		agremiado.setCelular(celular);
+		agremiado.setCorreo(correo);
+		agremiado.setContrasenia(contrasenia);
+		agremiado.setCentrotrabajo(trabajo);
+		
+		agremiado=agremiadoRepository.save(agremiado);
+		return true;
+		
 	}
 	
 }

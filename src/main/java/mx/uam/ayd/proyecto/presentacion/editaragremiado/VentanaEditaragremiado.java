@@ -24,17 +24,6 @@ public class VentanaEditaragremiado extends JFrame {
 	private JTextField textFieldApellido;
 	private JTextField textFieldClave;
 	private JTextField textFieldFiliacion;
-	private JTextField textFieldAdscripcion;
-	private JTextField textFieldPuesto;
-	private JTextField textFieldDomicilio;
-	private JTextField textFieldTurno;
-	private JTextField textFieldCelular;
-	private JTextField textFieldTelefono;
-	private JTextField textFieldCentrodetrabajo;
-	private JTextField textFieldContrasenia;
-	private JTextField textFieldCorreo;
-	private JTextField textFieldConfiCorreo;
-	private JTextField textFieldConfiContrasenia;
 	private JTextField textFieldAds;
 	private JTextField textFieldpue;
 	private JTextField textFieldDom;
@@ -209,13 +198,39 @@ public class VentanaEditaragremiado extends JFrame {
 		JButton btnAceptar2 = new JButton("Aceptar");
 		btnAceptar2.setBounds(293, 315, 89, 23);
 		contentSig.add(btnAceptar2);
+		btnAceptar2.addActionListener(e -> {
+			
+			if(e.getSource()==btnAceptar2) {
+				//VERIFICA QUE LOS CAMPOS NO ESTEN VACIOS Y SI ES ASI NO DEJA AVANZAR
+				if(textFieldNombre.getText().equals("") || textFieldApellido.getText().equals("")|| textFieldClave.getText().equals("") || textFieldFiliacion.getText().equals("") || textFieldAds.getText().equals("") || textFieldpue.getText().equals("") || textFieldDom.getText().equals("") || textFieldTur.getText().equals("") || textFieldTel.getText().equals("") || textFieldCel.getText().equals("")|| textFieldCor.getText().equals("") || textFieldCon.getText().equals("") || textFieldTrab.getText().equals("")) {
+					muestraDialogoConMensaje("Ningun campo debe estar vacio");
+				}else {
+					control.editaagremiado(textFieldNombre.getText(), textFieldApellido.getText(), textFieldClave.getText(), textFieldFiliacion.getText(), textFieldAds.getText(), textFieldpue.getText(), textFieldDom.getText(), textFieldTur.getText(), textFieldTel.getText(), textFieldCel.getText(), textFieldCor.getText(), textFieldCon.getText(), textFieldTrab.getText());
+					contentSig.setVisible(true);
+					limpia();
+
+				}//FIN DEL ESE DE NINGUN CAMPO VACIO
+			}//FIN DEL IF BOTON SIGUIENTE
+		});//FIN DEL ACTION LISTENER
 		
 	}
 	
 	//METODO QUE LIMPIA LAS CASILLAS
-	public void limpia() {		
-		//correo.setText("");
-		//contrasenia.setText("");
+	public void limpia() {	
+		textFieldNombre.setText("");
+		textFieldApellido.setText("");
+		textFieldClave.setText("");
+		textFieldFiliacion.setText("");
+		textFieldAds.setText("");
+		textFieldpue.setText("");
+		textFieldDom.setText("");
+		textFieldTur.setText("");
+		textFieldCel.setText("");
+		textFieldTel.setText("");
+		textFieldCor.setText("");
+		textFieldCon.setText("");
+		textFieldTrab.setText("");
+		
 	}//FIN DEL METODO QUE LIMPIA LAS CASILLAS
 		
 	 public void muestra(ControlEditaragremiado control, Agremiado agremiado){

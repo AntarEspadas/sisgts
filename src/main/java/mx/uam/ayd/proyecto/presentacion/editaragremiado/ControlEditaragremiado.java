@@ -19,6 +19,8 @@ public class ControlEditaragremiado {
 	@Autowired
 	private VentanaVerificaClave ventanaClave;
 	
+	private Agremiado agremiado;
+	
 	//METODO INICIO
 	public void inicia() {
 
@@ -39,6 +41,16 @@ public class ControlEditaragremiado {
 			ventana.muestraDialogoConMensaje("La clave del agremiado no existe");
 		}
 	}
+	
+	
+	public void editaagremiado(String nombre, String apellidos, String clave, String filiacion, String adscripcion, String puesto, String turno, String domicilio, String telefono, String celular, String correo, String contrasenia, String trabajo) {
+		if(servicioAgremiado.editaagremiado(nombre, apellidos, clave, filiacion, adscripcion, puesto, turno, domicilio, telefono, celular, correo, contrasenia,  trabajo, agremiado)) {
+			ventana.muestraDialogoConMensaje("Se ha editado correctamente");
+			ventana.cierra();
+		}
+		
+	}
+	
 	
 	//METODO TERMINA
 	public void termina() {
