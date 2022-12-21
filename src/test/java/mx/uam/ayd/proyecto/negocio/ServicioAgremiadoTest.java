@@ -9,6 +9,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
+import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -61,5 +63,50 @@ class ServicioAgremiadoTest {
 		assertTrue(resultado2);
 		
 	}
+	
+	
+	@Test
+	void testVerificaClave() {
+		
+		// Caso 1: Si la clave existe regresa true
+		Agremiado agremiado = new Agremiado();
+		agremiado.setClave("XDXD");
+		when(repositoryagremiado.findByClave("XDXD")).thenReturn(agremiado);
+		boolean resultado=servicio.verificaClave("XDXD")==true;
+		assertTrue(resultado);
+		
+		
+		// Caso 2: Si la clave no existe regresa false
+		Agremiado agremiado1 = new Agremiado();
+		agremiado1.setClave("XD");
+		boolean resultado1=servicio.verificaClave("XD")==false;
+		assertTrue(resultado1);
+	}
+	
+	@Test
+	void testeditaAgremiado() {
+		//Se editan los datos del agremiado que ya existe y debe regresar true
+		
+		Agremiado agremiado = new Agremiado();
+		agremiado.setNombre("Enrique");
+		agremiado.setApellidos("Hernandes");
+		agremiado.setClave("A1234");
+		agremiado.setFiliacion("Fil");
+		agremiado.setAdscripcion("Ads");
+		agremiado.setPuesto("Administrador");
+		agremiado.setDomicilio("Sur 1");
+		agremiado.setTurno("Completo");
+		agremiado.setTelefono("5566");
+		agremiado.setCelular("556677");
+		agremiado.setCorreo("Correo");
+		agremiado.setContrasenia("12345");
+		agremiado.setCentrotrabajo("Central");
+		
+        when(repositoryagremiado.findByClave("A1234")).thenReturn(agremiado);
+		
+		boolean resultado1=servicio.editaAgremiado("Enrique", "Hernandez", "A1234", "Filiacion","Administrador", "Adscripcion", "Sur 2", "Matutino","6655", "776655", "NuevoCorreo", "1234", "Norte", agremiado)==true;
+		assertTrue(resultado1);
+	}
+		
 
 }

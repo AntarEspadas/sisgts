@@ -33,7 +33,6 @@ public class VentanaEditaragremiado extends JFrame {
 	private JTextField textFieldCor;
 	private JTextField textFieldCon;
 	private JTextField textFieldTrab;
-	private JTextField textFiedClav;
 	
 	public VentanaEditaragremiado() {
 		
@@ -101,6 +100,7 @@ public class VentanaEditaragremiado extends JFrame {
 		
 		textFieldClave = new JTextField();
 		textFieldClave.setBounds(92, 74, 130, 26);
+		textFieldClave.setEditable(false);
 		contentSig.add(textFieldClave);
 		textFieldClave.setColumns(10);
 		
@@ -190,11 +190,14 @@ public class VentanaEditaragremiado extends JFrame {
 		textFieldTrab.setBounds(118, 262, 130, 26);
 		contentSig.add(textFieldTrab);
 		
+		//Boton cancelar cierra la ventana de editar agremiado
 		JButton btnCancelar2 = new JButton("Cancelar ");
 		btnCancelar2.setBounds(28, 315, 89, 23);
 		contentSig.add(btnCancelar2);
 		btnCancelar2.addActionListener(e -> cierra());
+		//Fin del metodo cancelar
 		
+		//Boton aceptar permite editar los datos del agremiado
 		JButton btnAceptar2 = new JButton("Aceptar");
 		btnAceptar2.setBounds(293, 315, 89, 23);
 		contentSig.add(btnAceptar2);
@@ -205,7 +208,7 @@ public class VentanaEditaragremiado extends JFrame {
 				if(textFieldNombre.getText().equals("") || textFieldApellido.getText().equals("")|| textFieldClave.getText().equals("") || textFieldFiliacion.getText().equals("") || textFieldAds.getText().equals("") || textFieldpue.getText().equals("") || textFieldDom.getText().equals("") || textFieldTur.getText().equals("") || textFieldTel.getText().equals("") || textFieldCel.getText().equals("")|| textFieldCor.getText().equals("") || textFieldCon.getText().equals("") || textFieldTrab.getText().equals("")) {
 					muestraDialogoConMensaje("Ningun campo debe estar vacio");
 				}else {
-					control.editaagremiado(textFieldNombre.getText(), textFieldApellido.getText(), textFieldClave.getText(), textFieldFiliacion.getText(), textFieldAds.getText(), textFieldpue.getText(), textFieldDom.getText(), textFieldTur.getText(), textFieldTel.getText(), textFieldCel.getText(), textFieldCor.getText(), textFieldCon.getText(), textFieldTrab.getText());
+					control.editaAgremiado(textFieldNombre.getText(), textFieldApellido.getText(), textFieldClave.getText(), textFieldFiliacion.getText(), textFieldAds.getText(), textFieldpue.getText(), textFieldDom.getText(), textFieldTur.getText(), textFieldTel.getText(), textFieldCel.getText(), textFieldCor.getText(), textFieldCon.getText(), textFieldTrab.getText());
 					contentSig.setVisible(true);
 					limpia();
 

@@ -58,15 +58,17 @@ public class ServicioEmpleado {
 
     }
 	
+	//Metodo que verifica si el Id del empleado existe 
 	public boolean verificaIdEmpleado(long idEmpleado) {
 
 		return empleadoRepository.findById(idEmpleado)!=null;
 		
-	}
+	}//Fin del metodo verifica Id empleado
 
+	//Metodo recupera empleado recupera a un empleado exitente en la base de datos
 	public Empleado recuperaEmpleado(long idEmpleado){
 		return empleadoRepository.findById(idEmpleado);
-	}
+	}//Fin del metodo recupera empelado
 	
 	//SI HAY UN EMPLEADO CON SESION INICIADA, RECUPERA ESE AGREMIADO, SI NO REGRESA NULL
 	public Empleado getEmpleadoActual() {
@@ -80,18 +82,18 @@ public class ServicioEmpleado {
 		empleado=null;
 	}
 	
-	public boolean editaempleado(long id, String nombre, String apelidos, String tipoempleado, String correo, String contrasenia, @Nullable Empleado empleado) {
+	//Metodo edita empleado perimte editar los datos de un empelado existente regresando true 
+	public boolean editaEmpleado(long id, String nombre, String apelidos, String correo, String contrasenia, String tipoempleado, @Nullable Empleado empleado) {
 		empleado=empleadoRepository.findById(id);
 		empleado.setId(id);
 		empleado.setNombre(nombre);		
 		empleado.setApellidos(apelidos);
-		empleado.setTipoEmpleado(tipoempleado);
 		empleado.setCorreo(correo);
 		empleado.setContrasenia(contrasenia);
-		
+		empleado.setTipoEmpleado(tipoempleado);
 		empleado=empleadoRepository.save(empleado);
 		return true;
 		
-	}
+	}//Fin del metodo edita empleado
 	
 }

@@ -34,7 +34,7 @@ public class VentanaVerificaClave extends JFrame {
         contentPane1.setLayout(null);
         getContentPane().add(contentPane1);
         contentPane1.setVisible(true);
-        JLabel lblClav = new JLabel("Escriba la clave del empleado");
+        JLabel lblClav = new JLabel("Escriba la clave del agremiado");
         lblClav.setBounds(167, 117, 186, 16);
         contentPane1.add(lblClav);
 

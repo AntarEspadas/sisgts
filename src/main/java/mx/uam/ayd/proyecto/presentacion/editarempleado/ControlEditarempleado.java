@@ -27,6 +27,8 @@ public class ControlEditarempleado {
 				 
 	}
 	
+	//Metodo que verifica si existe el id del empleado, en caso de existir muestra una ventana y muestra los datos del empleado
+	//si no exite no deja avanzar a la otra ventana 
 	public void verificaIdEmpleado(long idEmpleado) {
 		boolean exito = servicioEmpleado.verificaIdEmpleado(idEmpleado);
 		Empleado empleado=servicioEmpleado.recuperaEmpleado(idEmpleado);
@@ -38,15 +40,17 @@ public class ControlEditarempleado {
 		}else{
 			ventana.muestraDialogoConMensaje("El Id del empleado no existe");
 		}
-	}
+	}//Fin del metodo verifica id empleado
 	
-	public void editaempleado(long id, String nombre, String apellidos, String tipoempleado, String correo, String contrasenia) {
-		if(servicioEmpleado.editaempleado(id, nombre, apellidos, tipoempleado, correo, contrasenia, empleado)) {
+	
+	//Metodo edita empleado permite editar los datos de un usuario existente y regresa true
+	public void editaEmpleado(long id, String nombre, String apellidos,  String correo, String contrasenia, String tipoempleado) {
+		if(servicioEmpleado.editaEmpleado(id, nombre, apellidos, correo, contrasenia, tipoempleado, empleado)) {
 			ventana.muestraDialogoConMensaje("Se ha editado correctamente");
 			ventana.cierra();
 		}
 		
-	}
+	}//Fin del metodo edita empleado
 
 
 	

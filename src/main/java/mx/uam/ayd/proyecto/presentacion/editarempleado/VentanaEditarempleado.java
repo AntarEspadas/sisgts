@@ -18,25 +18,13 @@ import org.springframework.stereotype.Component;
 public class VentanaEditarempleado extends JFrame {
 	
 	private ControlEditarempleado control;
-	private JPanel contentPane1, contentSig;
+	private JPanel contentSig;
 	private JTextField textFieldNombre;
 	private JTextField textFieldApellido;
 	private JTextField textFieldClave;
-	private JTextField textFieldAdscripcion;
-	private JTextField textFieldPuesto;
-	private JTextField textFieldDomicilio;
-	private JTextField textFieldTurno;
-	private JTextField textFieldCelular;
-	private JTextField textFieldTelefono;
-	private JTextField textFieldCentrodetrabajo;
-	private JTextField textFieldContrasenia;
-	private JTextField textFieldCorreo;
-	private JTextField textFieldConfiCorreo;
-	private JTextField textFieldConfiContrasenia;
 	private JTextField textFieldCor;
 	private JTextField textFieldCon;
 	private JTextField textFieldTrab;
-	private JTextField textFiedClav;
 	
 	public VentanaEditarempleado() {
 		
@@ -100,6 +88,7 @@ public class VentanaEditarempleado extends JFrame {
 				
 		textFieldClave = new JTextField();
 		textFieldClave.setBounds(92, 48, 130, 26);
+		textFieldClave.setEditable(false);
 		contentSig.add(textFieldClave);
 		textFieldClave.setColumns(10);
 				
@@ -130,11 +119,14 @@ public class VentanaEditarempleado extends JFrame {
 		textFieldTrab.setBounds(292, 140, 130, 26);
 		contentSig.add(textFieldTrab);
 				
+		//Boton cancelar permite cerrar la ventana de editar empleado
 		JButton btnCancelar2 = new JButton("Cancelar ");
 		btnCancelar2.setBounds(49, 315, 89, 23);
 		contentSig.add(btnCancelar2);
 		btnCancelar2.addActionListener(e -> cierra());
-				
+		//Fin del boton cierra		
+		
+		//El boton editar permite editar los datos de los empleados
 		JButton btnAceptar2 = new JButton("Aceptar");
 		btnAceptar2.setBounds(317, 315, 89, 23);
 		contentSig.add(btnAceptar2);
@@ -147,7 +139,7 @@ public class VentanaEditarempleado extends JFrame {
 					muestraDialogoConMensaje("Ningun campo debe estar vacio");
 				}else {
 					long id = Long.parseLong(textFieldClave.getText());
-					control.editaempleado(id, textFieldNombre.getText(), textFieldApellido.getText(), textFieldCor.getText(), textFieldCon.getText(), textFieldTrab.getText());
+					control.editaEmpleado(id, textFieldNombre.getText(), textFieldApellido.getText(), textFieldCor.getText(), textFieldCon.getText(), textFieldTrab.getText());
 					contentSig.setVisible(true);
 					limpia();
 

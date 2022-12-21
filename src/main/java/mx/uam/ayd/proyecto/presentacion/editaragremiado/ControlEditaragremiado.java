@@ -28,7 +28,8 @@ public class ControlEditaragremiado {
 			
 	}
 	
-	
+	//Metodo verifica clave verifica que la clave del agremiado exista y si es asi muestra la ventana editar agremiado y muestra sus datos
+	//en caso de no existir no debe mostrar la ventana editar agremiado y tiene que avisar que el agremiado no existe
 	public void verificaClave(String clave) {
 		boolean exito = servicioAgremiado.verificaClave(clave);
 		Agremiado agremiado=servicioAgremiado.recuperaAgremiado(clave);
@@ -40,16 +41,16 @@ public class ControlEditaragremiado {
 		}else{
 			ventana.muestraDialogoConMensaje("La clave del agremiado no existe");
 		}
-	}
+	}//Fin del metodo verifica Clave
 	
-	
-	public void editaagremiado(String nombre, String apellidos, String clave, String filiacion, String adscripcion, String puesto, String turno, String domicilio, String telefono, String celular, String correo, String contrasenia, String trabajo) {
-		if(servicioAgremiado.editaagremiado(nombre, apellidos, clave, filiacion, adscripcion, puesto, turno, domicilio, telefono, celular, correo, contrasenia,  trabajo, agremiado)) {
+	//Metodo editar agremiado permite editar informacion del agremiado ya existente y regresa true 
+	public void editaAgremiado(String nombre, String apellidos, String clave, String filiacion, String adscripcion, String puesto, String domicilio, String turno, String telefono, String celular, String correo, String contrasenia, String trabajo) {
+		if(servicioAgremiado.editaAgremiado(nombre, apellidos, clave, filiacion, adscripcion, puesto, domicilio, turno, telefono, celular, correo, contrasenia,  trabajo, agremiado)) {
 			ventana.muestraDialogoConMensaje("Se ha editado correctamente");
 			ventana.cierra();
 		}
 		
-	}
+	}//Fin del metodo editar agremiado
 	
 	
 	//METODO TERMINA

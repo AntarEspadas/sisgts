@@ -46,16 +46,17 @@ public class ServicioAgremiado {
 
     }
 	
-	
+	//Verifica si la clave del agremiado existe
 	public boolean verificaClave(String clave) {
 
 		return agremiadoRepository.findByClave(clave)!=null;
 		
-	}
+	}//Fin del metodo verifica clave
 
+	//Recupera al agremiado de la base de datos ingresando la clave
 	public Agremiado recuperaAgremiado(String clave){
 		return agremiadoRepository.findByClave(clave);
-	}
+	}//Fin del recupera agremiado
 	
 	
 	
@@ -70,8 +71,8 @@ public class ServicioAgremiado {
 		agremiado=null;
 	}
 	
-	
-	public boolean editaagremiado(String nombre, String apellidos, String clave, String filiacion, String adscripcion, String puesto, String turno, String domicilio, String telefono, String celular, String correo, String contrasenia, String trabajo, @Nullable Agremiado agremiado) {
+	//Metodo que permite editar los datoa de un empleado existente en la base de datos y guarda los nuevos datos, si la operacion es exitosa regresa true
+	public boolean editaAgremiado(String nombre, String apellidos, String clave, String filiacion, String adscripcion, String puesto, String domicilio, String turno, String telefono, String celular, String correo, String contrasenia, String trabajo, @Nullable Agremiado agremiado) {
 		agremiado=agremiadoRepository.findByClave(clave);
 		agremiado.setNombre(nombre);
 		agremiado.setApellidos(apellidos);
@@ -79,8 +80,8 @@ public class ServicioAgremiado {
 		agremiado.setFiliacion(filiacion);
 		agremiado.setAdscripcion(adscripcion);
 		agremiado.setPuesto(puesto);
-		agremiado.setTurno(turno);
 		agremiado.setDomicilio(domicilio);
+		agremiado.setTurno(turno);
 		agremiado.setTelefono(telefono);
 		agremiado.setCelular(celular);
 		agremiado.setCorreo(correo);
@@ -90,6 +91,6 @@ public class ServicioAgremiado {
 		agremiado=agremiadoRepository.save(agremiado);
 		return true;
 		
-	}
+	}//Fin del metodo editar
 	
 }
