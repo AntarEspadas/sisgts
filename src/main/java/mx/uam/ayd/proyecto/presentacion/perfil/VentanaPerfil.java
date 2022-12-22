@@ -15,7 +15,6 @@ import mx.uam.ayd.proyecto.presentacion.compartido.Pantalla;
 @Component
 public class VentanaPerfil extends Pantalla {
 
-    private transient controlPerfil controlador;
     
     private JLabel lblNombre = new JLabel();
     private JLabel lblCorreo = new JLabel();
