@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 
 import mx.uam.ayd.proyecto.datos.RepositoryEmpleado;
-import mx.uam.ayd.proyecto.negocio.modelo.Aviso;
 import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 
 @Service
@@ -82,7 +81,11 @@ public class ServicioEmpleado {
 		empleado=null;
 	}
 	
-	//Metodo edita empleado perimte editar los datos de un empelado existente regresando true 
+	//Metodo edita empleado perimte editar los datos de un empelado existente regresando true
+	//Recibe como parametros los datos del empleado como lo son el id el cual es long, nombre, apellido, correo, contraseña y tipo de empleado
+	//Llama al metodo de findbyid para traer al empleado el cual se va a editar
+	//Los parametros que se le pasaron se van a modificar con el set y despues de ello se guardaran los nuevos datos
+	//Si se llenan todos los datos correctamente el metodo regresa true
 	public boolean editaEmpleado(long id, String nombre, String apelidos, String correo, String contrasenia, String tipoempleado, @Nullable Empleado empleado) {
 		empleado=empleadoRepository.findById(id);
 		empleado.setId(id);

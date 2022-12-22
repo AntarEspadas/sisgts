@@ -132,11 +132,11 @@ public class VentanaPrincipal extends JFrame {
 				control.administrador();
 			}
 		});
-		GridBagConstraints gbc_btnAdministrador = new GridBagConstraints();
-		gbc_btnAdministrador.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnAdministrador.gridx = 0;
-		gbc_btnAdministrador.gridy = 5;
-		panel.add(btnAdministrador, gbc_btnAdministrador);
+		GridBagConstraints gbcBtnAdmin = new GridBagConstraints();
+		gbcBtnAdmin.fill = GridBagConstraints.HORIZONTAL;
+		gbcBtnAdmin.gridx = 0;
+		gbcBtnAdmin.gridy = 5;
+		panel.add(btnAdministrador, gbcBtnAdmin);
 		
 		gbcContenido = new GridBagConstraints();
 		gbcContenido.fill = GridBagConstraints.BOTH;

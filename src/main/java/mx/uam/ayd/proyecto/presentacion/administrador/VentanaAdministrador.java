@@ -30,42 +30,43 @@ public class VentanaAdministrador extends Pantalla{
 		   JButton btnRegistrarEmpleado = new JButton("Registrar Empleado");
 		   btnRegistrarEmpleado.addActionListener(new ActionListener() {
 			   public void actionPerformed(ActionEvent e) {
+				   System.out.println("Estoy en el bototn Registra empleado");
 			   }
 			});
 									
 		   lblNewLabel = new JLabel("Registrar Empleado");
-		   GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		   gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		   gbc_lblNewLabel.gridx = 2;
-		   gbc_lblNewLabel.gridy = 1;
-		   add(lblNewLabel, gbc_lblNewLabel);
+		   GridBagConstraints gbclblNewLabel = new GridBagConstraints();
+		   gbclblNewLabel.insets = new Insets(0, 0, 5, 5);
+		   gbclblNewLabel.gridx = 2;
+		   gbclblNewLabel.gridy = 1;
+		   add(lblNewLabel, gbclblNewLabel);
 									
 		   lblRegistrarAgremiado = new JLabel("Registrar Agremiado");
-		   GridBagConstraints gbc_lblRegistrarAgremiado = new GridBagConstraints();
-		   gbc_lblRegistrarAgremiado.insets = new Insets(0, 0, 5, 5);
-		   gbc_lblRegistrarAgremiado.gridx = 6;
-		   gbc_lblRegistrarAgremiado.gridy = 1;
-		   add(lblRegistrarAgremiado, gbc_lblRegistrarAgremiado);
-		   GridBagConstraints gbc_btnRegistrarEmpleado = new GridBagConstraints();
-		   gbc_btnRegistrarEmpleado.insets = new Insets(0, 0, 5, 5);
-		   gbc_btnRegistrarEmpleado.gridx = 2;
-		   gbc_btnRegistrarEmpleado.gridy = 3;
-		   add(btnRegistrarEmpleado, gbc_btnRegistrarEmpleado);
+		   GridBagConstraints gbclblRegistrarAgremiado = new GridBagConstraints();
+		   gbclblRegistrarAgremiado.insets = new Insets(0, 0, 5, 5);
+		   gbclblRegistrarAgremiado.gridx = 6;
+		   gbclblRegistrarAgremiado.gridy = 1;
+		   add(lblRegistrarAgremiado, gbclblRegistrarAgremiado);
+		   GridBagConstraints gbcbtnRegistrarEmpleado = new GridBagConstraints();
+		   gbcbtnRegistrarEmpleado.insets = new Insets(0, 0, 5, 5);
+		   gbcbtnRegistrarEmpleado.gridx = 2;
+		   gbcbtnRegistrarEmpleado.gridy = 3;
+		   add(btnRegistrarEmpleado, gbcbtnRegistrarEmpleado);
 						
 									
 		   JButton btnRegistrarAgremiado = new JButton("Registrar Agremiado");
-		   GridBagConstraints gbc_btnRegistrarAgremiado = new GridBagConstraints();
-		   gbc_btnRegistrarAgremiado.insets = new Insets(0, 0, 5, 5);
-		   gbc_btnRegistrarAgremiado.gridx = 6;
-		   gbc_btnRegistrarAgremiado.gridy = 3;
-		   add(btnRegistrarAgremiado, gbc_btnRegistrarAgremiado);
+		   GridBagConstraints gbcbtnRegistrarAgremiado = new GridBagConstraints();
+		   gbcbtnRegistrarAgremiado.insets = new Insets(0, 0, 5, 5);
+		   gbcbtnRegistrarAgremiado.gridx = 6;
+		   gbcbtnRegistrarAgremiado.gridy = 3;
+		   add(btnRegistrarAgremiado, gbcbtnRegistrarAgremiado);
 						
 		   lblEditarEmpleado = new JLabel("Editar Empleado");
-		   GridBagConstraints gbc_lblEditarEmpleado = new GridBagConstraints();
-		   gbc_lblEditarEmpleado.insets = new Insets(0, 0, 5, 5);
-		   gbc_lblEditarEmpleado.gridx = 2;
-		   gbc_lblEditarEmpleado.gridy = 7;
-		   add(lblEditarEmpleado, gbc_lblEditarEmpleado);
+		   GridBagConstraints gbclblEditarEmpleado = new GridBagConstraints();
+		   gbclblEditarEmpleado.insets = new Insets(0, 0, 5, 5);
+		   gbclblEditarEmpleado.gridx = 2;
+		   gbclblEditarEmpleado.gridy = 7;
+		   add(lblEditarEmpleado, gbclblEditarEmpleado);
 						
 		   JButton btnEditarE = new JButton("Editar");
 		   btnEditarE.addActionListener(new ActionListener() {
@@ -75,16 +76,16 @@ public class VentanaAdministrador extends Pantalla{
 		   });
 						
 		   lblEditarAgremiado = new JLabel("Editar Agremiado");
-		   GridBagConstraints gbc_lblEditarAgremiado = new GridBagConstraints();
-		   gbc_lblEditarAgremiado.insets = new Insets(0, 0, 5, 5);
-		   gbc_lblEditarAgremiado.gridx = 6;
-		   gbc_lblEditarAgremiado.gridy = 7;
-		   add(lblEditarAgremiado, gbc_lblEditarAgremiado);
-		   GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		   gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
-		   gbc_btnNewButton.gridx = 2;
-		   gbc_btnNewButton.gridy = 8;
-		   add(btnEditarE, gbc_btnNewButton);
+		   GridBagConstraints gbclblEditarAgremiado = new GridBagConstraints();
+		   gbclblEditarAgremiado.insets = new Insets(0, 0, 5, 5);
+		   gbclblEditarAgremiado.gridx = 6;
+		   gbclblEditarAgremiado.gridy = 7;
+		   add(lblEditarAgremiado, gbclblEditarAgremiado);
+		   GridBagConstraints gbcbtnNewButton = new GridBagConstraints();
+		   gbcbtnNewButton.insets = new Insets(0, 0, 5, 5);
+		   gbcbtnNewButton.gridx = 2;
+		   gbcbtnNewButton.gridy = 8;
+		   add(btnEditarE, gbcbtnNewButton);
 						
 		   JButton btnEditarA = new JButton("Editar");
 		   btnEditarA.addActionListener(new ActionListener() {
@@ -93,11 +94,11 @@ public class VentanaAdministrador extends Pantalla{
 			   }
 		   });
 		   
-		   GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		   gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
-		   gbc_btnNewButton_1.gridx = 6;
-		   gbc_btnNewButton_1.gridy = 8;
-		   add(btnEditarA, gbc_btnNewButton_1);
+		   GridBagConstraints gbcbtnNewButton1 = new GridBagConstraints();
+		   gbcbtnNewButton1.insets = new Insets(0, 0, 5, 5);
+		   gbcbtnNewButton1.gridx = 6;
+		   gbcbtnNewButton1.gridy = 8;
+		   add(btnEditarA, gbcbtnNewButton1);
 
 		}
 

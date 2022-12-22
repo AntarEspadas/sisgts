@@ -86,6 +86,7 @@ class ServicioAgremiadoTest {
 	@Test
 	void testeditaAgremiado() {
 		//Se editan los datos del agremiado que ya existe y debe regresar true
+		//Crea un nuevo agremiado y se agregan los datos con set
 		
 		Agremiado agremiado = new Agremiado();
 		agremiado.setNombre("Enrique");
@@ -102,9 +103,11 @@ class ServicioAgremiadoTest {
 		agremiado.setContrasenia("12345");
 		agremiado.setCentrotrabajo("Central");
 		
+		//con mokito se guarda el agremiado en la BD (un sustituto)
         when(repositoryagremiado.findByClave("A1234")).thenReturn(agremiado);
-		
+		//Se le llama al metodo editaAgremiado y se le pasan los parametros que se van a modificar
 		boolean resultado1=servicio.editaAgremiado("Enrique", "Hernandez", "A1234", "Filiacion","Administrador", "Adscripcion", "Sur 2", "Matutino","6655", "776655", "NuevoCorreo", "1234", "Norte", agremiado)==true;
+		//con assertTrue se verifica si el metodo regresa true, en este caso significa que el metodo funciona correctamente
 		assertTrue(resultado1);
 	}
 		

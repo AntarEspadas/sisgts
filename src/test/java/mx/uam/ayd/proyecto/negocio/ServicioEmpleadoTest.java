@@ -84,8 +84,9 @@ class ServicioEmpleadoTest {
 	
 	@Test
 	void testeditaEmpleado() {
+		//Se editan los datos del empleado que ya existe y debe regresar true
+		//Crea un nuevo empleado y se agregan los datos con set
 		
-		//Se editan los datos del empleado y debe regresar true
 		Empleado empleado= new Empleado();
 		empleado.setId(1);
 		empleado.setNombre("Miguel");		
@@ -93,9 +94,14 @@ class ServicioEmpleadoTest {
 		empleado.setCorreo("Hola");
 		empleado.setContrasenia("XX");
 		empleado.setTipoEmpleado("Administrador");
+		
+		//con mokito se guarda el empleado en la BD (un sustituto)
 		when(repositoryempleado.findById(1)).thenReturn(empleado);
 		
+		//Se le llama al metodo editaEmpelado y se le pasan los parametros que se van a modificar
 		boolean resultado1=servicio.editaEmpleado(1,"Miguelon", "Baez", "Holi", "X", "Admin", empleado)==true;
+		
+		//con assertTrue se verifica si el metodo regresa true, en este caso significa que el metodo funciona correctamente
 		assertTrue(resultado1);
 		
 	}

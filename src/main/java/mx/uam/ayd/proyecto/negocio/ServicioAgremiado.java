@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
-import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
-
 
 @Service
 public class ServicioAgremiado {
@@ -71,7 +69,11 @@ public class ServicioAgremiado {
 		agremiado=null;
 	}
 	
-	//Metodo que permite editar los datoa de un empleado existente en la base de datos y guarda los nuevos datos, si la operacion es exitosa regresa true
+	//Metodo que permite editar los datoa de un empleado existente en la base de datos
+	//Recibe como parametros los datos del agremiado como lo son el nombre, apellido, clave, filiacion, adscripcion, puesto, domicilio, turno, telefono, celular, correo, contraseña y centro de trabajo
+	//Llama al metodo de findbyclave para traer al agremiado el cual se va a editar
+	//Los parametros que se le pasaron se van a modificar con el set y despues de ello se guardaran los nuevos datos
+	//Si se llenan todos los datos correctamente el metodo regresa true
 	public boolean editaAgremiado(String nombre, String apellidos, String clave, String filiacion, String adscripcion, String puesto, String domicilio, String turno, String telefono, String celular, String correo, String contrasenia, String trabajo, @Nullable Agremiado agremiado) {
 		agremiado=agremiadoRepository.findByClave(clave);
 		agremiado.setNombre(nombre);

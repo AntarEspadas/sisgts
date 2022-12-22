@@ -1,7 +1,6 @@
 package mx.uam.ayd.proyecto.presentacion.editarempleado;
 
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.sql.JoinFragment;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
@@ -22,9 +21,7 @@ public class VentanaVerificaId extends JFrame {
 
         //CREACION DEL PANEL 1
         contentPane1 = new JPanel();
-        contentPane1.setBounds(5, 80, 450, 500);//setBounds(100, 100, 292, 266);
-        //contentSig.setBorder(new EmptyBorder(5, 5, 5, 5));//ORIGINALMENTE SOLO ERA 5
-        //setContentPane(contentSig);
+        contentPane1.setBounds(5, 80, 450, 500);
         contentPane1.setLayout(null);
         getContentPane().add(contentPane1);
         contentPane1.setVisible(true);
@@ -68,19 +65,19 @@ public class VentanaVerificaId extends JFrame {
         //CREACION DEL TITULO
         JLabel lblTite = new JLabel("Sistema de Gestión de Trámites ");
         lblTite.setBounds(180, 28, 180, 16);
-        getContentPane().add(lblTite);//contentPane.add(lblTite);
+        getContentPane().add(lblTite);
 
         JLabel lblMeseg = new JLabel("TLÁHUAC");
         lblMeseg.setBounds(31, 55, 80, 16);
-        getContentPane().add(lblMeseg);//contentPane.add(lblMese);
+        getContentPane().add(lblMeseg);
 
         JLabel lblMese = new JLabel("SECCIÓN 11");
         lblMese.setBounds(20, 42, 103, 16);
-        getContentPane().add(lblMese);//contentPane.add(lblMese);
+        getContentPane().add(lblMese);
 
         JLabel lblSub = new JLabel("SNTE");
         lblSub.setBounds(31, 11, 67, 23);
-        getContentPane().add(lblSub);//contentPane.add(lblSub);
+        getContentPane().add(lblSub);
 
     }
     public void muestra(ControlEditarempleado control){

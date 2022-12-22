@@ -45,9 +45,7 @@ public class VentanaEditaragremiado extends JFrame {
 		
 		//CREACION DEL PANEL 2 
 		contentSig = new JPanel();
-		contentSig.setBounds(5, 80, 450, 500);//setBounds(100, 100, 292, 266);
-		//contentPane.setBorder(new EmptyBorder(5, 112, 350, 350));//ORIGINALMENTE SOLO ERA 5
-		//setContentPane(contentPane);
+		contentSig.setBounds(5, 80, 450, 500);
 		contentSig.setLayout(null);
 		getContentPane().add(contentSig);
 		contentSig.setVisible(true);
@@ -56,19 +54,19 @@ public class VentanaEditaragremiado extends JFrame {
 		//CREACION DEL TITULO
 		JLabel lblTite = new JLabel("Sistema de Gestión de Trámites ");
 		lblTite.setBounds(180, 28, 180, 16);
-		getContentPane().add(lblTite);//contentPane.add(lblTite);
+		getContentPane().add(lblTite);
 		
 		JLabel lblMeseg = new JLabel("TLÁHUAC");
 		lblMeseg.setBounds(31, 55, 80, 16);
-		getContentPane().add(lblMeseg);//contentPane.add(lblMese);
+		getContentPane().add(lblMeseg);
 		
 		JLabel lblMese = new JLabel("SECCIÓN 11");
 		lblMese.setBounds(20, 42, 103, 16);
-		getContentPane().add(lblMese);//contentPane.add(lblMese);
+		getContentPane().add(lblMese);
 		
 		JLabel lblSub = new JLabel("SNTE");
 		lblSub.setBounds(31, 11, 67, 23);
-		getContentPane().add(lblSub);//contentPane.add(lblSub);
+		getContentPane().add(lblSub);
 		
 		//ETIQUETAS 
 		JLabel lblNombre = new JLabel("Nombre(s)");
@@ -208,6 +206,7 @@ public class VentanaEditaragremiado extends JFrame {
 				if(textFieldNombre.getText().equals("") || textFieldApellido.getText().equals("")|| textFieldClave.getText().equals("") || textFieldFiliacion.getText().equals("") || textFieldAds.getText().equals("") || textFieldpue.getText().equals("") || textFieldDom.getText().equals("") || textFieldTur.getText().equals("") || textFieldTel.getText().equals("") || textFieldCel.getText().equals("")|| textFieldCor.getText().equals("") || textFieldCon.getText().equals("") || textFieldTrab.getText().equals("")) {
 					muestraDialogoConMensaje("Ningun campo debe estar vacio");
 				}else {
+					//Si los campos no son vacios debe de pasarle cada uno de los parametros al metodo editaAgremiado que esta en el control
 					control.editaAgremiado(textFieldNombre.getText(), textFieldApellido.getText(), textFieldClave.getText(), textFieldFiliacion.getText(), textFieldAds.getText(), textFieldpue.getText(), textFieldDom.getText(), textFieldTur.getText(), textFieldTel.getText(), textFieldCel.getText(), textFieldCor.getText(), textFieldCon.getText(), textFieldTrab.getText());
 					contentSig.setVisible(true);
 					limpia();
@@ -215,6 +214,7 @@ public class VentanaEditaragremiado extends JFrame {
 				}//FIN DEL ESE DE NINGUN CAMPO VACIO
 			}//FIN DEL IF BOTON SIGUIENTE
 		});//FIN DEL ACTION LISTENER
+		
 		
 	}
 	
@@ -240,55 +240,55 @@ public class VentanaEditaragremiado extends JFrame {
 			
 		this.control = control;
 		
-		String clave=new String();
+		String clave;
 		clave=String.valueOf(agremiado.getClave());
 		textFieldClave.setText(clave);
 		
-		String nombree=new String();
+		String nombree;
 		nombree=String.valueOf(agremiado.getNombre());
 		textFieldNombre.setText(nombree);
 		
-		String apellido=new String();
+		String apellido;
 		apellido=String.valueOf(agremiado.getApellidos());
 		textFieldApellido.setText(apellido);
 		
-		String correo=new String();
+		String correo;
 		correo=String.valueOf(agremiado.getCorreo());
 		textFieldCor.setText(correo);
 		
-		String contrasenia=new String();
+		String contrasenia;
 		contrasenia=String.valueOf(agremiado.getContrasenia());
 		textFieldCon.setText(contrasenia);
 		
-		String filiacion =new String();
+		String filiacion;
 		filiacion=String.valueOf(agremiado.getFiliacion());
 		textFieldFiliacion.setText(filiacion);
 		
-		String adscripcion =new String();
+		String adscripcion;
 		adscripcion=String.valueOf(agremiado.getAdscripcion());
 		textFieldAds.setText(adscripcion);
 		
-		String puesto =new String();
+		String puesto;
 		puesto=String.valueOf(agremiado.getPuesto());
 		textFieldpue.setText(puesto);
 		
-		String turno =new String();
+		String turno;
 		turno=String.valueOf(agremiado.getTurno());
 		textFieldTur.setText(turno);
 		
-		String domicilio =new String();
+		String domicilio;
 		domicilio=String.valueOf(agremiado.getDomicilio());
 		textFieldDom.setText(domicilio);
 		
-		String celular =new String();
+		String celular;
 		celular=String.valueOf(agremiado.getCelular());
 		textFieldCel.setText(celular);
 		
-		String telefono =new String();
+		String telefono;
 		telefono=String.valueOf(agremiado.getTelefono());
 		textFieldTel.setText(telefono);
 		
-		String cTrabajo =new String();
+		String cTrabajo;
 		cTrabajo=String.valueOf(agremiado.getCentrotrabajo());
 		textFieldTrab.setText(cTrabajo);
 			
@@ -299,8 +299,8 @@ public class VentanaEditaragremiado extends JFrame {
 	public void muestraDialogoConMensaje(String mensaje ) {
 		JOptionPane.showMessageDialog(this , mensaje);
 	}
-	
+	//DEJA DE MOSTRAR LA VENTANA
 	public void cierra() {
-		setVisible(false);	//DEJA DE MOSTRAR LA VENTANA
+		setVisible(false);	
 	}//FIN DEL METODO TERMINA
 }

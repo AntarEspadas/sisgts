@@ -31,11 +31,11 @@ public class ControlEditarempleado {
 	//si no exite no deja avanzar a la otra ventana 
 	public void verificaIdEmpleado(long idEmpleado) {
 		boolean exito = servicioEmpleado.verificaIdEmpleado(idEmpleado);
-		Empleado empleado=servicioEmpleado.recuperaEmpleado(idEmpleado);
+		Empleado empleado1=servicioEmpleado.recuperaEmpleado(idEmpleado);
 		if(exito){
 
 			ventanaId.cierra();
-			ventana.muestra(this, empleado);
+			ventana.muestra(this, empleado1);
 			
 		}else{
 			ventana.muestraDialogoConMensaje("El Id del empleado no existe");
@@ -44,11 +44,13 @@ public class ControlEditarempleado {
 	
 	
 	//Metodo edita empleado permite editar los datos de un usuario existente y regresa true
+	//Los parametros que se le pasan al metodo son id el cual es un long, nombre, apellido, correo, contrasenia, tipo empleado
+	//Lo que hace el metodo es que si se le pasan los parametros al metodo del servicio debe mostrar un mensaje de exito y cierra la ventana de editar empleado
 	public void editaEmpleado(long id, String nombre, String apellidos,  String correo, String contrasenia, String tipoempleado) {
 		if(servicioEmpleado.editaEmpleado(id, nombre, apellidos, correo, contrasenia, tipoempleado, empleado)) {
 			ventana.muestraDialogoConMensaje("Se ha editado correctamente");
 			ventana.cierra();
-		}
+		}//fin del if
 		
 	}//Fin del metodo edita empleado
 

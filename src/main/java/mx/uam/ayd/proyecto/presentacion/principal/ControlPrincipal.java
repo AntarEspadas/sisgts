@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
 import mx.uam.ayd.proyecto.negocio.ServicioAgremiado;
 import mx.uam.ayd.proyecto.negocio.ServicioEmpleado;
-import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
-import mx.uam.ayd.proyecto.negocio.modelo.Empleado;
 import mx.uam.ayd.proyecto.presentacion.administrador.ControlAdministrador;
 import mx.uam.ayd.proyecto.presentacion.agendar_cita.ControlAgendarCita;
 import mx.uam.ayd.proyecto.presentacion.publicaciones.consultar_avisos.ControlConsultarAvisos;
@@ -74,9 +72,6 @@ public class ControlPrincipal {
 	@Autowired
 	private ServicioEmpleado servicioempleado;
 	
-    private Agremiado agremiado;
-	
-	private Empleado empleado;
 	
 	@Autowired
 	private ControlAdministrador controlAdministrador;
@@ -136,10 +131,9 @@ public class ControlPrincipal {
 	
 	public void administrador(){
 		if(servicioempleado.getEmpleadoActual()!=null){
-			//String tipEmpleado = servicioempleado.getEmpleadoActual();
-		    //if(tipEmpleado.equals("administrador")){
+			
 				controlAdministrador.inicia();
-		    //}	
+		  
 		}	
 	}
 

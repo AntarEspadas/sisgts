@@ -36,9 +36,7 @@ public class VentanaEditarempleado extends JFrame {
 
 		//CREACION DEL PANEL 2 
 		contentSig = new JPanel();
-		contentSig.setBounds(5, 80, 450, 500);//setBounds(100, 100, 292, 266);
-		//contentPane.setBorder(new EmptyBorder(5, 112, 350, 350));//ORIGINALMENTE SOLO ERA 5
-		//setContentPane(contentPane);
+		contentSig.setBounds(5, 80, 450, 500);
 		contentSig.setLayout(null);
 		getContentPane().add(contentSig);
 		contentSig.setVisible(true);
@@ -47,19 +45,19 @@ public class VentanaEditarempleado extends JFrame {
 		//CREACION DEL TITULO
 		JLabel lblTite = new JLabel("Sistema de Gestión de Trámites ");
 		lblTite.setBounds(180, 28, 180, 16);
-		getContentPane().add(lblTite);//contentPane.add(lblTite);
+		getContentPane().add(lblTite);
 				
 		JLabel lblMeseg = new JLabel("TLÁHUAC");
 		lblMeseg.setBounds(31, 55, 80, 16);
-		getContentPane().add(lblMeseg);//contentPane.add(lblMese);
+		getContentPane().add(lblMeseg);
 				
 		JLabel lblMese = new JLabel("SECCIÓN 11");
 		lblMese.setBounds(20, 42, 103, 16);
-		getContentPane().add(lblMese);//contentPane.add(lblMese);
+		getContentPane().add(lblMese);
 				
 		JLabel lblSub = new JLabel("SNTE");
 		lblSub.setBounds(31, 11, 67, 23);
-		getContentPane().add(lblSub);//contentPane.add(lblSub);
+		getContentPane().add(lblSub);
 				
 		//ETIQUETAS 
 		JLabel lblNombre = new JLabel("Nombre(s)");
@@ -135,9 +133,10 @@ public class VentanaEditarempleado extends JFrame {
 					
 			if(e.getSource()==btnAceptar2) {
 				//VERIFICA QUE LOS CAMPOS NO ESTEN VACIOS Y SI ES ASI NO DEJA AVANZAR
-				if(textFieldNombre.getText().equals("") || textFieldApellido.getText().equals("")|| textFieldClave.getText().equals("") || textFieldCor.getText().equals("") || textFieldCon.getText().equals("") || textFieldCon.getText().equals("")) {
+				if(textFieldNombre.getText().equals("") || textFieldApellido.getText().equals("")|| textFieldClave.getText().equals("") || textFieldCor.getText().equals("") || textFieldCon.getText().equals("")) {
 					muestraDialogoConMensaje("Ningun campo debe estar vacio");
 				}else {
+					//Se llama al metodo editaempleado del control y se le pasan los parametros que se escriben en los textField
 					long id = Long.parseLong(textFieldClave.getText());
 					control.editaEmpleado(id, textFieldNombre.getText(), textFieldApellido.getText(), textFieldCor.getText(), textFieldCon.getText(), textFieldTrab.getText());
 					contentSig.setVisible(true);
@@ -166,27 +165,27 @@ public class VentanaEditarempleado extends JFrame {
 
 		empleado.getNombre();
 
-		String id=new String();
+		String id;
 		id=String.valueOf(empleado.getId());
 		textFieldClave.setText(id);
 		
-		String nombree=new String();
+		String nombree;
 		nombree=String.valueOf(empleado.getNombre());
 		textFieldNombre.setText(nombree);
 		
-		String apellido=new String();
+		String apellido;
 		apellido=String.valueOf(empleado.getApellidos());
 		textFieldApellido.setText(apellido);
 		
-		String correo=new String();
+		String correo;
 		correo=String.valueOf(empleado.getCorreo());
 		textFieldCor.setText(correo);
 		
-		String contrasenia=new String();
+		String contrasenia;
 		contrasenia=String.valueOf(empleado.getContrasenia());
 		textFieldCon.setText(contrasenia);
 		
-		String templeado=new String();
+		String templeado;
 		templeado=String.valueOf(empleado.getTipoEmpleado());
 		textFieldTrab.setText(templeado);
 		
