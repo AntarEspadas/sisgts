@@ -70,8 +70,8 @@ class ServicioEmpleadoTest {
 		when(repositoryempleado.findById(1)).thenReturn(empleado);
 		
 		boolean resultado=servicio.verificaIdEmpleado(1);
-		assertFalse(resultado);
-		
+		assertTrue(resultado);
+
 		
 		// Caso 2: Si el id no existe regresa false
 		
