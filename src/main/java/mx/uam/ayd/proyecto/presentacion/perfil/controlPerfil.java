@@ -3,7 +3,6 @@ package mx.uam.ayd.proyecto.presentacion.perfil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
 
 
@@ -14,7 +13,7 @@ import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
  */
 
 @Component
-public class controlPerfil {
+public class ControlPerfil {
 
     @Autowired
     private VentanaPerfil ventanaPerfil;
