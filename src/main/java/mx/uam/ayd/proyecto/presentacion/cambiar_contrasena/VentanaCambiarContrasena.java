@@ -49,7 +49,7 @@ public class VentanaCambiarContrasena extends Pantalla {
 		add(txtContraseaActual, gbcTxtContraseaActual);
 		txtContraseaActual.setColumns(10);
 
-		txtContraseaActual.getDocument().addDocumentListener(new DocumentListener() {
+		var documentListener = new DocumentListener() {
 			@Override
 			public void insertUpdate(DocumentEvent documentEvent) {
 				deshabilitarBotonSiCamposVacios();
@@ -64,7 +64,9 @@ public class VentanaCambiarContrasena extends Pantalla {
 			public void changedUpdate(DocumentEvent documentEvent) {
 				deshabilitarBotonSiCamposVacios();
 			}
-		});
+		};
+
+		txtContraseaActual.getDocument().addDocumentListener(documentListener);
 		
 		JLabel lblContraseaNueva = new JLabel("Contraseña nueva");
 		GridBagConstraints gbcLblContraseaNueva = new GridBagConstraints();
@@ -82,22 +84,7 @@ public class VentanaCambiarContrasena extends Pantalla {
 		add(txtContraseaNueva, gbcTxtContraseaNueva);
 		txtContraseaNueva.setColumns(10);
 
-		txtContraseaNueva.getDocument().addDocumentListener(new DocumentListener() {
-			@Override
-			public void insertUpdate(DocumentEvent documentEvent) {
-				deshabilitarBotonSiCamposVacios();
-			}
-
-			@Override
-			public void removeUpdate(DocumentEvent documentEvent) {
-				deshabilitarBotonSiCamposVacios();
-			}
-
-			@Override
-			public void changedUpdate(DocumentEvent documentEvent) {
-				deshabilitarBotonSiCamposVacios();
-			}
-		});
+		txtContraseaNueva.getDocument().addDocumentListener(documentListener);
 		
 		JLabel lblConfirmarContraseaNueva = new JLabel("Confirmar contraseña nueva");
 		GridBagConstraints gbcLblConfirmarContraseaNueva = new GridBagConstraints();
@@ -115,22 +102,7 @@ public class VentanaCambiarContrasena extends Pantalla {
 		add(txtConfirmarContraseaNueva, gbcTxtConfirmarContraseaNueva);
 		txtConfirmarContraseaNueva.setColumns(10);
 
-		txtConfirmarContraseaNueva.getDocument().addDocumentListener(new DocumentListener() {
-			@Override
-			public void insertUpdate(DocumentEvent documentEvent) {
-				deshabilitarBotonSiCamposVacios();
-			}
-
-			@Override
-			public void removeUpdate(DocumentEvent documentEvent) {
-				deshabilitarBotonSiCamposVacios();
-			}
-
-			@Override
-			public void changedUpdate(DocumentEvent documentEvent) {
-				deshabilitarBotonSiCamposVacios();
-			}
-		});
+		txtConfirmarContraseaNueva.getDocument().addDocumentListener(documentListener);
 		
 		btnCambiarContrasea = new JButton("Cambiar Contraseña");
 		btnCambiarContrasea.addMouseListener(new MouseAdapter() {
