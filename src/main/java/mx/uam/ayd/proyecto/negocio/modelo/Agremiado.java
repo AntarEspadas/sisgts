@@ -66,6 +66,11 @@ public class Agremiado extends Usuario {
     	return nombre + " " + apellidos;
     }
 
+    public String getClave() {
+    	return clave;
+    }
+    
+
     /**
      * Añade una solicitud de trámite al agremiado
      *
