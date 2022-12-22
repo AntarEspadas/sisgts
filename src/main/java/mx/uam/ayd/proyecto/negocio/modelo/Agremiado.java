@@ -68,6 +68,19 @@ public class Agremiado {
     public String getNombreCompleto() {
     	return nombre + " " + apellidos;
     }
+    
+    public String getCorreo() {
+    	return correo;
+    }
+    
+    public String getContraseña() {
+    	return contrasenia;
+    }
+    
+    public String getClave() {
+    	return clave;
+    }
+    
 
     /**
      * Añade una solicitud de trámite al agremiado

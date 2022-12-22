@@ -14,6 +14,7 @@ import mx.uam.ayd.proyecto.presentacion.agendar_cita.ControlAgendarCita;
 import mx.uam.ayd.proyecto.presentacion.publicaciones.consultar_avisos.ControlConsultarAvisos;
 import mx.uam.ayd.proyecto.presentacion.consultar_citas.ControlConsultarCitas;
 import mx.uam.ayd.proyecto.presentacion.notificaciones.ControlNotificaciones;
+import mx.uam.ayd.proyecto.presentacion.perfil.controlPerfil;
 import mx.uam.ayd.proyecto.presentacion.login.ControlIniciaSesion;
 import mx.uam.ayd.proyecto.presentacion.procesar_tramites.ControlProcesarTramites;
 import mx.uam.ayd.proyecto.presentacion.solicitar_tramite.ControlSolicitarTramite;
@@ -48,6 +49,9 @@ public class ControlPrincipal {
 
 	@Autowired
 	private ControlNotificaciones controlNotificaciones;
+
+	@Autowired
+	private controlPerfil controlPerfil;
 
 	@Autowired
 	private ControlIniciaSesion controllogin;
@@ -129,6 +133,10 @@ public class ControlPrincipal {
 
 		else if (servicioempleado.getEmpleadoActual() != null)
 			controlNotificaciones.inicia();
+	}
 
+	public void perfil() {
+		if (servicioagremiado.getAgremiadoActual() != null)
+			controlPerfil.inicia(servicioagremiado.getAgremiadoActual());
 	}
 }
