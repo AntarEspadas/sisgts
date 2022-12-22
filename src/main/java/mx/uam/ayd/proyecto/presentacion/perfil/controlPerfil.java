@@ -3,7 +3,7 @@ package mx.uam.ayd.proyecto.presentacion.perfil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import lombok.extern.slf4j.Slf4j;
+
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
 
 
@@ -12,7 +12,7 @@ import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
  *
  * @author Aldhair Castañeda
  */
-@Slf4j
+
 @Component
 public class controlPerfil {
 
@@ -38,7 +38,7 @@ public class controlPerfil {
      */
     public void perfil() {
         
-    	ventanaPerfil.muestra(this, agremiado);
+    	ventanaPerfil.muestra(agremiado);
     }
     
 }

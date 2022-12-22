@@ -1,10 +1,6 @@
 package mx.uam.ayd.proyecto.presentacion.perfil;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
-import javax.swing.JButton;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -12,20 +8,19 @@ import java.awt.Rectangle;
 
 import org.springframework.stereotype.Component;
 
-import lombok.extern.slf4j.Slf4j;
+
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
 import mx.uam.ayd.proyecto.presentacion.compartido.Pantalla;
 
-@Slf4j
 @Component
 public class VentanaPerfil extends Pantalla {
 
     private transient controlPerfil controlador;
     
-    JLabel lblNombre = new JLabel("");
-    JLabel lblCorreo = new JLabel("");
-	JLabel lblContraseña = new JLabel("");
-	JLabel lblClave = new JLabel("");
+    private JLabel lblNombre = new JLabel();
+    private JLabel lblCorreo = new JLabel();
+	private JLabel lblContraseña = new JLabel();
+	private JLabel lblClave = new JLabel();
 
     public VentanaPerfil(){
         setBounds(new Rectangle(100, 100, 500, 400));
@@ -98,8 +93,8 @@ public class VentanaPerfil extends Pantalla {
     }
         
     //llamamos a los datos del agremiado, solo los que se ustan usando hasta el momento, nombre, contraseña, clave, correo
-    public void muestra(controlPerfil controlPerfil, Agremiado agremiado) {
-        this.controlador = controlador;
+    public void muestra(Agremiado agremiado) {
+        ///this.controlador = controlador;
 
         lblNombre.setText(agremiado.getNombreCompleto());
         lblCorreo.setText(agremiado.getCorreo());
