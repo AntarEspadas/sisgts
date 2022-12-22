@@ -97,7 +97,7 @@ public class VentanaPerfil extends Pantalla {
 
         lblNombre.setText(agremiado.getNombreCompleto());
         lblCorreo.setText(agremiado.getCorreo());
-    	lblContraseña.setText(agremiado.getContraseña());
+    	lblContraseña.setText(agremiado.getContrasenia());
     	lblClave.setText(agremiado.getClave());       
 
 

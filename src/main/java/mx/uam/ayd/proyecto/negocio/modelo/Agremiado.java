@@ -65,15 +65,7 @@ public class Agremiado extends Usuario {
     public String getNombreCompleto() {
     	return nombre + " " + apellidos;
     }
-    
-    public String getCorreo() {
-    	return correo;
-    }
-    
-    public String getContraseña() {
-    	return contrasenia;
-    }
-    
+
     public String getClave() {
     	return clave;
     }

@@ -51,9 +51,9 @@ public class VentanaPrincipal extends JFrame {
 		contentPane.add(panel, gbcPanel);
 		GridBagLayout gblPanel = new GridBagLayout();
 		gblPanel.columnWidths = new int[]{0, 0};
-		gblPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+		gblPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0};
 		gblPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gblPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gblPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gblPanel);
 		
 		JButton btnInicio = new JButton("Inicio");
@@ -127,14 +127,6 @@ public class VentanaPrincipal extends JFrame {
 		gbcBtnNotificaciones.gridy = 4;
 		panel.add(btnNotificaciones, gbcBtnNotificaciones);
 
-		JButton btnPerfil = new JButton("Perfil");
-		btnPerfil.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				control.perfil();
-			}
-		});
-
 		JButton btnAdministrador = new JButton("Administrador");
 		btnAdministrador.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -159,13 +151,22 @@ public class VentanaPrincipal extends JFrame {
 		gbcBtnCambiarContrasea.insets = new Insets(0, 0, 5, 0);
 		gbcBtnCambiarContrasea.fill = GridBagConstraints.HORIZONTAL;
 		gbcBtnCambiarContrasea.gridx = 0;
-		gbcBtnCambiarContrasea.gridy = 6;
+		gbcBtnCambiarContrasea.gridy = 7;
 		panel.add(btnCambiarContrasea, gbcBtnCambiarContrasea);
-
+		
+				JButton btnPerfil = new JButton("Perfil");
+				btnPerfil.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						control.perfil();
+					}
+				});
+				
 		GridBagConstraints gbcBtnPerfil = new GridBagConstraints();
+		gbcBtnPerfil.insets = new Insets(0, 0, 5, 0);
 		gbcBtnPerfil.fill = GridBagConstraints.HORIZONTAL;
 		gbcBtnPerfil.gridx = 0;
-		gbcBtnPerfil.gridy = 5;
+		gbcBtnPerfil.gridy = 6;
 		panel.add(btnPerfil, gbcBtnPerfil);
 
 		gbcContenido = new GridBagConstraints();
