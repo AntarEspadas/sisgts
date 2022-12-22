@@ -11,8 +11,6 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 //@SuppressWarnings("serial")
 @Component
@@ -127,11 +125,7 @@ public class VentanaPrincipal extends JFrame {
 		panel.add(btnNotificaciones, gbcBtnNotificaciones);
 		
 		JButton btnAdministrador = new JButton("Administrador");
-		btnAdministrador.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				control.administrador();
-			}
-		});
+		btnAdministrador.addActionListener(e -> control.administrador());
 		GridBagConstraints gbcBtnAdmin = new GridBagConstraints();
 		gbcBtnAdmin.insets = new Insets(0, 0, 5, 0);
 		gbcBtnAdmin.fill = GridBagConstraints.HORIZONTAL;

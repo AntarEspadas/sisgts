@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 public class VentanaVerificaClave extends JFrame {
 
 	private JTextField textFiedClav;
-    private ControlEditaragremiado control;
+    private transient ControlEditaragremiado control;
     private JPanel contentPane1;
     public VentanaVerificaClave() {
         //CREA LA VENTANA

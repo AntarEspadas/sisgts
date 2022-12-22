@@ -1,6 +1,5 @@
 package mx.uam.ayd.proyecto.negocio;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Date;
@@ -15,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.uam.ayd.proyecto.datos.RepositorySolicitudTramite;
-
-import javax.imageio.ImageIO;
 
 /**
  * Servicio principal para el ControlProcesarTramites

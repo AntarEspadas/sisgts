@@ -10,7 +10,7 @@ import javax.swing.*;
 public class VentanaVerificaId extends JFrame {
 
     private JTextField textFiedClav;
-    private ControlEditarempleado control;
+    private transient ControlEditarempleado control;
     private JPanel contentPane1;
     public VentanaVerificaId() {
         //CREA LA VENTANA

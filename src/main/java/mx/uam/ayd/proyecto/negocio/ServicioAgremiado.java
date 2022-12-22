@@ -2,7 +2,6 @@ package mx.uam.ayd.proyecto.negocio;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
@@ -13,7 +12,7 @@ public class ServicioAgremiado {
 	@Autowired
     RepositoryAgremiado agremiadoRepository;
 	
-	private Agremiado agremiado;
+	private Agremiado agremiadoGuardado;
 	
 	@Autowired
 	@Lazy
@@ -28,9 +27,9 @@ public class ServicioAgremiado {
 	 */
 	public boolean verificaCorreoYContrasenia(String correo, String contrasenia) {
 		
-		agremiado=agremiadoRepository.findByCorreo(correo);
+		agremiadoGuardado =agremiadoRepository.findByCorreo(correo);
 
-        if (agremiadoRepository.findByCorreo(correo)!=null && contrasenia.equals(agremiado.getContrasenia()) ) {
+        if (agremiadoRepository.findByCorreo(correo)!=null && contrasenia.equals(agremiadoGuardado.getContrasenia()) ) {
         	
         	servicioempleado.logOut();
         	
@@ -60,13 +59,13 @@ public class ServicioAgremiado {
 	
 	//SI HAY UN AGREMIADO CON SESION INICIADA, RECUPERA ESE AGREMIADO, SI NO REGRESA NULL
 	public Agremiado getAgremiadoActual() {
-		return agremiado;
+		return agremiadoGuardado;
 	}
 	
 	/*CIERRA LA SESION DEL AGFREMIADO DESPUES DE LLAMAR A ESTE METODO, DE AHORA EN  ADELANTE GETAGREMIADOACTUAL DEBE REGRESAR
 	 * NULL HASTA QUE UN AGREMIADO VUELVA A INICIAR SESION*/
 	public void logOut() {
-		agremiado=null;
+		agremiadoGuardado = null;
 	}
 	
 	//Metodo que permite editar los datoa de un empleado existente en la base de datos
@@ -74,11 +73,11 @@ public class ServicioAgremiado {
 	//Llama al metodo de findbyclave para traer al agremiado el cual se va a editar
 	//Los parametros que se le pasaron se van a modificar con el set y despues de ello se guardaran los nuevos datos
 	//Si se llenan todos los datos correctamente el metodo regresa true
-	public boolean editaAgremiado(String nombre, String apellidos, String clave, String filiacion, String adscripcion, String puesto, String domicilio, String turno, String telefono, String celular, String correo, String contrasenia, String trabajo, @Nullable Agremiado agremiado) {
+	public boolean editaAgremiado(String nombre, String apellidos, String clave, String filiacion, String adscripcion, String puesto, String domicilio, String turno, String telefono, String celular, String correo, String contrasenia, String trabajo) {
+		Agremiado agremiado;
 		agremiado=agremiadoRepository.findByClave(clave);
 		agremiado.setNombre(nombre);
 		agremiado.setApellidos(apellidos);
-		agremiado.setClave(clave);
 		agremiado.setFiliacion(filiacion);
 		agremiado.setAdscripcion(adscripcion);
 		agremiado.setPuesto(puesto);
@@ -90,7 +89,7 @@ public class ServicioAgremiado {
 		agremiado.setContrasenia(contrasenia);
 		agremiado.setCentrotrabajo(trabajo);
 		
-		agremiado=agremiadoRepository.save(agremiado);
+		agremiadoRepository.save(agremiado);
 		return true;
 		
 	}//Fin del metodo editar

@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 
@@ -16,7 +15,7 @@ public class ServicioEmpleado {
 	@Autowired 
 	RepositoryEmpleado empleadoRepository;
 	
-	private Empleado empleado;
+	private Empleado empleadoGuardado;
 	
 	@Autowired 
 	private ServicioAgremiado servicioagremiado;
@@ -41,9 +40,9 @@ public class ServicioEmpleado {
 	
 	public boolean verificaCorreoYContrasenia(String correo, String contrasenia) {
 		
-		empleado=empleadoRepository.findByCorreo(correo);
+		empleadoGuardado =empleadoRepository.findByCorreo(correo);
 
-        if(empleadoRepository.findByCorreo(correo)!=null && contrasenia.equals(empleado.getContrasenia())) {
+        if(empleadoRepository.findByCorreo(correo)!=null && contrasenia.equals(empleadoGuardado.getContrasenia())) {
         	
         	servicioagremiado.logOut();
         	
@@ -71,14 +70,14 @@ public class ServicioEmpleado {
 	
 	//SI HAY UN EMPLEADO CON SESION INICIADA, RECUPERA ESE AGREMIADO, SI NO REGRESA NULL
 	public Empleado getEmpleadoActual() {
-		return empleado;
+		return empleadoGuardado;
 	}
 		
 	/*CIERRA LA SESION DEL EMPLEADO DESPUES DE LLAMAR A ESTE METODO, DE AHORA EN  ADELANTE GETEMPLEADOACTUAL DEBE REGRESAR
 	 * NULL HASTA QUE UN EMPLEADO VUELVA A INICIAR SESION*/
 	public void logOut() {
 		
-		empleado=null;
+		empleadoGuardado =null;
 	}
 	
 	//Metodo edita empleado perimte editar los datos de un empelado existente regresando true
@@ -86,15 +85,15 @@ public class ServicioEmpleado {
 	//Llama al metodo de findbyid para traer al empleado el cual se va a editar
 	//Los parametros que se le pasaron se van a modificar con el set y despues de ello se guardaran los nuevos datos
 	//Si se llenan todos los datos correctamente el metodo regresa true
-	public boolean editaEmpleado(long id, String nombre, String apelidos, String correo, String contrasenia, String tipoempleado, @Nullable Empleado empleado) {
+	public boolean editaEmpleado(long id, String nombre, String apelidos, String correo, String contrasenia, String tipoempleado) {
+		Empleado empleado;
 		empleado=empleadoRepository.findById(id);
-		empleado.setId(id);
-		empleado.setNombre(nombre);		
+		empleado.setNombre(nombre);
 		empleado.setApellidos(apelidos);
 		empleado.setCorreo(correo);
 		empleado.setContrasenia(contrasenia);
 		empleado.setTipoEmpleado(tipoempleado);
-		empleado=empleadoRepository.save(empleado);
+		empleadoRepository.save(empleado);
 		return true;
 		
 	}//Fin del metodo edita empleado
