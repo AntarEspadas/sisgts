@@ -49,7 +49,7 @@ class ServicioAvisoTest {
 		lista.add(aviso1);
 		lista.add(aviso2);
 
-		when(avisosRepository.findAll()).thenReturn(lista);
+		when(avisosRepository.findAllByOrderByDestacadoDesc()).thenReturn(lista);
 
 		avisos = servicioAviso.recuperaTodos();
 
@@ -74,6 +74,25 @@ class ServicioAvisoTest {
 		assertThrows(NullPointerException.class, () -> servicioAviso.crearPublicacion("hola", null));
 	}
 	
-	
+	@Test
+	void testMarcarDestacado() {
+		// Caso 1: Si se le pasa un agremiado nulo, lanza un NullPointerException
+
+		assertThrows(NullPointerException.class, () -> servicioAviso.marcarDestacado(null, true));
+
+		// Caso 2: Si se le pasa 'true', el aviso se guardará con 'true' como valor del campo 'destacado'
+
+		var aviso = new Aviso();
+
+		servicioAviso.marcarDestacado(aviso, true);
+
+		assertTrue(aviso.isDestacado());
+
+		// Caso 3: Si se le pasa 'false', el aviso se guardará con 'false' como valor del campo 'destacado'
+
+		servicioAviso.marcarDestacado(aviso, false);
+
+		assertFalse(aviso.isDestacado());
+	}
 
 }

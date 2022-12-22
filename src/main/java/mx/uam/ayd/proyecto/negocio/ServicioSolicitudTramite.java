@@ -1,5 +1,6 @@
 package mx.uam.ayd.proyecto.negocio;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Date;
@@ -9,10 +10,13 @@ import java.util.Map;
 import lombok.NonNull;
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import mx.uam.ayd.proyecto.negocio.modelo.*;
+import net.logicsquad.nanocaptcha.image.ImageCaptcha;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.uam.ayd.proyecto.datos.RepositorySolicitudTramite;
+
+import javax.imageio.ImageIO;
 
 /**
  * Servicio principal para el ControlProcesarTramites
@@ -184,6 +188,32 @@ public class ServicioSolicitudTramite {
                 .map(SolicitudTramite::getEstado)
                 .anyMatch(estado -> estado == Estado.PENDIENTE || estado == Estado.EN_PROGRESO);
         return !tieneTramitesPendientes;
+    }
+
+    /**
+     * Genera un captcha
+     * @return Objeto de tipo Captcha que puede ser usado para mostrar una imagen con el captcha
+     */
+    public Captcha generarCaptcha(){
+        var imageCaptcha = new ImageCaptcha.Builder(200, 50)
+                .addContent()
+                .addBackground()
+                .addBorder()
+                .addFilter()
+                .addNoise()
+                .build();
+        return new Captcha(imageCaptcha.getContent(), imageCaptcha.getImage());
+    }
+
+    /**
+     * Verifica que el texto proporcionado coincida con el captcha
+     * @param captcha El captcha contra el cual se va a validar el texto
+     * @param texto El texto a validar
+     * @throws NullPointerException En caso de que alguno de los argumentos sea null
+     * @return true si el texto coincide con el captcha, false de lo contrario
+     */
+    public boolean validarCaptcha(@NonNull Captcha captcha, @NonNull String texto){
+        return captcha.getTexto().equals(texto);
     }
 
 }

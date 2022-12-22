@@ -51,9 +51,9 @@ public class VentanaPrincipal extends JFrame {
 		contentPane.add(panel, gbcPanel);
 		GridBagLayout gblPanel = new GridBagLayout();
 		gblPanel.columnWidths = new int[]{0, 0};
-		gblPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gblPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
 		gblPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gblPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gblPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gblPanel);
 		
 		JButton btnInicio = new JButton("Inicio");
@@ -133,11 +133,26 @@ public class VentanaPrincipal extends JFrame {
 			}
 		});
 		GridBagConstraints gbcBtnAdmin = new GridBagConstraints();
+		gbcBtnAdmin.insets = new Insets(0, 0, 5, 0);
 		gbcBtnAdmin.fill = GridBagConstraints.HORIZONTAL;
 		gbcBtnAdmin.gridx = 0;
 		gbcBtnAdmin.gridy = 5;
 		panel.add(btnAdministrador, gbcBtnAdmin);
 		
+		JButton btnCambiarContrasea = new JButton("Cambiar contraseña");
+		btnCambiarContrasea.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				control.cambiarContrasena();
+			}
+		});
+		GridBagConstraints gbcBtnCambiarContrasea = new GridBagConstraints();
+		gbcBtnCambiarContrasea.insets = new Insets(0, 0, 5, 0);
+		gbcBtnCambiarContrasea.fill = GridBagConstraints.HORIZONTAL;
+		gbcBtnCambiarContrasea.gridx = 0;
+		gbcBtnCambiarContrasea.gridy = 6;
+		panel.add(btnCambiarContrasea, gbcBtnCambiarContrasea);
+
 		gbcContenido = new GridBagConstraints();
 		gbcContenido.fill = GridBagConstraints.BOTH;
 		gbcContenido.gridx = 2;

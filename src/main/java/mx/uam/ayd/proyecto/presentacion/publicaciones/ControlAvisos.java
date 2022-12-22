@@ -7,4 +7,6 @@ public interface ControlAvisos {
     void editar(@NonNull Aviso aviso);
     void eliminar(@NonNull Aviso aviso);
     void crear();
+
+    void marcarDestacado(Aviso aviso, boolean destacado);
 }

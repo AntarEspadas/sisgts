@@ -46,4 +46,9 @@ public void inicia() {
 	public void crear() {
 		throw new UnsupportedOperationException();
 	}
+
+	@Override
+	public void marcarDestacado(Aviso aviso, boolean destacado) {
+		throw new UnsupportedOperationException();
+	}
 }

@@ -2,6 +2,7 @@ package mx.uam.ayd.proyecto.presentacion.solicitar_tramite;
 
 import java.util.Map;
 
+import mx.uam.ayd.proyecto.negocio.Captcha;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,6 +25,9 @@ public class ControlSolicitarTramite {
 	
 	@Autowired
 	private VentanaSubirArchivos ventanaSubirArchivos;
+
+	@Autowired
+	private VentanaCaptcha ventanaCaptcha;
 	
 	@Autowired
 	private ServicioTipoTramite servicioTipoTramite;
@@ -34,6 +38,10 @@ public class ControlSolicitarTramite {
 	private Agremiado agremiado;
 	
 	private TipoTramite tipoTramite;
+
+	private Map<String, byte[]> archivos;
+
+	private Captcha captcha;
 
 	/**
 	 * Inicia el flujo de la HU
@@ -74,8 +82,25 @@ public class ControlSolicitarTramite {
 	 * 		  al que corresponde
 	 */
 	public void enviar(Map<String, byte[]> archivos) {
+		this.archivos = archivos;
+
+		captcha = servicioSolicitudTramite.generarCaptcha();
+		ventanaCaptcha.muestra(this, captcha);
+	}
+
+	public void validarCaptcha(String texto){
+		if (!servicioSolicitudTramite.validarCaptcha(captcha, texto)){
+			ventanaCaptcha.muestraDialogoError();
+			return;
+		}
 		servicioSolicitudTramite.solicitarTramite(agremiado, tipoTramite, archivos);
+		ventanaCaptcha.cierra();
 		ventanaSubirArchivos.muestraDialogoExito();
 		elegirTramite();
+	}
+
+	public Captcha generarOtroCaptcha() {
+		captcha = servicioSolicitudTramite.generarCaptcha();
+		return captcha;
 	}
 }

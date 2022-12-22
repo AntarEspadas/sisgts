@@ -5,10 +5,8 @@ import mx.uam.ayd.proyecto.negocio.modelo.Aviso;
 
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
+import java.awt.*;
 import javax.swing.JLabel;
-import java.awt.Insets;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
@@ -18,20 +16,24 @@ public class Componente extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	private JTextArea texto;
-	private JLabel fecha1;
-	private JLabel imagen;
+	private final JTextArea texto;
+	private final JLabel fecha1;
+	private final JLabel imagen;
+	private final JLabel lblDestacado;
+	private final boolean esAdmin;
 
 	@Getter
 	private transient Aviso aviso;
 	
-	public Componente() {
+	public Componente(boolean esAdmin) {
+
+		this.esAdmin = esAdmin;
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{10, 200, 10, 0};
 		gridBagLayout.rowHeights = new int[]{23, 0, 0, 200, 0, 123, 0, 0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		JLabel fecha = new JLabel("New label");
@@ -41,7 +43,21 @@ public class Componente extends JPanel {
 		gbcFecha.gridx = 1;
 		gbcFecha.gridy = 1;
 		add(fecha, gbcFecha);
-		
+
+		var imagenEstrella = new ImageIcon("./src/main/resources/star-filled.png").getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+		var icono = new ImageIcon(imagenEstrella);
+
+		lblDestacado = new JLabel("Destacado!");
+		GridBagConstraints gbcLblDestacado = new GridBagConstraints();
+		gbcLblDestacado.anchor = GridBagConstraints.WEST;
+		gbcLblDestacado.insets = new Insets(0, 0, 5, 5);
+		gbcLblDestacado.gridx = 1;
+		gbcLblDestacado.gridy = 2;
+		add(lblDestacado, gbcLblDestacado);
+
+		lblDestacado.setIcon(icono);
+		lblDestacado.setVisible(false);
+
 		JLabel label = new JLabel("Sin Imagen");
 		imagen = label;
 		GridBagConstraints gbcImagen = new GridBagConstraints();
@@ -71,6 +87,9 @@ public class Componente extends JPanel {
 	}
 
 	public void setAviso(Aviso aviso){
+
+		lblDestacado.setVisible(!esAdmin && aviso.isDestacado());
+
 		this.aviso = aviso;
 		texto.setText(aviso.getContenido());
 		fecha1.setText(aviso.getFecha());

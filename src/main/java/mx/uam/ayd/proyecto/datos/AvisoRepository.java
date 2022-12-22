@@ -9,10 +9,6 @@ import mx.uam.ayd.proyecto.negocio.modelo.Aviso;
 public interface AvisoRepository extends CrudRepository<Aviso, Long> {
 	
 
-	List<Aviso> findAll();
-
-	
-
-	
+	List<Aviso> findAllByOrderByDestacadoDesc();
 
 }
