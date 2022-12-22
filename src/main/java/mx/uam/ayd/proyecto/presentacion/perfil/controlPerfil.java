@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
 
-
 /**
  * Controlador para la historia de usuario "Consultar informacion" (HU-14)
  *
