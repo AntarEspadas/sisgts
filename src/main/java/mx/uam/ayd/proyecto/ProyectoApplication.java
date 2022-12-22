@@ -139,10 +139,12 @@ public class ProyectoApplication {
 		
 		
 		Empleado empleado1 = new Empleado();
+		empleado1.setId(12349);
 		empleado1.setNombre("GABRIEL");
 		empleado1.setApellidos("CRUZ");
 		empleado1.setContrasenia("12");
 		empleado1.setCorreo("ja");
+		empleado1.setTipoEmpleado("administrador");
 		repositoryEmpleado.save(empleado1);
 
 		var nombreDocumento = "Documento1";
@@ -222,6 +224,8 @@ public class ProyectoApplication {
 		agremiado.setClave("123456789");
 		agremiado.setNombre("Alan");
 		agremiado.setApellidos("Turing");
+		agremiado.setCorreo("turing@example.com");
+		agremiado.setContrasenia("1111");
 		var message1 = new Mensaje();
 		message1.setDestinatario(agremiado);
 		message1.setContenido("Documentos recibidos ");

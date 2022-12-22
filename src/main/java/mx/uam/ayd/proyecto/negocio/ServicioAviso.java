@@ -49,7 +49,7 @@ public class ServicioAviso {
 	}
 
 	public List<Aviso> recuperaTodos() {
-		return avisoRepository.findAll();
+		return avisoRepository.findAllByOrderByDestacadoDesc();
 	}
 
 	/**
@@ -63,6 +63,18 @@ public class ServicioAviso {
 	 */
 	public void eliminarPublicacion(@NonNull Aviso aviso){
 		avisoRepository.delete(aviso);
+	}
+
+	/**
+	 * Cambia el estado de destacado del aviso proporcionado
+	 * @param aviso El aviso cuyo estado se va a cambiar
+	 * @param destacado true indica que el aviso debe marcarse como destacado, false indica que no
+	 *
+	 * @throws NullPointerException En caso de recibir un agremiado nulo
+	 */
+	public void marcarDestacado(@NonNull Aviso aviso, boolean destacado){
+		aviso.setDestacado(destacado);
+		avisoRepository.save(aviso);
 	}
 	
 }

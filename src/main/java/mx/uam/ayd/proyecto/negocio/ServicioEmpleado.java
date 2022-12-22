@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 
 
@@ -56,6 +57,18 @@ public class ServicioEmpleado {
 
     }
 	
+	//Metodo que verifica si el Id del empleado existe 
+	public boolean verificaIdEmpleado(long idEmpleado) {
+
+		return empleadoRepository.findById(idEmpleado)!=null;
+		
+	}//Fin del metodo verifica Id empleado
+
+	//Metodo recupera empleado recupera a un empleado exitente en la base de datos
+	public Empleado recuperaEmpleado(long idEmpleado){
+		return empleadoRepository.findById(idEmpleado);
+	}//Fin del metodo recupera empelado
+	
 	//SI HAY UN EMPLEADO CON SESION INICIADA, RECUPERA ESE AGREMIADO, SI NO REGRESA NULL
 	public Empleado getEmpleadoActual() {
 		return empleado;
@@ -67,5 +80,23 @@ public class ServicioEmpleado {
 		
 		empleado=null;
 	}
+	
+	//Metodo edita empleado perimte editar los datos de un empelado existente regresando true
+	//Recibe como parametros los datos del empleado como lo son el id el cual es long, nombre, apellido, correo, contraseña y tipo de empleado
+	//Llama al metodo de findbyid para traer al empleado el cual se va a editar
+	//Los parametros que se le pasaron se van a modificar con el set y despues de ello se guardaran los nuevos datos
+	//Si se llenan todos los datos correctamente el metodo regresa true
+	public boolean editaEmpleado(long id, String nombre, String apelidos, String correo, String contrasenia, String tipoempleado, @Nullable Empleado empleado) {
+		empleado=empleadoRepository.findById(id);
+		empleado.setId(id);
+		empleado.setNombre(nombre);		
+		empleado.setApellidos(apelidos);
+		empleado.setCorreo(correo);
+		empleado.setContrasenia(contrasenia);
+		empleado.setTipoEmpleado(tipoempleado);
+		empleado=empleadoRepository.save(empleado);
+		return true;
+		
+	}//Fin del metodo edita empleado
 	
 }

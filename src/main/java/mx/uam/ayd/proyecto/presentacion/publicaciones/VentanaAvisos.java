@@ -1,9 +1,6 @@
 package mx.uam.ayd.proyecto.presentacion.publicaciones;
 
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.List;
 
 import javax.swing.*;
@@ -26,8 +23,14 @@ import java.awt.event.MouseEvent;
 @Component
 public class VentanaAvisos extends Pantalla{
 	private transient ControlAvisos controlador;
-	private JTabbedPane paneles;
-	private JPanel panelAdmin;
+	private final JTabbedPane paneles;
+	private final JPanel panelAdmin;
+	private final JButton btnDestacar;
+
+	private final transient Icon contornoEstrella;
+	private final transient Icon estrellaRellena;
+
+	private boolean destacado = false;
 
 	public VentanaAvisos() {
 	setBounds(new Rectangle(100, 100, 500, 500));
@@ -47,9 +50,9 @@ public class VentanaAvisos extends Pantalla{
 	gbcPanelAdmin.gridy = 0;
 	add(panelAdmin, gbcPanelAdmin);
 	GridBagLayout gblPanelAdmin = new GridBagLayout();
-	gblPanelAdmin.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+	gblPanelAdmin.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 	gblPanelAdmin.rowHeights = new int[]{0, 0, 17, 0};
-	gblPanelAdmin.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+	gblPanelAdmin.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 	gblPanelAdmin.rowWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
 	panelAdmin.setLayout(gblPanelAdmin);
 	
@@ -75,9 +78,28 @@ public class VentanaAvisos extends Pantalla{
 			controlador.editar(aviso);
 		}
 	});
+
+	var imagenContornoEstrella = new ImageIcon("./src/main/resources/star-outline.png").getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+	contornoEstrella = new ImageIcon(imagenContornoEstrella);
+	var imagenEstrellaRellena = new ImageIcon("./src/main/resources/star-filled.png").getImage().getScaledInstance(15, 15, Image.SCALE_SMOOTH);
+	estrellaRellena = new ImageIcon(imagenEstrellaRellena);
+	btnDestacar = new JButton(contornoEstrella);
+	btnDestacar.addMouseListener(new MouseAdapter() {
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			var componente = (Componente)paneles.getSelectedComponent();
+			controlador.marcarDestacado(componente.getAviso(), !destacado);
+			actualizaBotonDestacado(!destacado);
+		}
+	});
+	GridBagConstraints gbcBtnDestacar = new GridBagConstraints();
+	gbcBtnDestacar.insets = new Insets(0, 0, 5, 5);
+	gbcBtnDestacar.gridx = 3;
+	gbcBtnDestacar.gridy = 1;
+	panelAdmin.add(btnDestacar, gbcBtnDestacar);
 	GridBagConstraints gbcBtnEditar = new GridBagConstraints();
 	gbcBtnEditar.insets = new Insets(0, 0, 5, 5);
-	gbcBtnEditar.gridx = 3;
+	gbcBtnEditar.gridx = 5;
 	gbcBtnEditar.gridy = 1;
 	panelAdmin.add(btnEditar, gbcBtnEditar);
 	
@@ -92,7 +114,7 @@ public class VentanaAvisos extends Pantalla{
 	});
 	GridBagConstraints gbcBtnEliminar = new GridBagConstraints();
 	gbcBtnEliminar.insets = new Insets(0, 0, 5, 5);
-	gbcBtnEliminar.gridx = 5;
+	gbcBtnEliminar.gridx = 7;
 	gbcBtnEliminar.gridy = 1;
 	panelAdmin.add(btnEliminar, gbcBtnEliminar);
 	
@@ -107,7 +129,12 @@ public class VentanaAvisos extends Pantalla{
 	gbcTabbedPane.gridy = 1;
 	add(tabbedPane, gbcTabbedPane);
 	
-	
+	paneles.addChangeListener(changeEvent -> {
+		var componente = (Componente)paneles.getSelectedComponent();
+		if (componente == null)
+			return;
+		actualizaBotonDestacado(componente.getAviso().isDestacado());
+	});
 	
 	
 	}
@@ -115,14 +142,14 @@ public class VentanaAvisos extends Pantalla{
 	public void muestra(ControlAvisos controlador, List<Aviso> avisos) {
 		this.controlador = controlador;
 		panelAdmin.setVisible(false);
-		setAvisos(avisos);
+		setAvisos(avisos, false);
 		setVisible(true);
 	}
 
 	public void muestraAdmin(ControlAvisos controlador, List<Aviso> avisos){
 		this.controlador = controlador;
 		panelAdmin.setVisible(true);
-		setAvisos(avisos);
+		setAvisos(avisos, true);
 		setVisible(true);
 	}
 
@@ -130,13 +157,23 @@ public class VentanaAvisos extends Pantalla{
 		return JOptionPane.showConfirmDialog(this, "¿Está seguro de querer eliminar esta publicación?") == 0;
 	}
 
-	public void setAvisos(List<Aviso> avisos){
+	public void setAvisos(List<Aviso> avisos, boolean esAdmin){
 		paneles.removeAll();
 		log.info("avisos = {}", avisos);
+		if (!avisos.isEmpty())
+			actualizaBotonDestacado(avisos.get(0).isDestacado());
 		for (Aviso aviso : avisos) {
-			Componente aux = new Componente();
+			Componente aux = new Componente(esAdmin);
 			aux.setAviso(aviso);
 			paneles.add(aux);
 		}
+	}
+
+	private void actualizaBotonDestacado(boolean destacado){
+		this.destacado = destacado;
+		var icono = contornoEstrella;
+		if (destacado)
+			icono = estrellaRellena;
+		btnDestacar.setIcon(icono);
 	}
 }

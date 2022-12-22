@@ -3,6 +3,7 @@ package mx.uam.ayd.proyecto.presentacion.principal;
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import mx.uam.ayd.proyecto.datos.RepositoryEmpleado;
 
+import mx.uam.ayd.proyecto.presentacion.cambiar_contrasena.ControlCambiarContrasena;
 import mx.uam.ayd.proyecto.presentacion.publicaciones.administrar_publicaciones.ControlAdministrarPublicaciones;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
 import mx.uam.ayd.proyecto.negocio.ServicioAgremiado;
 import mx.uam.ayd.proyecto.negocio.ServicioEmpleado;
+import mx.uam.ayd.proyecto.presentacion.administrador.ControlAdministrador;
 import mx.uam.ayd.proyecto.presentacion.agendar_cita.ControlAgendarCita;
 import mx.uam.ayd.proyecto.presentacion.publicaciones.consultar_avisos.ControlConsultarAvisos;
 import mx.uam.ayd.proyecto.presentacion.consultar_citas.ControlConsultarCitas;
@@ -18,6 +20,7 @@ import mx.uam.ayd.proyecto.presentacion.perfil.controlPerfil;
 import mx.uam.ayd.proyecto.presentacion.login.ControlIniciaSesion;
 import mx.uam.ayd.proyecto.presentacion.procesar_tramites.ControlProcesarTramites;
 import mx.uam.ayd.proyecto.presentacion.solicitar_tramite.ControlSolicitarTramite;
+
 
 /**
  * Esta clase lleva el flujo de control de la ventana principal
@@ -73,6 +76,13 @@ public class ControlPrincipal {
 
 	@Autowired
 	private ServicioEmpleado servicioempleado;
+	
+	
+	@Autowired
+	private ControlAdministrador controlAdministrador;
+
+	@Autowired
+	private ControlCambiarContrasena controlCambiarContrasena;
 
 	/**
 	 * Inicia el flujo de control de la ventana principal
@@ -126,6 +136,14 @@ public class ControlPrincipal {
 			controlAdministrarPublicaciones.inicia(servicioempleado.getEmpleadoActual());
 
 	}
+	
+	public void administrador(){
+		if(servicioempleado.getEmpleadoActual()!=null){
+			
+				controlAdministrador.inicia();
+		  
+		}	
+	}
 
 	public void avisos() {
 		if (servicioagremiado.getAgremiadoActual() != null)
@@ -138,5 +156,17 @@ public class ControlPrincipal {
 	public void perfil() {
 		if (servicioagremiado.getAgremiadoActual() != null)
 			controlPerfil.inicia(servicioagremiado.getAgremiadoActual());
+	}
+
+	public void cambiarContrasena(){
+		var agremiado = servicioagremiado.getAgremiadoActual();
+		if (agremiado != null){
+			controlCambiarContrasena.inicia(agremiado);
+			return;
+		}
+		var empleado = servicioempleado.getEmpleadoActual();
+		if (empleado != null){
+			controlCambiarContrasena.inicia(empleado);
+		}
 	}
 }
