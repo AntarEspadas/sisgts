@@ -17,9 +17,7 @@ public class ControlEditarempleado {
 	private VentanaVerificaId ventanaId;
 	@Autowired
 	private ServicioEmpleado servicioEmpleado;
-	
-	private Empleado empleado;
-	
+
 	//METODO INICIO
 	public void inicia() {
 
@@ -47,7 +45,7 @@ public class ControlEditarempleado {
 	//Los parametros que se le pasan al metodo son id el cual es un long, nombre, apellido, correo, contrasenia, tipo empleado
 	//Lo que hace el metodo es que si se le pasan los parametros al metodo del servicio debe mostrar un mensaje de exito y cierra la ventana de editar empleado
 	public void editaEmpleado(long id, String nombre, String apellidos,  String correo, String contrasenia, String tipoempleado) {
-		if(servicioEmpleado.editaEmpleado(id, nombre, apellidos, correo, contrasenia, tipoempleado, empleado)) {
+		if(servicioEmpleado.editaEmpleado(id, nombre, apellidos, correo, contrasenia, tipoempleado)) {
 			ventana.muestraDialogoConMensaje("Se ha editado correctamente");
 			ventana.cierra();
 		}//fin del if

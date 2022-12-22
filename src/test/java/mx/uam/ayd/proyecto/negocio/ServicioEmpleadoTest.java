@@ -69,17 +69,17 @@ class ServicioEmpleadoTest {
 		empleado.setId(1);
 		when(repositoryempleado.findById(1)).thenReturn(empleado);
 		
-		boolean resultado=servicio.verificaIdEmpleado(1)==true;
+		boolean resultado=servicio.verificaIdEmpleado(1);
 		assertTrue(resultado);
-		
+
 		
 		// Caso 2: Si el id no existe regresa false
 		
 		Empleado empleado1 = new Empleado();
 		empleado1.setId(2);
 				
-		boolean resultado1=servicio.verificaIdEmpleado(2)==false;
-		assertTrue(resultado1);
+		boolean resultado1=servicio.verificaIdEmpleado(2);
+		assertFalse(resultado1);
 	}
 	
 	@Test
@@ -99,7 +99,7 @@ class ServicioEmpleadoTest {
 		when(repositoryempleado.findById(1)).thenReturn(empleado);
 		
 		//Se le llama al metodo editaEmpelado y se le pasan los parametros que se van a modificar
-		boolean resultado1=servicio.editaEmpleado(1,"Miguelon", "Baez", "Holi", "X", "Admin", empleado)==true;
+		boolean resultado1=servicio.editaEmpleado(1,"Miguelon", "Baez", "Holi", "X", "Admin");
 		
 		//con assertTrue se verifica si el metodo regresa true, en este caso significa que el metodo funciona correctamente
 		assertTrue(resultado1);

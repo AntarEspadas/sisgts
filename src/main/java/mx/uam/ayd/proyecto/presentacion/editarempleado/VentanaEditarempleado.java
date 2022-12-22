@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class VentanaEditarempleado extends JFrame {
 	
-	private ControlEditarempleado control;
+	private transient ControlEditarempleado control;
 	private JPanel contentSig;
 	private JTextField textFieldNombre;
 	private JTextField textFieldApellido;

@@ -19,7 +19,7 @@ import javax.swing.JButton;
 public class VentanaEditaragremiado extends JFrame {
 	
 	private JPanel contentSig;
-	private ControlEditaragremiado control;
+	private transient ControlEditaragremiado control;
 	private JTextField textFieldNombre;
 	private JTextField textFieldApellido;
 	private JTextField textFieldClave;

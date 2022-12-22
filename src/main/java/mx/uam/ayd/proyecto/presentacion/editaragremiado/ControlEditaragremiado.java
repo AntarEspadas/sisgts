@@ -15,8 +15,6 @@ public class ControlEditaragremiado {
 	@Autowired
 	private VentanaVerificaClave ventanaClave;
 	
-	private Agremiado agremiado;
-	
 	//METODO INICIO
 	public void inicia() {
 
@@ -43,7 +41,7 @@ public class ControlEditaragremiado {
 	//Recibe como parametros los datos del agremiado como lo son el nombre, apellido, clave, filiacion, adscripcion, puesto, domicilio, turno, telefono, celular, correo, contraseña y centro de trabajo
 	//Lo que hace el metodo es que si se le pasan los parametros al metodo del servicio debe mostrar un mensaje de exito y cierra la ventana de editar agremiado
 	public void editaAgremiado(String nombre, String apellidos, String clave, String filiacion, String adscripcion, String puesto, String domicilio, String turno, String telefono, String celular, String correo, String contrasenia, String trabajo) {
-		if(servicioAgremiado.editaAgremiado(nombre, apellidos, clave, filiacion, adscripcion, puesto, domicilio, turno, telefono, celular, correo, contrasenia,  trabajo, agremiado)) {
+		if(servicioAgremiado.editaAgremiado(nombre, apellidos, clave, filiacion, adscripcion, puesto, domicilio, turno, telefono, celular, correo, contrasenia,  trabajo)) {
 			ventana.muestraDialogoConMensaje("Se ha editado correctamente");
 			ventana.cierra();
 		}//Fin del if

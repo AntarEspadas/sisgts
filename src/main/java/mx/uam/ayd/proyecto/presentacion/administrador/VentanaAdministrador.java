@@ -1,5 +1,6 @@
 package mx.uam.ayd.proyecto.presentacion.administrador;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import mx.uam.ayd.proyecto.presentacion.compartido.Pantalla;
@@ -12,6 +13,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 
+@Slf4j
 @Component
 public class VentanaAdministrador extends Pantalla{
 	 private transient ControlAdministrador controlador;
@@ -28,11 +30,7 @@ public class VentanaAdministrador extends Pantalla{
 			setLayout(gridBagLayout);
 									
 		   JButton btnRegistrarEmpleado = new JButton("Registrar Empleado");
-		   btnRegistrarEmpleado.addActionListener(new ActionListener() {
-			   public void actionPerformed(ActionEvent e) {
-				   System.out.println("Estoy en el bototn Registra empleado");
-			   }
-			});
+		   btnRegistrarEmpleado.addActionListener(e -> log.info("Estoy en el bototn Registra empleado"));
 									
 		   lblNewLabel = new JLabel("Registrar Empleado");
 		   GridBagConstraints gbclblNewLabel = new GridBagConstraints();
@@ -69,11 +67,7 @@ public class VentanaAdministrador extends Pantalla{
 		   add(lblEditarEmpleado, gbclblEditarEmpleado);
 						
 		   JButton btnEditarE = new JButton("Editar");
-		   btnEditarE.addActionListener(new ActionListener() {
-			   public void actionPerformed(ActionEvent e) {
-				   controlador.editaEmpleado();
-			   }
-		   });
+		   btnEditarE.addActionListener(e -> controlador.editaEmpleado());
 						
 		   lblEditarAgremiado = new JLabel("Editar Agremiado");
 		   GridBagConstraints gbclblEditarAgremiado = new GridBagConstraints();
@@ -88,11 +82,7 @@ public class VentanaAdministrador extends Pantalla{
 		   add(btnEditarE, gbcbtnNewButton);
 						
 		   JButton btnEditarA = new JButton("Editar");
-		   btnEditarA.addActionListener(new ActionListener() {
-			   public void actionPerformed(ActionEvent e) {
-				   controlador.editaAgremiado();
-			   }
-		   });
+		   btnEditarA.addActionListener(e -> controlador.editaAgremiado());
 		   
 		   GridBagConstraints gbcbtnNewButton1 = new GridBagConstraints();
 		   gbcbtnNewButton1.insets = new Insets(0, 0, 5, 5);
