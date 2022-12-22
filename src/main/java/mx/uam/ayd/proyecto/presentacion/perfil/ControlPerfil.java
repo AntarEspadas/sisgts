@@ -3,9 +3,7 @@ package mx.uam.ayd.proyecto.presentacion.perfil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-
 import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
-
 
 /**
  * Controlador para la historia de usuario "Consultar informacion" (HU-14)
@@ -14,7 +12,7 @@ import mx.uam.ayd.proyecto.negocio.modelo.Agremiado;
  */
 
 @Component
-public class controlPerfil {
+public class ControlPerfil {
 
     @Autowired
     private VentanaPerfil ventanaPerfil;
