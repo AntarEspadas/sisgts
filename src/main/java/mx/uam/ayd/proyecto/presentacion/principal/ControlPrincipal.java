@@ -3,6 +3,8 @@ package mx.uam.ayd.proyecto.presentacion.principal;
 import mx.uam.ayd.proyecto.datos.RepositoryAgremiado;
 import mx.uam.ayd.proyecto.datos.RepositoryEmpleado;
 
+import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
+import mx.uam.ayd.proyecto.presentacion.cambiar_contrasena.ControlCambiarContrasena;
 import mx.uam.ayd.proyecto.presentacion.publicaciones.administrar_publicaciones.ControlAdministrarPublicaciones;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -70,6 +72,9 @@ public class ControlPrincipal {
 	@Autowired
 	private ServicioEmpleado servicioempleado;
 
+	@Autowired
+	private ControlCambiarContrasena controlCambiarContrasena;
+
 	/**
 	 * Inicia el flujo de control de la ventana principal
 	 * 
@@ -130,5 +135,17 @@ public class ControlPrincipal {
 		else if (servicioempleado.getEmpleadoActual() != null)
 			controlNotificaciones.inicia();
 
+	}
+
+	public void cambiarContrasena(){
+		var agremiado = servicioagremiado.getAgremiadoActual();
+		if (agremiado != null){
+			controlCambiarContrasena.inicia(agremiado);
+			return;
+		}
+		var empleado = servicioempleado.getEmpleadoActual();
+		if (empleado != null){
+			controlCambiarContrasena.inicia(empleado);
+		}
 	}
 }

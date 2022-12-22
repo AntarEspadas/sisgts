@@ -15,11 +15,7 @@ import javax.persistence.Id;
 
 @Data
 @Entity
-public class Empleado {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-
+public class Empleado extends Usuario {
     private String nombre;
 
     private String apellidos;

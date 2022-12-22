@@ -14,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString
 @Entity
-public class Agremiado {
+public class Agremiado extends Usuario {
 
 	@ToString.Exclude
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "agremiado")
@@ -28,7 +28,6 @@ public class Agremiado {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "destinatario")
     private final Set<Mensaje> mensajes = new HashSet<>();
 
-    @Id
     private String clave;
 
     private String nombre;
@@ -48,10 +47,6 @@ public class Agremiado {
     private String celular;
 
     private String telefono;
-
-    private String correo;
-    
-    private String contrasenia;
 
     public List<Cita> getCitas(){
         return new ArrayList<>(this.citas);
