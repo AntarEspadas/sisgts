@@ -5,13 +5,16 @@ import javax.swing.border.EmptyBorder;
 
 import org.springframework.stereotype.Component;
 
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-
+//@SuppressWarnings("serial")
 @Component
 public class VentanaPrincipal extends JFrame {
 
@@ -48,9 +51,9 @@ public class VentanaPrincipal extends JFrame {
 		contentPane.add(panel, gbcPanel);
 		GridBagLayout gblPanel = new GridBagLayout();
 		gblPanel.columnWidths = new int[]{0, 0};
-		gblPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gblPanel.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
 		gblPanel.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gblPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gblPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel.setLayout(gblPanel);
 		
 		JButton btnInicio = new JButton("Inicio");
@@ -123,6 +126,19 @@ public class VentanaPrincipal extends JFrame {
 		gbcBtnNotificaciones.gridy = 4;
 		panel.add(btnNotificaciones, gbcBtnNotificaciones);
 		
+		JButton btnAdministrador = new JButton("Administrador");
+		btnAdministrador.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				control.administrador();
+			}
+		});
+		GridBagConstraints gbcBtnAdmin = new GridBagConstraints();
+		gbcBtnAdmin.insets = new Insets(0, 0, 5, 0);
+		gbcBtnAdmin.fill = GridBagConstraints.HORIZONTAL;
+		gbcBtnAdmin.gridx = 0;
+		gbcBtnAdmin.gridy = 5;
+		panel.add(btnAdministrador, gbcBtnAdmin);
+		
 		JButton btnCambiarContrasea = new JButton("Cambiar contraseña");
 		btnCambiarContrasea.addMouseListener(new MouseAdapter() {
 			@Override
@@ -131,11 +147,12 @@ public class VentanaPrincipal extends JFrame {
 			}
 		});
 		GridBagConstraints gbcBtnCambiarContrasea = new GridBagConstraints();
+		gbcBtnCambiarContrasea.insets = new Insets(0, 0, 5, 0);
 		gbcBtnCambiarContrasea.fill = GridBagConstraints.HORIZONTAL;
 		gbcBtnCambiarContrasea.gridx = 0;
-		gbcBtnCambiarContrasea.gridy = 5;
+		gbcBtnCambiarContrasea.gridy = 6;
 		panel.add(btnCambiarContrasea, gbcBtnCambiarContrasea);
-		
+
 		gbcContenido = new GridBagConstraints();
 		gbcContenido.fill = GridBagConstraints.BOTH;
 		gbcContenido.gridx = 2;

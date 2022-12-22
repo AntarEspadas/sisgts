@@ -48,6 +48,8 @@ public class Agremiado extends Usuario {
 
     private String telefono;
 
+    private String centrotrabajo;
+
     public List<Cita> getCitas(){
         return new ArrayList<>(this.citas);
     }
